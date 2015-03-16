@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_100">@color/blue_100</color>
+    <color name="primary_500">@color/blue_500</color>
+    <color name="primary_700">@color/blue_500</color>
+    <color name="accent_200">@color/amber_a200</color>
+
+    <color name="blue_100">#BBDEFB</color>
+    <color name="blue_500">#2196F3</color>
+    <color name="blue_700">#1976D2</color>
+
+    <color name="teal_a400">#1DE9B6</color>
+    <color name="amber_a200">#FFD740</color>
+    <color name="amber_a400">#FFC400</color>
+</resources>
