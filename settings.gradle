@@ -1,2 +1,2 @@
-include ':App', ':AppUnitTests', ':AppComponentTests', 'GenerateJsonRestModel'
+include ':App', ':AppUnitTests', ':AppComponentTests'
 

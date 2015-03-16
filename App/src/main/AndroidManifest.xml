@@ -4,7 +4,7 @@
 
     <application
         android:name=".app.App"
-        android:label="TemplateApp"
+        android:label="Game of Life"
         android:theme="@style/Theme.Custom"
         android:icon="@drawable/ic_launcher"
         android:logo="@drawable/ic_launcher"
