@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example">
+          package="hu.supercluster.gameoflife">
 
     <application
-        android:name=".App"
+        android:name=".app.App"
         android:label="TemplateApp"
         android:theme="@style/Theme.Custom"
         android:icon="@drawable/ic_launcher"
         android:logo="@drawable/ic_launcher"
         android:allowBackup="true">
 
-        <activity android:name=".main.MainActivity_">
+        <activity android:name=".app.activity.main.MainActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
