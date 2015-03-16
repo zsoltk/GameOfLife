@@ -3,11 +3,11 @@ jacoco {
 }
 
 ext.coverageSourceDirs = [
-        '../App/src/main/java',
-        '../App/build/source/apt/debug',
-        '../App/build/generated/source/db',
-        '../App/build/generated/source/buildConfig/debug',
-        '../App/build/generated/source/r/debug']
+        '../app/src/main/java',
+        '../app/build/source/apt/debug',
+        '../app/build/generated/source/db',
+        '../app/build/generated/source/buildConfig/debug',
+        '../app/build/generated/source/r/debug']
 
 jacocoTestReport {
     reports {
@@ -15,7 +15,7 @@ jacocoTestReport {
         html.enabled = true
     }
     // class R is used, but usage will not be covered, so ignore this class from report
-    classDirectories = fileTree(dir: '../App/build/intermediates/classes/debug', exclude: 'com/example/R*.class')
+    classDirectories = fileTree(dir: '../app/build/intermediates/classes/debug', exclude: 'hu/supercluster/gameoflife/R*.class')
     additionalSourceDirs = files(coverageSourceDirs)
     executionData = files('build/jacoco/testDebug.exec')
 }

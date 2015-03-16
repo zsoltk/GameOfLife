@@ -14,7 +14,7 @@ apply plugin: 'android-test'
 apply plugin: "jacoco"
 
 android {
-    projectUnderTest ':App'
+    projectUnderTest ':app'
 }
 
 dependencies {
@@ -24,6 +24,6 @@ dependencies {
     testCompile "org.robolectric:robolectric:3.0-SNAPSHOT"
 }
 
-apply from: '../Scripts/jacoco-support.gradle'
+apply from: '../scripts/jacoco-support.gradle'
 
-apply from: '../Scripts/android-studio-robolectric-support.gradle'
+apply from: '../scripts/android-studio-robolectric-support.gradle'

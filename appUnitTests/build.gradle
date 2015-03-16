@@ -16,7 +16,7 @@ apply plugin: "jacoco"
 apply plugin: 'com.github.kt3k.coveralls'
 
 android {
-    projectUnderTest ':App'
+    projectUnderTest ':app'
 }
 
 dependencies {
@@ -26,8 +26,8 @@ dependencies {
     testCompile "org.robolectric:robolectric:3.0-SNAPSHOT"
 }
 
-apply from: '../Scripts/jacoco-support.gradle'
+apply from: '../scripts/jacoco-support.gradle'
 
-apply from: '../Scripts/coveralls-support.gradle'
+apply from: '../scripts/coveralls-support.gradle'
 
-apply from: '../Scripts/android-studio-robolectric-support.gradle'
+apply from: '../scripts/android-studio-robolectric-support.gradle'
