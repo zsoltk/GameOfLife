@@ -19,8 +19,7 @@ public class EndlessGridTest extends UnitTestSpecification {
     public void testAllCellsAreDeadByDefault() {
         for (int j = 0; j < grid.getSizeY(); j++) {
             for (int i = 0; i < grid.getSizeX(); i++) {
-                boolean cell = grid.isAlive(i, j);
-                assertThat(cell).isEqualTo(false);
+                assertThat(grid.isAlive(i, j)).isEqualTo(false);
             }
         }
     }
