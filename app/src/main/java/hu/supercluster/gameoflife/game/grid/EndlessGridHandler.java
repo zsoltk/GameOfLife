@@ -13,7 +13,7 @@ public class EndlessGridHandler implements GridHandler {
 
     @Override
     public Grid getCurrent() {
-        return new EndlessGrid(currentGrid);
+        return currentGrid;
     }
 
     @Override
@@ -23,6 +23,11 @@ public class EndlessGridHandler implements GridHandler {
 
     @Override
     public void setCurrent(Grid grid) {
-        currentGrid = new EndlessGrid(grid);
+        if (grid instanceof EndlessGrid) {
+            currentGrid = grid;
+
+        } else {
+            currentGrid = new EndlessGrid(grid);
+        }
     }
 }
