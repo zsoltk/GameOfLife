@@ -25,4 +25,9 @@ public class MainActivityTest extends UnitTestSpecification {
         MockitoAnnotations.initMocks(this);
         view.presenter = presenter;
     }
+
+    @Test
+    public void testDummy() {
+        assertThat(true).isEqualTo(true);
+    }
 }
