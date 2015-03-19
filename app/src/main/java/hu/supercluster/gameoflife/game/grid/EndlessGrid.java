@@ -98,27 +98,4 @@ public class EndlessGrid implements Grid {
         result = 31 * result + sizeY;
         return result;
     }
-
-    @Override
-    public String toString() {
-        return "EndlessGrid{" +
-                "sizeX=" + sizeX +
-                ", sizeY=" + sizeY +
-                ", cells=" + cellsToString() +
-                '}';
-    }
-
-    private String cellsToString() {
-        StringBuffer result = new StringBuffer();
-
-        for (int j = 0; j < getSizeY(); j++) {
-            for (int i = 0; i < getSizeX(); i++) {
-                result.append(isAlive(i, j) ? "1" : "0");
-            }
-
-            result.append(" | ");
-        }
-
-        return result.toString();
-    }
 }
