@@ -8,7 +8,6 @@ import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hugo.weaving.DebugLog;
 
 public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback {
-    CellularAutomaton automaton;
     AutomatonThread thread;
 
     public AutomatonView(Context context, CellularAutomaton automaton, int cellSizeInPixels, int fps) {
@@ -18,7 +17,6 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
 
     @DebugLog
     public void setAutomaton(CellularAutomaton automaton, int cellSizeInPixels, int fps) {
-        this.automaton = automaton;
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
