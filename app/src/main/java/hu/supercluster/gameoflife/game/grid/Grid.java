@@ -1,8 +1,10 @@
 package hu.supercluster.gameoflife.game.grid;
 
-public interface Grid {
+import hu.supercluster.gameoflife.game.cell.Cell;
+
+public interface Grid<T extends Cell> {
     int getSizeX();
     int getSizeY();
-    boolean isAlive(int x, int y);
-    void setCell(int x, int y, boolean isAlive);
+    T getCell(int x, int y);
+    void setCell(int x, int y, T cell);
 }

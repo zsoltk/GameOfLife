@@ -1,13 +1,15 @@
 package hu.supercluster.gameoflife.game.transformer;
 
+import hu.supercluster.gameoflife.game.cell.Cell;
+import hu.supercluster.gameoflife.game.cell.ConwaysCell;
 import hu.supercluster.gameoflife.game.grid.Grid;
 
-public class ConwaysRule extends AbstractRule {
+public class ConwaysRule extends AbstractRule<ConwaysCell> {
     @Override
-    public boolean apply(Grid grid, int x, int y) {
+    public int apply(Grid<ConwaysCell> grid, int x, int y) {
         int n = countNeighbors(grid, x, y);
 
-        if (isAlive(grid, x, y)) {
+        if (current(grid, x, y).isAlive()) {
             return staysAlive(n);
 
         } else {
@@ -16,12 +18,12 @@ public class ConwaysRule extends AbstractRule {
 
     }
 
-    private boolean staysAlive(int n) {
+    private int staysAlive(int n) {
         if (diesOfLoneliness(n) || diesOfOverCrowding(n)) {
-            return false;
+            return Cell.STATE_DEAD;
 
         } else {
-            return true;
+            return Cell.STATE_ALIVE;
         }
     }
 
@@ -33,7 +35,16 @@ public class ConwaysRule extends AbstractRule {
         return n > 3;
     }
 
-    private boolean becomesAlive(int n) {
+    private int becomesAlive(int n) {
+        if (getsBorn(n)) {
+            return Cell.STATE_ALIVE;
+
+        } else {
+            return Cell.STATE_DEAD;
+        }
+    }
+
+    private boolean getsBorn(int n) {
         return n == 3;
     }
 }

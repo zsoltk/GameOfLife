@@ -4,6 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 
+import hu.supercluster.gameoflife.game.cell.Cell;
+import hu.supercluster.gameoflife.game.cell.CellFactory;
+import hu.supercluster.gameoflife.game.cell.ConwaysCell;
+import hu.supercluster.gameoflife.game.cell.ConwaysCellFactory;
 import hu.supercluster.gameoflife.game.grid.EndlessGrid;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.test.support.UnitTestSpecification;
@@ -11,73 +15,75 @@ import hu.supercluster.gameoflife.test.support.UnitTestSpecification;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class ConwaysRuleTest extends UnitTestSpecification {
-    GridTransformer transformer;
-    private ConwaysRule rule;
+    CellFactory<ConwaysCell> cellFactory;
+    GridTransformer<ConwaysCell> transformer;
+    Rule<ConwaysCell> rule;
 
     @Before
     public void setup() {
+        cellFactory = new ConwaysCellFactory();
+        transformer = new SimpleGridTransformer<>();
         rule = new ConwaysRule();
-        transformer = new SimpleGridTransformer();
     }
 
     @Test
     public void testAllDeadCellsRemainSo() {
-        Grid grid = emptyGrid();
-        Grid result = transform(grid);
-        Grid expected = emptyGrid();
+        Grid<ConwaysCell> grid = emptyGrid();
+        Grid<ConwaysCell> result = transform(grid);
+        Grid<ConwaysCell> expected = emptyGrid();
 
         testEqual(result, expected);
     }
 
     @Test
     public void testLonelyDies() {
-        Grid grid = emptyGrid();
-        grid.setCell(1, 1, true);
-        Grid result = transform(grid);
-        Grid expected = emptyGrid();
+        Grid<ConwaysCell> grid = emptyGrid();
+        grid.getCell(1, 1).setState(Cell.STATE_ALIVE);
+        Grid<ConwaysCell> result = transform(grid);
+        Grid<ConwaysCell> expected = emptyGrid();
 
         testEqual(result, expected);
     }
 
     @Test
     public void testSimpleOscillator() {
-        Grid grid = horizontalOscillator();
-        Grid result = transform(grid);
-        Grid expected = verticalOscillator();
+        Grid<ConwaysCell> grid = horizontalOscillator();
+        Grid<ConwaysCell> result = transform(grid);
+        Grid<ConwaysCell> expected = verticalOscillator();
 
         testEqual(result, expected);
     }
 
-    private Grid emptyGrid() {
-        return new EndlessGrid(5, 5);
+    private Grid<ConwaysCell> emptyGrid() {
+        return new EndlessGrid<>(5, 5, cellFactory);
     }
 
-    private Grid transform(Grid grid) {
-        Grid result = emptyGrid();
+    private Grid<ConwaysCell> transform(Grid<ConwaysCell> grid) {
+        Grid<ConwaysCell> result = emptyGrid();
         transformer.transform(grid, result, rule);
 
         return result;
     }
 
-    private Grid horizontalOscillator() {
-        Grid grid = emptyGrid();
-        grid.setCell(1, 2, true);
-        grid.setCell(2, 2, true);
-        grid.setCell(3, 2, true);
+    private Grid<ConwaysCell> horizontalOscillator() {
+        Grid<ConwaysCell> grid = emptyGrid();
+        grid.getCell(1, 2).setState(Cell.STATE_ALIVE);
+        grid.getCell(2, 2).setState(Cell.STATE_ALIVE);
+        grid.getCell(3, 2).setState(Cell.STATE_ALIVE);
 
         return grid;
     }
 
-    private Grid verticalOscillator() {
-        Grid grid = emptyGrid();
-        grid.setCell(2, 1, true);
-        grid.setCell(2, 2, true);
-        grid.setCell(2, 3, true);
+    private Grid<ConwaysCell> verticalOscillator() {
+        Grid<ConwaysCell> grid = emptyGrid();
+        grid.getCell(2, 1).setState(Cell.STATE_ALIVE);
+        grid.getCell(2, 2).setState(Cell.STATE_ALIVE);
+        grid.getCell(2, 3).setState(Cell.STATE_ALIVE);
 
         return grid;
     }
 
-    private void testEqual(Grid grid1, Grid grid2) {
+    private void testEqual(Grid<ConwaysCell> grid1, Grid<ConwaysCell> grid2) {
         assertThat(grid1).isEqualTo(grid2);
     }
 }

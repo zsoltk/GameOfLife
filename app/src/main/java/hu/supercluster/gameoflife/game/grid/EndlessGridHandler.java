@@ -1,33 +1,38 @@
 package hu.supercluster.gameoflife.game.grid;
 
-public class EndlessGridHandler implements GridHandler {
+import hu.supercluster.gameoflife.game.cell.Cell;
+import hu.supercluster.gameoflife.game.cell.CellFactory;
+
+public class EndlessGridHandler<T extends Cell> implements GridHandler<T> {
     private final int x;
     private final int y;
-    Grid currentGrid;
+    private final CellFactory<T> cellFactory;
+    Grid<T> currentGrid;
 
-    public EndlessGridHandler(int x, int y) {
+    public EndlessGridHandler(int x, int y, CellFactory<T> cellFactory) {
         this.x = x;
         this.y = y;
+        this.cellFactory = cellFactory;
         currentGrid = createNew();
     }
 
     @Override
-    public Grid getCurrent() {
+    public Grid<T> getCurrent() {
         return currentGrid;
     }
 
     @Override
-    public Grid createNew() {
-        return new EndlessGrid(x, y);
+    public Grid<T> createNew() {
+        return new EndlessGrid<T>(x, y, cellFactory);
     }
 
     @Override
-    public void setCurrent(Grid grid) {
+    public void setCurrent(Grid<T> grid) {
         if (grid instanceof EndlessGrid) {
             currentGrid = grid;
 
         } else {
-            currentGrid = new EndlessGrid(grid);
+            currentGrid = new EndlessGrid<T>(grid, cellFactory);
         }
     }
 }

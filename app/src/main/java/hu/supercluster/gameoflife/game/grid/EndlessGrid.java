@@ -1,28 +1,31 @@
 package hu.supercluster.gameoflife.game.grid;
 
-public class EndlessGrid implements Grid {
+import hu.supercluster.gameoflife.game.cell.Cell;
+import hu.supercluster.gameoflife.game.cell.CellFactory;
+
+public class EndlessGrid<T extends Cell> implements Grid<T> {
     private final int sizeX;
     private final int sizeY;
-    private final boolean[][] cells;
+    private final T[][] cells;
 
-    public EndlessGrid(int sizeX, int sizeY) {
+    public EndlessGrid(int sizeX, int sizeY, CellFactory<T> cellFactory) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        cells = new boolean[sizeY][sizeX];
+        cells = (T[][]) new Cell[sizeY][sizeX];
 
         for (int j = 0; j < sizeY; j++) {
             for (int i = 0; i < sizeX; i++) {
-                setCell(i, j, false);
+                setCell(i, j, cellFactory.create());
             }
         }
     }
 
-    public EndlessGrid(Grid other) {
-        this(other.getSizeX(), other.getSizeY());
+    public EndlessGrid(Grid<T> other, CellFactory<T> cellFactory) {
+        this(other.getSizeX(), other.getSizeY(), cellFactory);
 
         for (int j = 0; j < sizeY; j++) {
             for (int i = 0; i < sizeX; i++) {
-                setCell(i, j, other.isAlive(i, j));
+                setCell(i, j, other.getCell(i, j));
             }
         }
     }
@@ -38,13 +41,13 @@ public class EndlessGrid implements Grid {
     }
 
     @Override
-    public boolean isAlive(int x, int y) {
-        return cells[normalizeY(y)][normalizeX(x)];
+    public T getCell(int x, int y) {
+        return (T) cells[normalizeY(y)][normalizeX(x)];
     }
 
     @Override
-    public void setCell(int x, int y, boolean isAlive) {
-        cells[normalizeY(y)][normalizeX(x)] = isAlive;
+    public void setCell(int x, int y, T cell) {
+        cells[normalizeY(y)][normalizeX(x)] = cell;
     }
 
     int normalizeY(int y) {
@@ -83,7 +86,10 @@ public class EndlessGrid implements Grid {
 
         for (int j = 0; j < getSizeY(); j++) {
             for (int i = 0; i < getSizeX(); i++) {
-                if (that.isAlive(i, j) != isAlive(i, j)) {
+                Cell cell = getCell(i, j);
+                Cell otherCell = that.getCell(i, j);
+
+                if (!otherCell.equals(cell)) {
                     return false;
                 }
             }
@@ -96,6 +102,7 @@ public class EndlessGrid implements Grid {
     public int hashCode() {
         int result = sizeX;
         result = 31 * result + sizeY;
+
         return result;
     }
 }
