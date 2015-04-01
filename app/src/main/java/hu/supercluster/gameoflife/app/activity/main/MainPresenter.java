@@ -10,6 +10,7 @@ import org.androidannotations.annotations.RootContext;
 import hu.supercluster.gameoflife.app.activity.automaton.AutomatonView;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cellularautomaton.GameOfLife;
+import hu.supercluster.gameoflife.game.cell.Cell;
 
 @EBean
 public class MainPresenter {
@@ -32,7 +33,7 @@ public class MainPresenter {
                 displaySize.y / cellSizeInPixels
         );
 
-        automaton.randomFill(0.10f);
+        automaton.randomFill(0.10f, Cell.STATE_ALIVE);
 
         return automaton;
     }

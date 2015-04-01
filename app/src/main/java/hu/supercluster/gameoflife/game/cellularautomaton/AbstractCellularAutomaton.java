@@ -4,14 +4,12 @@ import java.util.Random;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.CellFactory;
-import hu.supercluster.gameoflife.game.cell.CellStateChangeCallback;
 import hu.supercluster.gameoflife.game.grid.EndlessGridHandler;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.game.grid.GridHandler;
 import hu.supercluster.gameoflife.game.transformer.GridTransformer;
 import hu.supercluster.gameoflife.game.transformer.Rule;
 import hu.supercluster.gameoflife.game.transformer.SimpleGridTransformer;
-import hu.supercluster.gameoflife.game.cell.CellStateChange;
 
 abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAutomaton<T> {
     protected final int gridSizeX;
@@ -19,7 +17,6 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
     final GridHandler<T> gridHandler;
     final GridTransformer<T> gridTransformer;
     final Rule<T> rule;
-    CellStateChangeCallback cellStateChangeCallback;
 
     public AbstractCellularAutomaton(int gridSizeX, int gridSizeY) {
         this.gridSizeX = gridSizeX;
@@ -34,18 +31,7 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
     }
 
     protected SimpleGridTransformer<T> getGridTransformer() {
-        return new SimpleGridTransformer<T>() {
-            @Override
-            protected void onCellStateChanged(int x, int y, int newState) {
-                handleCellStateChanged(x, y, newState);
-            }
-        };
-    }
-
-    protected void handleCellStateChanged(int x, int y, int newState) {
-        if (cellStateChangeCallback != null) {
-            cellStateChangeCallback.onCellStateChanged(new CellStateChange(x, y, newState));
-        }
+        return new SimpleGridTransformer<T>();
     }
 
     abstract protected CellFactory<T> getFactory();
@@ -76,7 +62,6 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
             for (int i = 0; i < getSizeX(); i++) {
                 if (random.nextFloat() < probability) {
                     emptyGrid.getCell(i, j).setState(cellState);
-                    handleCellStateChanged(i, j, cellState);
                 }
             }
         }
@@ -93,16 +78,13 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
 
     @Override
     public void step() {
-        Grid<T> currentGrid = gridHandler.getCurrent();
-        Grid<T> newGrid = gridHandler.createNew();
-        gridTransformer.transform(currentGrid, newGrid, rule);
-        gridHandler.setCurrent(newGrid);
+        gridTransformer.transform(gridHandler.getCurrent(), rule);
     }
 
     @Override
-    public final void setCell(int x, int y, T cell) {
+    public final void putCell(T cell) {
         Grid<T> grid = getCurrentState();
-        grid.setCell(x, y, cell);
+        grid.putCell(cell);
     }
 
     @Override
@@ -113,10 +95,5 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
     @Override
     public final Grid<T> getCurrentState() {
         return gridHandler.getCurrent();
-    }
-
-    @Override
-    public void setCellStateChangeCallback(CellStateChangeCallback callback) {
-        this.cellStateChangeCallback = callback;
     }
 }

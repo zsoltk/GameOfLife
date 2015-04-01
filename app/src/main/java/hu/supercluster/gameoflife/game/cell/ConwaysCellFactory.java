@@ -2,7 +2,7 @@ package hu.supercluster.gameoflife.game.cell;
 
 public class ConwaysCellFactory implements CellFactory<ConwaysCell> {
     @Override
-    public ConwaysCell create() {
-        return new ConwaysCell(ConwaysCell.STATE_DEAD);
+    public ConwaysCell create(int x, int y) {
+        return new ConwaysCell(x, y, ConwaysCell.STATE_DEAD);
     }
 }

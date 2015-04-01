@@ -1,15 +1,22 @@
 package hu.supercluster.gameoflife.app.activity.automaton;
 
-import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.os.Handler;
 import android.view.SurfaceHolder;
 
+import com.squareup.otto.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
+import hu.supercluster.gameoflife.game.cell.Cell;
+import hu.supercluster.gameoflife.game.cell.CellStateChange;
 import hu.supercluster.gameoflife.game.grid.Grid;
+import hu.supercluster.gameoflife.util.EventBus;
 import hugo.weaving.DebugLog;
 
 class AutomatonThread extends Thread {
@@ -19,25 +26,36 @@ class AutomatonThread extends Thread {
     private final int timeForAFrame;
     private boolean isRunning;
     private final Paint paintAlive;
+    private final Paint paintExtra;
     private final Paint paintDead;
     private long cycleTime;
+    private List<CellStateChange> cellStateChanges;
+    private int cnt;
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, int cellSizeInPixels, int fps) {
+        EventBus.getInstance().register(this);
+        cellStateChanges = new ArrayList<>();
         this.automaton = automaton;
         this.surfaceHolder = surfaceHolder;
         this.cellSizeInPixels = cellSizeInPixels;
         timeForAFrame = 1000 / fps;
 
-        paintAlive = getPaint("#ff9900");
-        paintDead = getPaint("#000000");
+        paintAlive = createPaint("#ff9900");
+        paintExtra = createPaint("#99ff00");
+        paintDead = createPaint("#000000");
     }
-    
-    private Paint getPaint(String color) {
+
+    private Paint createPaint(String color) {
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.parseColor(color));
         
         return paint;
+    }
+
+    @Subscribe
+    public void onEvent(CellStateChange cellStateChange) {
+        cellStateChanges.add(cellStateChange);
     }
 
     public void setRunning(boolean isRunning) {
@@ -46,6 +64,8 @@ class AutomatonThread extends Thread {
 
     @Override
     public void run() {
+        this.automaton.randomFill(0.10f, Cell.STATE_ALIVE);
+
         while (isRunning) {
             Canvas canvas = null;
 
@@ -65,7 +85,6 @@ class AutomatonThread extends Thread {
         }
     }
 
-    @DebugLog
     protected void cycle(Canvas canvas) {
         synchronized (surfaceHolder) {
             long t0 = System.currentTimeMillis();
@@ -77,8 +96,8 @@ class AutomatonThread extends Thread {
 
     @DebugLog
     private void cycleCore(Canvas canvas) {
-        stepAutomaton();
         draw(canvas);
+        stepAutomaton();
     }
 
     @DebugLog
@@ -88,29 +107,56 @@ class AutomatonThread extends Thread {
 
     @DebugLog
     private void draw(Canvas canvas) {
+        canvas.drawColor(Color.BLACK);
         Grid grid = automaton.getCurrentState();
-
         for (int j = 0; j < grid.getSizeY(); j++) {
             for (int i = 0; i < grid.getSizeX(); i++) {
-                paintCell(canvas, grid, j, i);
+                Cell cell = grid.getCell(i, j);
+                if (cell.isAlive()) {
+                    paintCell(canvas, i, j, cell.getState());
+                }
             }
         }
+
+//        canvas.drawRect(new Rect(0, 0, automaton.getSizeX() * cellSizeInPixels, automaton.getSizeY() * cellSizeInPixels), paintDead);
+//        Bitmap buffCanvasBitmap;
+//        Canvas buffCanvas;
+
+// Creating bitmap with attaching it to the buffer-canvas, it means that all the changes // done with the canvas are captured into the attached bitmap
+//        buffCanvasBitmap = Bitmap.createBitmap(automaton.getSizeX() * cellSizeInPixels, automaton.getSizeY() * cellSizeInPixels, Bitmap.Config.ARGB_8888);
+//        buffCanvas = new Canvas();
+//        buffCanvas.setBitmap(buffCanvasBitmap);
+
+//        for (CellStateChange change : cellStateChanges) {
+////            paintCell(buffCanvas, change.x, change.y, change.cellState);
+//            paintCell(canvas, change.x, change.y, change.cellState);
+//        }
+//
+////        canvas.drawBitmap(buffCanvasBitmap, 0, 0, null);
+////        canvas.drawText("ASD " + cnt, 50*cnt, 50*cnt, paintExtra);
+//
+//        if (cnt++ > 2) {
+//            cellStateChanges.clear();
+//            cnt = 0;
+//        }
     }
 
-    private void paintCell(Canvas canvas, Grid grid, int j, int i) {
-        boolean cell = grid.isAlive(i, j);
-        Paint paint = getPaint(cell);
+    private void paintCell(Canvas canvas, int i, int j, int cellState) {
+        Paint paint = getPaint(cellState);
         Rect rect = new Rect(
                 i*cellSizeInPixels,
                 j*cellSizeInPixels,
                 (i+1)*cellSizeInPixels,
                 (j+1)*cellSizeInPixels
         );
-        canvas.drawRect(rect, paint);
+
+        if (canvas != null) {
+            canvas.drawRect(rect, paint);
+        }
     }
 
-    private Paint getPaint(boolean isAlive) {
-        return isAlive ? paintAlive : paintDead;
+    private Paint getPaint(int state) {
+        return state == Cell.STATE_ALIVE ? paintAlive : paintDead;
     }
 
     @DebugLog

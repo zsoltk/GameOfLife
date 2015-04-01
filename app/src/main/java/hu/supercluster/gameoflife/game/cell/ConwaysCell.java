@@ -1,11 +1,36 @@
 package hu.supercluster.gameoflife.game.cell;
 
+import java.util.concurrent.atomic.AtomicLong;
+
+import hu.supercluster.gameoflife.util.EventBus;
+
 public class ConwaysCell implements Cell {
+    static final AtomicLong NEXT_ID = new AtomicLong(0);
+    final long id = NEXT_ID.getAndIncrement();
+    final int x;
+    final int y;
     int state;
     int neighborCount;
 
-    public ConwaysCell(int state) {
-        setState(state);
+    public ConwaysCell(int x, int y, int state) {
+        this.x = x;
+        this.y = y;
+        this.state = state;
+    }
+
+    @Override
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
     }
 
     @Override
@@ -14,8 +39,13 @@ public class ConwaysCell implements Cell {
     }
 
     @Override
-    public void setState(int state) {
-        this.state = state;
+    public void setState(int newState) {
+        int oldState = this.state;
+        this.state = newState;
+
+        if (newState != oldState) {
+            EventBus.getInstance().post(new CellStateChange(this));
+        }
     }
 
     @Override
@@ -28,11 +58,21 @@ public class ConwaysCell implements Cell {
         return state == STATE_DEAD;
     }
 
-    public void increaseNeighborCount() {
+    @Override
+    public void onNeighborStateChange(int newState) {
+        if (newState == STATE_DEAD) {
+            decreaseNeighborCount();
+
+        } else {
+            increaseNeighborCount();
+        }
+    }
+
+    void increaseNeighborCount() {
         neighborCount++;
     }
 
-    public void decreaseNeighborCount() {
+    void decreaseNeighborCount() {
         neighborCount--;
     }
 
@@ -49,15 +89,18 @@ public class ConwaysCell implements Cell {
 
         if (neighborCount != that.neighborCount) return false;
         if (state != that.state) return false;
+        if (x != that.x) return false;
+        if (y != that.y) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = state;
+        int result = x;
+        result = 31 * result + y;
+        result = 31 * result + state;
         result = 31 * result + neighborCount;
-
         return result;
     }
 }

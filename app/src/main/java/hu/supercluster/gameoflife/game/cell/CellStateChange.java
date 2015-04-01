@@ -3,20 +3,35 @@ package hu.supercluster.gameoflife.game.cell;
 public class CellStateChange {
     public final int x;
     public final int y;
-    public final int cellState;
+    public final int stateSnapshot;
+    public final Cell cell;
 
-    public CellStateChange(int x, int y, int cellState) {
-        this.x = x;
-        this.y = y;
-        this.cellState = cellState;
+    public CellStateChange(Cell cell) {
+        this.cell = cell;
+        x = cell.getX();
+        y = cell.getY();
+        stateSnapshot = cell.getState();
     }
 
     @Override
-    public String toString() {
-        return "CellStateChange{" +
-                "x=" + x +
-                ", y=" + y +
-                ", cellState=" + cellState +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CellStateChange that = (CellStateChange) o;
+
+        if (stateSnapshot != that.stateSnapshot) return false;
+        if (x != that.x) return false;
+        if (y != that.y) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        result = 31 * result + stateSnapshot;
+        return result;
     }
 }

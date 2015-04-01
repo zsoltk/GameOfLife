@@ -6,5 +6,5 @@ public interface Grid<T extends Cell> {
     int getSizeX();
     int getSizeY();
     T getCell(int x, int y);
-    void setCell(int x, int y, T cell);
+    void putCell(T cell);
 }

@@ -7,7 +7,8 @@ import hu.supercluster.gameoflife.game.grid.Grid;
 public class ConwaysRule extends AbstractRule<ConwaysCell> {
     @Override
     public int apply(Grid<ConwaysCell> grid, int x, int y) {
-        int n = countNeighbors(grid, x, y);
+        ConwaysCell current = current(grid, x, y);
+        int n = current.getNeighborCount();
 
         if (current(grid, x, y).isAlive()) {
             return staysAlive(n);

@@ -3,8 +3,6 @@ package hu.supercluster.gameoflife.game.cell;
 import org.junit.Before;
 import org.junit.Test;
 
-import hu.supercluster.gameoflife.game.cell.Cell;
-import hu.supercluster.gameoflife.game.cell.ConwaysCell;
 import hu.supercluster.gameoflife.test.support.UnitTestSpecification;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -14,7 +12,7 @@ public class ConwaysCellTest extends UnitTestSpecification {
 
     @Before
     public void setup() {
-        cell = new ConwaysCell(Cell.STATE_ALIVE);
+        cell = new ConwaysCell(0, 0, Cell.STATE_ALIVE);
     }
 
     @Test
@@ -59,6 +57,22 @@ public class ConwaysCellTest extends UnitTestSpecification {
     }
 
     @Test
+    public void testOnNeighborBorn() {
+        cell.onNeighborStateChange(Cell.STATE_ALIVE);
+        cell.onNeighborStateChange(Cell.STATE_ALIVE);
+        assertThat(cell.neighborCount).isEqualTo(2);
+    }
+
+    @Test
+    public void testOnNeighborDies() {
+        cell.onNeighborStateChange(Cell.STATE_ALIVE);
+        cell.onNeighborStateChange(Cell.STATE_ALIVE);
+        cell.onNeighborStateChange(Cell.STATE_ALIVE);
+        cell.onNeighborStateChange(Cell.STATE_DEAD);
+        assertThat(cell.neighborCount).isEqualTo(2);
+    }
+
+    @Test
     public void testEquals() {
         ConwaysCell other = null;
 
@@ -66,15 +80,14 @@ public class ConwaysCellTest extends UnitTestSpecification {
         assertThat(cell.equals(other)).isFalse();
         assertThat(cell.equals(this)).isFalse();
 
-        other = new ConwaysCell(Cell.STATE_DEAD);
+        other = new ConwaysCell(0, 0, Cell.STATE_DEAD);
         assertThat(cell.equals(other)).isFalse();
 
-        other = new ConwaysCell(Cell.STATE_ALIVE);
+        other = new ConwaysCell(0, 0, Cell.STATE_ALIVE);
         other.increaseNeighborCount();
         assertThat(cell.equals(other)).isFalse();
 
         cell.increaseNeighborCount();
         assertThat(cell.equals(other)).isTrue();
-
     }
 }

@@ -51,10 +51,10 @@ public class EndlessGridTest extends UnitTestSpecification {
     }
 
     @Test
-    public void testSetCell() {
-        ConwaysCell cell = cellFactory.create();
+    public void testPutCell() {
+        ConwaysCell cell = cellFactory.create(1, 1);
         cell.setState(Cell.STATE_ALIVE);
-        grid.setCell(1, 1, cell);
+        grid.putCell(cell);
         assertThat(grid.getCell(4, 4).isAlive()).isTrue();
     }
 

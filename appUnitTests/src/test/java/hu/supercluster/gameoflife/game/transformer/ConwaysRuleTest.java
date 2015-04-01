@@ -29,40 +29,37 @@ public class ConwaysRuleTest extends UnitTestSpecification {
     @Test
     public void testAllDeadCellsRemainSo() {
         Grid<ConwaysCell> grid = emptyGrid();
-        Grid<ConwaysCell> result = transform(grid);
+        transform(grid);
         Grid<ConwaysCell> expected = emptyGrid();
 
-        testEqual(result, expected);
+        testEqual(grid, expected);
     }
 
     @Test
     public void testLonelyDies() {
         Grid<ConwaysCell> grid = emptyGrid();
         grid.getCell(1, 1).setState(Cell.STATE_ALIVE);
-        Grid<ConwaysCell> result = transform(grid);
+        transform(grid);
         Grid<ConwaysCell> expected = emptyGrid();
 
-        testEqual(result, expected);
+        testEqual(grid, expected);
     }
 
     @Test
     public void testSimpleOscillator() {
         Grid<ConwaysCell> grid = horizontalOscillator();
-        Grid<ConwaysCell> result = transform(grid);
+        transform(grid);
         Grid<ConwaysCell> expected = verticalOscillator();
 
-        testEqual(result, expected);
+        testEqual(grid, expected);
+    }
+
+    private void transform(Grid<ConwaysCell> grid) {
+        transformer.transform(grid, rule);
     }
 
     private Grid<ConwaysCell> emptyGrid() {
         return new EndlessGrid<>(5, 5, cellFactory);
-    }
-
-    private Grid<ConwaysCell> transform(Grid<ConwaysCell> grid) {
-        Grid<ConwaysCell> result = emptyGrid();
-        transformer.transform(grid, result, rule);
-
-        return result;
     }
 
     private Grid<ConwaysCell> horizontalOscillator() {

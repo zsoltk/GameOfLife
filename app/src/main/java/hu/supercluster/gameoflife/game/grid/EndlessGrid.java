@@ -1,31 +1,84 @@
 package hu.supercluster.gameoflife.game.grid;
 
+import com.squareup.otto.Subscribe;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.CellFactory;
+import hu.supercluster.gameoflife.game.cell.CellStateChange;
+import hu.supercluster.gameoflife.util.EventBus;
 
 public class EndlessGrid<T extends Cell> implements Grid<T> {
     private final int sizeX;
     private final int sizeY;
     private final T[][] cells;
+    private final Set<Long> cellIds;
 
     public EndlessGrid(int sizeX, int sizeY, CellFactory<T> cellFactory) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         cells = (T[][]) new Cell[sizeY][sizeX];
-
-        for (int j = 0; j < sizeY; j++) {
-            for (int i = 0; i < sizeX; i++) {
-                setCell(i, j, cellFactory.create());
-            }
-        }
+        cellIds = new HashSet<>(sizeY * sizeX);
+        createCells(sizeX, sizeY, cellFactory);
+        EventBus.getInstance().register(this);
     }
 
     public EndlessGrid(Grid<T> other, CellFactory<T> cellFactory) {
         this(other.getSizeX(), other.getSizeY(), cellFactory);
+        copyCells(other);
+    }
 
+    protected void createCells(int sizeX, int sizeY, CellFactory<T> cellFactory) {
         for (int j = 0; j < sizeY; j++) {
             for (int i = 0; i < sizeX; i++) {
-                setCell(i, j, other.getCell(i, j));
+                T cell = cellFactory.create(i, j);
+                putCell(cell);
+            }
+        }
+    }
+
+    protected void copyCells(Grid<T> other) {
+        for (int j = 0; j < sizeY; j++) {
+            for (int i = 0; i < sizeX; i++) {
+                putCell(other.getCell(i, j));
+            }
+        }
+    }
+
+    @Override
+    public void putCell(T cell) {
+        int y = normalizeY(cell.getY());
+        int x = normalizeX(cell.getX());
+        maintainIds(cell, x, y);
+        cells[y][x] = cell;
+    }
+
+    private void maintainIds(T cell, int x, int y) {
+        if (cells[y][x] != null) {
+            cellIds.remove(cells[y][x].getId());
+        }
+
+        cellIds.add(cell.getId());
+    }
+
+    @Subscribe
+    public void onEvent(CellStateChange cellStateChange) {
+        if (cellIds.contains(cellStateChange.cell.getId())) {
+            notifyNeighbors(cellStateChange.cell);
+        }
+    }
+
+    private void notifyNeighbors(Cell cell) {
+        for (int j = -1; j <= 1; j++) {
+            for (int i = -1; i <= 1; i++) {
+                if (j == 0 && i == 0) {
+                    continue;
+                }
+
+                Cell neighbor = getCell(cell.getX() + i, cell.getY() + j);
+                neighbor.onNeighborStateChange(cell.getState());
             }
         }
     }
@@ -43,11 +96,6 @@ public class EndlessGrid<T extends Cell> implements Grid<T> {
     @Override
     public T getCell(int x, int y) {
         return (T) cells[normalizeY(y)][normalizeX(x)];
-    }
-
-    @Override
-    public void setCell(int x, int y, T cell) {
-        cells[normalizeY(y)][normalizeX(x)] = cell;
     }
 
     int normalizeY(int y) {

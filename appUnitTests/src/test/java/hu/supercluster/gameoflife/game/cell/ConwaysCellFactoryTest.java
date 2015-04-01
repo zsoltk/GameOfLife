@@ -17,7 +17,7 @@ public class ConwaysCellFactoryTest extends UnitTestSpecification {
 
     @Test
     public void testCreate() {
-        ConwaysCell cell = factory.create();
+        ConwaysCell cell = factory.create(0, 0);
         assertThat(cell.isDead()).isTrue();
     }
 }

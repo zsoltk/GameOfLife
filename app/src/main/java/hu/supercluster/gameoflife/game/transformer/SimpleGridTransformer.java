@@ -4,25 +4,22 @@ import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.grid.Grid;
 
 public class SimpleGridTransformer<T extends Cell> implements GridTransformer<T> {
+    int stateChanges[][];
+
     @Override
-    public final void transform(Grid<T> source, Grid<T> destination, Rule<T> rule) {
-        for (int j = 0; j < source.getSizeY(); j++) {
-            for (int i = 0; i < source.getSizeY(); i++) {
-                applyRule(source, destination, rule, j, i);
+    public final void transform(Grid<T> grid, Rule<T> rule) {
+        stateChanges = new int[grid.getSizeY()][grid.getSizeX()];
+
+        for (int j = 0; j < grid.getSizeY(); j++) {
+            for (int i = 0; i < grid.getSizeY(); i++) {
+                stateChanges[j][i] = rule.apply(grid, i, j);
             }
         }
-    }
 
-    protected void applyRule(Grid<T> source, Grid<T> destination, Rule<T> rule, int j, int i) {
-        int oldState = source.getCell(i, j).getState();
-        int newState = rule.apply(source, i, j);
-        destination.getCell(i, j).setState(newState);
-
-        if (newState != oldState) {
-            onCellStateChanged(i, j, newState);
+        for (int j = 0; j < grid.getSizeY(); j++) {
+            for (int i = 0; i < grid.getSizeY(); i++) {
+                grid.getCell(i, j).setState(stateChanges[j][i]);
+            }
         }
-    }
-
-    protected void onCellStateChanged(int x, int y, int newState) {
     }
 }
