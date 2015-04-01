@@ -5,19 +5,19 @@ import org.junit.Test;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.CellFactory;
-import hu.supercluster.gameoflife.game.cell.ConwaysCell;
-import hu.supercluster.gameoflife.game.cell.ConwaysCellFactory;
+import hu.supercluster.gameoflife.game.cell.SimpleCell;
+import hu.supercluster.gameoflife.game.cell.SimpleCellFactory;
 import hu.supercluster.gameoflife.test.support.UnitTestSpecification;
 
 import static org.fest.assertions.api.Assertions.*;
 
 public class EndlessGridTest extends UnitTestSpecification {
-    EndlessGrid<ConwaysCell> grid;
-    CellFactory<ConwaysCell> cellFactory;
+    EndlessGrid<SimpleCell> grid;
+    CellFactory<SimpleCell> cellFactory;
 
     @Before
     public void setup() {
-        cellFactory = new ConwaysCellFactory();
+        cellFactory = new SimpleCellFactory();
         grid = new EndlessGrid<>(3, 3, cellFactory);
     }
 
@@ -52,7 +52,7 @@ public class EndlessGridTest extends UnitTestSpecification {
 
     @Test
     public void testPutCell() {
-        ConwaysCell cell = cellFactory.create(1, 1);
+        SimpleCell cell = cellFactory.create(1, 1);
         cell.setState(Cell.STATE_ALIVE);
         grid.putCell(cell);
         assertThat(grid.getCell(4, 4).isAlive()).isTrue();

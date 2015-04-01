@@ -1,13 +1,13 @@
 package hu.supercluster.gameoflife.game.transformer;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
-import hu.supercluster.gameoflife.game.cell.ConwaysCell;
+import hu.supercluster.gameoflife.game.cell.SimpleCell;
 import hu.supercluster.gameoflife.game.grid.Grid;
 
-public class ConwaysRule extends AbstractRule<ConwaysCell> {
+public class ConwaysRule extends AbstractRule<SimpleCell> {
     @Override
-    public int apply(Grid<ConwaysCell> grid, int x, int y) {
-        ConwaysCell current = current(grid, x, y);
+    public int apply(Grid<SimpleCell> grid, int x, int y) {
+        SimpleCell current = current(grid, x, y);
         int n = current.getNeighborCount();
 
         if (current(grid, x, y).isAlive()) {

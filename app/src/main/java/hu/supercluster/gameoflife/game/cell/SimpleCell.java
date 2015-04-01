@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import hu.supercluster.gameoflife.util.EventBus;
 
-public class ConwaysCell implements Cell {
+public class SimpleCell implements Cell {
     static final AtomicLong NEXT_ID = new AtomicLong(0);
     final long id = NEXT_ID.getAndIncrement();
     final int x;
@@ -12,7 +12,7 @@ public class ConwaysCell implements Cell {
     int state;
     int neighborCount;
 
-    public ConwaysCell(int x, int y, int state) {
+    public SimpleCell(int x, int y, int state) {
         this.x = x;
         this.y = y;
         this.state = state;
@@ -85,7 +85,7 @@ public class ConwaysCell implements Cell {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ConwaysCell that = (ConwaysCell) o;
+        SimpleCell that = (SimpleCell) o;
 
         if (neighborCount != that.neighborCount) return false;
         if (state != that.state) return false;

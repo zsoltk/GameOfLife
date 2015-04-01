@@ -4,18 +4,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
-import hu.supercluster.gameoflife.game.cell.ConwaysCellFactory;
+import hu.supercluster.gameoflife.game.cell.SimpleCellFactory;
 import hu.supercluster.gameoflife.test.support.UnitTestSpecification;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class EndlessGridHandlerTest extends UnitTestSpecification {
     EndlessGridHandler gridHandler;
-    private ConwaysCellFactory cellFactory;
+    private SimpleCellFactory cellFactory;
 
     @Before
     public void setup() {
-        cellFactory = new ConwaysCellFactory();
+        cellFactory = new SimpleCellFactory();
         gridHandler = new EndlessGridHandler(3, 3, cellFactory);
     }
 

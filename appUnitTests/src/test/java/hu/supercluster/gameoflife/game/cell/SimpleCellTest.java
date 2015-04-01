@@ -7,12 +7,12 @@ import hu.supercluster.gameoflife.test.support.UnitTestSpecification;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class ConwaysCellTest extends UnitTestSpecification {
-    ConwaysCell cell;
+public class SimpleCellTest extends UnitTestSpecification {
+    SimpleCell cell;
 
     @Before
     public void setup() {
-        cell = new ConwaysCell(0, 0, Cell.STATE_ALIVE);
+        cell = new SimpleCell(0, 0, Cell.STATE_ALIVE);
     }
 
     @Test
@@ -74,16 +74,16 @@ public class ConwaysCellTest extends UnitTestSpecification {
 
     @Test
     public void testEquals() {
-        ConwaysCell other = null;
+        SimpleCell other = null;
 
         assertThat(cell).isEqualTo(cell);
         assertThat(cell.equals(other)).isFalse();
         assertThat(cell.equals(this)).isFalse();
 
-        other = new ConwaysCell(0, 0, Cell.STATE_DEAD);
+        other = new SimpleCell(0, 0, Cell.STATE_DEAD);
         assertThat(cell.equals(other)).isFalse();
 
-        other = new ConwaysCell(0, 0, Cell.STATE_ALIVE);
+        other = new SimpleCell(0, 0, Cell.STATE_ALIVE);
         other.increaseNeighborCount();
         assertThat(cell.equals(other)).isFalse();
 

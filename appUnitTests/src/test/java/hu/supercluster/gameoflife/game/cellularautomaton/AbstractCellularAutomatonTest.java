@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
-import hu.supercluster.gameoflife.game.cell.ConwaysCell;
+import hu.supercluster.gameoflife.game.cell.SimpleCell;
 import hu.supercluster.gameoflife.game.cell.CellStateChange;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.test.support.UnitTestSpecification;
@@ -19,7 +19,7 @@ import hu.supercluster.gameoflife.util.EventBus;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class AbstractCellularAutomatonTest extends UnitTestSpecification {
-    AbstractCellularAutomaton<ConwaysCell> automaton;
+    AbstractCellularAutomaton<SimpleCell> automaton;
     List<CellStateChange> cellStateChanges;
 
     @Before
@@ -46,9 +46,9 @@ public class AbstractCellularAutomatonTest extends UnitTestSpecification {
 
     @Test
     public void testReset() {
-        Grid<ConwaysCell> emptyGrid = automaton.getGridHandler().createNew();
+        Grid<SimpleCell> emptyGrid = automaton.getGridHandler().createNew();
 
-        automaton.putCell(new ConwaysCell(0, 0, Cell.STATE_ALIVE));
+        automaton.putCell(new SimpleCell(0, 0, Cell.STATE_ALIVE));
         automaton.reset();
         assertThat(automaton.getCurrentState()).isEqualTo(emptyGrid);
     }
@@ -58,13 +58,13 @@ public class AbstractCellularAutomatonTest extends UnitTestSpecification {
         automaton.setCurrentState(createGlider(automaton.getCurrentState(), 0));
         automaton.step(4);
 
-        Grid<ConwaysCell> currentState = automaton.getCurrentState();
-        Grid<ConwaysCell> expectedStateAfter4Steps = createGlider(automaton.getGridHandler().createNew(), 1);
+        Grid<SimpleCell> currentState = automaton.getCurrentState();
+        Grid<SimpleCell> expectedStateAfter4Steps = createGlider(automaton.getGridHandler().createNew(), 1);
 
         assertThat(currentState).isEqualTo(expectedStateAfter4Steps);
     }
 
-    private Grid<ConwaysCell> createGlider(Grid<ConwaysCell> grid, int offset) {
+    private Grid<SimpleCell> createGlider(Grid<SimpleCell> grid, int offset) {
         grid.getCell(0 + offset, 1 + offset).setState(Cell.STATE_ALIVE);
         grid.getCell(1 + offset, 2 + offset).setState(Cell.STATE_ALIVE);
         grid.getCell(2 + offset, 0 + offset).setState(Cell.STATE_ALIVE);
@@ -76,10 +76,10 @@ public class AbstractCellularAutomatonTest extends UnitTestSpecification {
 
     @Test
     public void testSetCell() {
-        Grid<ConwaysCell> grid = automaton.getCurrentState();
+        Grid<SimpleCell> grid = automaton.getCurrentState();
         grid.getCell(1, 1).setState(Cell.STATE_ALIVE);
 
-        automaton.putCell(new ConwaysCell(0, 0, Cell.STATE_ALIVE));
+        automaton.putCell(new SimpleCell(0, 0, Cell.STATE_ALIVE));
         assertThat(automaton.getCurrentState()).isEqualTo(grid);
     }
 
@@ -99,17 +99,17 @@ public class AbstractCellularAutomatonTest extends UnitTestSpecification {
     }
 
     protected void assertGliderCreationStateChangesCaptured() {
-        assertThat(cellStateChanges.contains(new CellStateChange(new ConwaysCell(0, 1, Cell.STATE_ALIVE)))).isEqualTo(true);
-        assertThat(cellStateChanges.contains(new CellStateChange(new ConwaysCell(1, 2, Cell.STATE_ALIVE)))).isEqualTo(true);
-        assertThat(cellStateChanges.contains(new CellStateChange(new ConwaysCell(2, 0, Cell.STATE_ALIVE)))).isEqualTo(true);
-        assertThat(cellStateChanges.contains(new CellStateChange(new ConwaysCell(2, 1, Cell.STATE_ALIVE)))).isEqualTo(true);
-        assertThat(cellStateChanges.contains(new CellStateChange(new ConwaysCell(2, 2, Cell.STATE_ALIVE)))).isEqualTo(true);
+        assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(0, 1, Cell.STATE_ALIVE)))).isEqualTo(true);
+        assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(1, 2, Cell.STATE_ALIVE)))).isEqualTo(true);
+        assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(2, 0, Cell.STATE_ALIVE)))).isEqualTo(true);
+        assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(2, 1, Cell.STATE_ALIVE)))).isEqualTo(true);
+        assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(2, 2, Cell.STATE_ALIVE)))).isEqualTo(true);
     }
 
     private void assertGliderStepStateChangesCaptured() {
-        assertThat(cellStateChanges.contains(new CellStateChange(new ConwaysCell(1, 0, Cell.STATE_ALIVE)))).isEqualTo(true);
-        assertThat(cellStateChanges.contains(new CellStateChange(new ConwaysCell(2, 0, Cell.STATE_DEAD)))).isEqualTo(true);
-        assertThat(cellStateChanges.contains(new CellStateChange(new ConwaysCell(0, 1, Cell.STATE_DEAD)))).isEqualTo(true);
-        assertThat(cellStateChanges.contains(new CellStateChange(new ConwaysCell(3, 1, Cell.STATE_ALIVE)))).isEqualTo(true);
+        assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(1, 0, Cell.STATE_ALIVE)))).isEqualTo(true);
+        assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(2, 0, Cell.STATE_DEAD)))).isEqualTo(true);
+        assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(0, 1, Cell.STATE_DEAD)))).isEqualTo(true);
+        assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(3, 1, Cell.STATE_ALIVE)))).isEqualTo(true);
     }
 }

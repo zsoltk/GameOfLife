@@ -7,17 +7,17 @@ import hu.supercluster.gameoflife.test.support.UnitTestSpecification;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class ConwaysCellFactoryTest extends UnitTestSpecification {
-    ConwaysCellFactory factory;
+public class SimpleCellFactoryTest extends UnitTestSpecification {
+    SimpleCellFactory factory;
 
     @Before
     public void setup() {
-        factory = new ConwaysCellFactory();
+        factory = new SimpleCellFactory();
     }
 
     @Test
     public void testCreate() {
-        ConwaysCell cell = factory.create(0, 0);
+        SimpleCell cell = factory.create(0, 0);
         assertThat(cell.isDead()).isTrue();
     }
 }
