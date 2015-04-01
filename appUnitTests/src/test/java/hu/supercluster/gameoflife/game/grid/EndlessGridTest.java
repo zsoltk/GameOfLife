@@ -18,7 +18,7 @@ public class EndlessGridTest extends UnitTestSpecification {
     @Before
     public void setup() {
         cellFactory = new SimpleCellFactory();
-        grid = new EndlessGrid<>(3, 3, cellFactory);
+        grid = new EndlessGrid<>(3, 6, cellFactory);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class EndlessGridTest extends UnitTestSpecification {
 
     @Test
     public void testGetSizeY() {
-        assertThat(grid.getSizeY()).isEqualTo(3);
+        assertThat(grid.getSizeY()).isEqualTo(6);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class EndlessGridTest extends UnitTestSpecification {
 
     @Test
     public void testNormalizeY() {
-        assertThat(grid.normalizeY(4)).isEqualTo(1);
+        assertThat(grid.normalizeY(7)).isEqualTo(1);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class EndlessGridTest extends UnitTestSpecification {
         SimpleCell cell = cellFactory.create(1, 1);
         cell.setState(Cell.STATE_ALIVE);
         grid.putCell(cell);
-        assertThat(grid.getCell(4, 4).isAlive()).isTrue();
+        assertThat(grid.getCell(1, 1).isAlive()).isTrue();
     }
 
     @Test
@@ -66,13 +66,13 @@ public class EndlessGridTest extends UnitTestSpecification {
         assertThat(grid.equals(other)).isFalse();
         assertThat(grid.equals(this)).isFalse();
 
-        other = new EndlessGrid<>(1, 3, cellFactory);
+        other = new EndlessGrid<>(1, 6, cellFactory);
         assertThat(grid).isNotEqualTo(other);
 
         other = new EndlessGrid<>(3, 1, cellFactory);
         assertThat(grid).isNotEqualTo(other);
 
-        other = new EndlessGrid<>(3, 3, cellFactory);
+        other = new EndlessGrid<>(3, 6, cellFactory);
         other.getCell(1, 1).setState(Cell.STATE_ALIVE);
         assertThat(grid).isNotEqualTo(other);
 
