@@ -116,17 +116,6 @@ class AutomatonThread extends Thread {
 
     @DebugLog
     private void draw(Canvas canvas) {
-//        canvas.drawColor(Color.BLACK);
-//        Grid grid = automaton.getCurrentState();
-//        for (int j = 0; j < grid.getSizeY(); j++) {
-//            for (int i = 0; i < grid.getSizeX(); i++) {
-//                Cell cell = grid.getCell(i, j);
-//                if (cell.isAlive()) {
-//                    paintCell(canvas, i, j, cell.getState());
-//                }
-//            }
-//        }
-
         for (CellStateChange change : cellStateChanges) {
             paintCell(buffCanvas, change.x, change.y, change.stateSnapshot);
         }
