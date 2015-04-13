@@ -1,4 +1,4 @@
-package hu.supercluster.gameoflife.game.transformer;
+package hu.supercluster.gameoflife.game.rule;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +10,8 @@ import hu.supercluster.gameoflife.game.cell.SimpleCell;
 import hu.supercluster.gameoflife.game.cell.SimpleCellFactory;
 import hu.supercluster.gameoflife.game.grid.EndlessGrid;
 import hu.supercluster.gameoflife.game.grid.Grid;
+import hu.supercluster.gameoflife.game.transformer.GridTransformer;
+import hu.supercluster.gameoflife.game.transformer.SimpleGridTransformer;
 import hu.supercluster.gameoflife.test.support.UnitTestSpecification;
 
 import static org.fest.assertions.api.Assertions.assertThat;

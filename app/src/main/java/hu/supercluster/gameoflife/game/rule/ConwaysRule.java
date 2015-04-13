@@ -1,4 +1,4 @@
-package hu.supercluster.gameoflife.game.transformer;
+package hu.supercluster.gameoflife.game.rule;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.SimpleCell;

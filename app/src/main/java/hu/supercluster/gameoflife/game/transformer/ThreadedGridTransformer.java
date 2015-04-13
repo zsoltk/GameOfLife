@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.grid.Grid;
+import hu.supercluster.gameoflife.game.rule.Rule;
 import hugo.weaving.DebugLog;
 
 public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<T> {

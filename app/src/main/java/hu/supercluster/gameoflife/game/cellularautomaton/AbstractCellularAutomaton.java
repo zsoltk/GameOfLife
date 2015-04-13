@@ -8,8 +8,7 @@ import hu.supercluster.gameoflife.game.grid.EndlessGridHandler;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.game.grid.GridHandler;
 import hu.supercluster.gameoflife.game.transformer.GridTransformer;
-import hu.supercluster.gameoflife.game.transformer.Rule;
-import hu.supercluster.gameoflife.game.transformer.SimpleGridTransformer;
+import hu.supercluster.gameoflife.game.rule.Rule;
 import hu.supercluster.gameoflife.game.transformer.ThreadedGridTransformer;
 
 abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAutomaton<T> {
