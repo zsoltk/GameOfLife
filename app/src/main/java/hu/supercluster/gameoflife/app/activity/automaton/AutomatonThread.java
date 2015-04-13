@@ -9,14 +9,12 @@ import android.view.SurfaceHolder;
 
 import com.squareup.otto.Subscribe;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.CellStateChange;
-import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.util.EventBus;
 import hugo.weaving.DebugLog;
 
@@ -27,11 +25,9 @@ class AutomatonThread extends Thread {
     private final int timeForAFrame;
     private boolean isRunning;
     private final Paint paintAlive;
-    private final Paint paintExtra;
     private final Paint paintDead;
     private long cycleTime;
     private List<CellStateChange> cellStateChanges;
-    private int cnt;
     private Bitmap buffCanvasBitmap;
     private Canvas buffCanvas;
 
@@ -44,7 +40,6 @@ class AutomatonThread extends Thread {
         timeForAFrame = 1000 / fps;
 
         paintAlive = createPaint("#ff9900");
-        paintExtra = createPaint("#99ff00");
         paintDead = createPaint("#000000");
 
         buffCanvasBitmap = Bitmap.createBitmap(automaton.getSizeX() * cellSizeInPixels, automaton.getSizeY() * cellSizeInPixels, Bitmap.Config.ARGB_8888);
@@ -71,30 +66,39 @@ class AutomatonThread extends Thread {
 
     @Override
     public void run() {
-        this.automaton.randomFill(0.10f, Cell.STATE_ALIVE);
+        initAutomaton();
+        doRun();
+    }
 
+    protected void initAutomaton() {
+        this.automaton.randomFill(0.10f, Cell.STATE_ALIVE);
+    }
+
+    protected void doRun() {
         while (isRunning) {
             Canvas canvas = null;
 
             try {
                 canvas = surfaceHolder.lockCanvas();
-                if (canvas != null) {
-                    cycle(canvas);
-                    sleepToKeepFps();
-                }
+                oneGameCycle(canvas);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
 
             } finally {
-                if (canvas != null) {
-                    surfaceHolder.unlockCanvasAndPost(canvas);
-                }
+                unlockCanvasAndPost(canvas);
             }
         }
     }
 
-    protected void cycle(Canvas canvas) {
+    protected void oneGameCycle(Canvas canvas) throws InterruptedException {
+        if (canvas != null) {
+            measuredCycleCore(canvas);
+            sleepToKeepFps();
+        }
+    }
+
+    protected void measuredCycleCore(Canvas canvas) {
         synchronized (surfaceHolder) {
             long t0 = System.currentTimeMillis();
             cycleCore(canvas);
@@ -105,8 +109,8 @@ class AutomatonThread extends Thread {
 
     @DebugLog
     private void cycleCore(Canvas canvas) {
-        draw(canvas);
         stepAutomaton();
+        draw(canvas);
     }
 
     @DebugLog
@@ -148,6 +152,12 @@ class AutomatonThread extends Thread {
 
         if (sleepTime > 0) {
             sleep(sleepTime);
+        }
+    }
+
+    private void unlockCanvasAndPost(Canvas canvas) {
+        if (canvas != null) {
+            surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
 }
