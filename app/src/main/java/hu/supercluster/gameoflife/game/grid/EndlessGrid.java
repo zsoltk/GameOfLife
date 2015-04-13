@@ -138,13 +138,16 @@ public class EndlessGrid<T extends Cell> implements Grid<T> {
                 Cell otherCell = that.getCell(i, j);
 
                 if (!otherCell.equals(cell)) {
-                    System.out.println(cell + " <> " + otherCell);
+                    debugOnCellsNotEqual(cell, otherCell);
                     return false;
                 }
             }
         }
 
         return true;
+    }
+
+    protected void debugOnCellsNotEqual(Cell cell, Cell otherCell) {
     }
 
     @Override

@@ -14,10 +14,9 @@ public class EndlessGridWrapper<T extends Cell> extends EndlessGrid<T> {
         super(other, cellFactory);
     }
 
-
     @Override
     public String toString() {
-        return "EndlessGrid{" +
+        return "EndlessGridWrapper{" +
                 "sizeX=" + sizeX +
                 ", sizeY=" + sizeY +
                 ", cells=" + cellsToString() +
@@ -36,5 +35,10 @@ public class EndlessGridWrapper<T extends Cell> extends EndlessGrid<T> {
         }
 
         return result.toString();
+    }
+
+    @Override
+    protected void debugOnCellsNotEqual(Cell cell, Cell otherCell) {
+        System.out.println(cell + " <> " + otherCell);
     }
 }
