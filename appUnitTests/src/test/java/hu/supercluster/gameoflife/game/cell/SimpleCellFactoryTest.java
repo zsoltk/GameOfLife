@@ -16,7 +16,13 @@ public class SimpleCellFactoryTest extends UnitTestSpecification {
     }
 
     @Test
-    public void testCreate() {
+    public void testCellIsOfCorrectClass() {
+        Cell cell = factory.create(0, 0);
+        assertThat(cell.getClass().equals(SimpleCell.class)).isTrue();
+    }
+
+    @Test
+    public void testCreatedCellsAreDeadByDefault() {
         SimpleCell cell = factory.create(0, 0);
         assertThat(cell.isDead()).isTrue();
     }
