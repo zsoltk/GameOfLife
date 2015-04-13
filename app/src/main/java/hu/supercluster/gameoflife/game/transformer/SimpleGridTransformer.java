@@ -5,7 +5,6 @@ import hu.supercluster.gameoflife.game.grid.Grid;
 import hugo.weaving.DebugLog;
 
 public class SimpleGridTransformer<T extends Cell> implements GridTransformer<T> {
-
     private int[][] stateChanges;
 
     @Override

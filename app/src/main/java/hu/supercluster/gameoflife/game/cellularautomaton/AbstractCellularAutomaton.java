@@ -10,6 +10,7 @@ import hu.supercluster.gameoflife.game.grid.GridHandler;
 import hu.supercluster.gameoflife.game.transformer.GridTransformer;
 import hu.supercluster.gameoflife.game.transformer.Rule;
 import hu.supercluster.gameoflife.game.transformer.SimpleGridTransformer;
+import hu.supercluster.gameoflife.game.transformer.ThreadedGridTransformer;
 
 abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAutomaton<T> {
     protected final int gridSizeX;
@@ -30,8 +31,8 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
         return new EndlessGridHandler<T>(gridSizeX, gridSizeY, getFactory());
     }
 
-    protected SimpleGridTransformer<T> getGridTransformer() {
-        return new SimpleGridTransformer<T>();
+    protected GridTransformer<T> getGridTransformer() {
+        return new ThreadedGridTransformer<T>();
     }
 
     abstract protected CellFactory<T> getFactory();

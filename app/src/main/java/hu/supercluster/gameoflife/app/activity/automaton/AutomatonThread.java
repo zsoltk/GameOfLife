@@ -31,6 +31,8 @@ class AutomatonThread extends Thread {
     private long cycleTime;
     private List<CellStateChange> cellStateChanges;
     private int cnt;
+    private Bitmap buffCanvasBitmap;
+    private Canvas buffCanvas;
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, int cellSizeInPixels, int fps) {
         EventBus.getInstance().register(this);
@@ -43,6 +45,10 @@ class AutomatonThread extends Thread {
         paintAlive = createPaint("#ff9900");
         paintExtra = createPaint("#99ff00");
         paintDead = createPaint("#000000");
+
+        buffCanvasBitmap = Bitmap.createBitmap(automaton.getSizeX() * cellSizeInPixels, automaton.getSizeY() * cellSizeInPixels, Bitmap.Config.ARGB_8888);
+        buffCanvas = new Canvas();
+        buffCanvas.setBitmap(buffCanvasBitmap);
     }
 
     private Paint createPaint(String color) {
@@ -109,36 +115,23 @@ class AutomatonThread extends Thread {
 
     @DebugLog
     private void draw(Canvas canvas) {
-        canvas.drawColor(Color.BLACK);
-        Grid grid = automaton.getCurrentState();
-        for (int j = 0; j < grid.getSizeY(); j++) {
-            for (int i = 0; i < grid.getSizeX(); i++) {
-                Cell cell = grid.getCell(i, j);
-                if (cell.isAlive()) {
-                    paintCell(canvas, i, j, cell.getState());
-                }
-            }
+//        canvas.drawColor(Color.BLACK);
+//        Grid grid = automaton.getCurrentState();
+//        for (int j = 0; j < grid.getSizeY(); j++) {
+//            for (int i = 0; i < grid.getSizeX(); i++) {
+//                Cell cell = grid.getCell(i, j);
+//                if (cell.isAlive()) {
+//                    paintCell(canvas, i, j, cell.getState());
+//                }
+//            }
+//        }
+
+        for (CellStateChange change : cellStateChanges) {
+            paintCell(buffCanvas, change.x, change.y, change.stateSnapshot);
         }
 
-//        canvas.drawRect(new Rect(0, 0, automaton.getSizeX() * cellSizeInPixels, automaton.getSizeY() * cellSizeInPixels), paintDead);
-//        Bitmap buffCanvasBitmap;
-//        Canvas buffCanvas;
-//        buffCanvasBitmap = Bitmap.createBitmap(automaton.getSizeX() * cellSizeInPixels, automaton.getSizeY() * cellSizeInPixels, Bitmap.Config.ARGB_8888);
-//        buffCanvas = new Canvas();
-//        buffCanvas.setBitmap(buffCanvasBitmap);
-
-//        for (CellStateChange change : cellStateChanges) {
-////            paintCell(buffCanvas, change.x, change.y, change.cellState);
-//            paintCell(canvas, change.x, change.y, change.cellState);
-//        }
-//
-////        canvas.drawBitmap(buffCanvasBitmap, 0, 0, null);
-////        canvas.drawText("ASD " + cnt, 50*cnt, 50*cnt, paintExtra);
-//
-//        if (cnt++ > 2) {
-//            cellStateChanges.clear();
-//            cnt = 0;
-//        }
+        cellStateChanges.clear();
+        canvas.drawBitmap(buffCanvasBitmap, 0, 0, null);
     }
 
     private void paintCell(Canvas canvas, int i, int j, int cellState) {
