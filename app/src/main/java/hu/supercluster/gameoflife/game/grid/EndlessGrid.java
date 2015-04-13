@@ -11,10 +11,10 @@ import hu.supercluster.gameoflife.game.cell.CellStateChange;
 import hu.supercluster.gameoflife.util.EventBus;
 
 public class EndlessGrid<T extends Cell> implements Grid<T> {
-    private final int sizeX;
-    private final int sizeY;
-    private final T[][] cells;
-    private final Set<Long> cellIds;
+    protected final int sizeX;
+    protected final int sizeY;
+    protected final T[][] cells;
+    protected final Set<Long> cellIds;
 
     public EndlessGrid(int sizeX, int sizeY, CellFactory<T> cellFactory) {
         this.sizeX = sizeX;
@@ -138,6 +138,7 @@ public class EndlessGrid<T extends Cell> implements Grid<T> {
                 Cell otherCell = that.getCell(i, j);
 
                 if (!otherCell.equals(cell)) {
+                    System.out.println(cell + " <> " + otherCell);
                     return false;
                 }
             }
