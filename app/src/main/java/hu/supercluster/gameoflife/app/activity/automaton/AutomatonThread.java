@@ -10,6 +10,7 @@ import android.view.SurfaceHolder;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
@@ -36,7 +37,7 @@ class AutomatonThread extends Thread {
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, int cellSizeInPixels, int fps) {
         EventBus.getInstance().register(this);
-        cellStateChanges = new ArrayList<>();
+        cellStateChanges = new LinkedList<>();
         this.automaton = automaton;
         this.surfaceHolder = surfaceHolder;
         this.cellSizeInPixels = cellSizeInPixels;
