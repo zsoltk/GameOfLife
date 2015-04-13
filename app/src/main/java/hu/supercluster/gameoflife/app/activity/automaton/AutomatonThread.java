@@ -71,8 +71,10 @@ class AutomatonThread extends Thread {
 
             try {
                 canvas = surfaceHolder.lockCanvas();
-                cycle(canvas);
-                sleepToKeepFps();
+                if (canvas != null) {
+                    cycle(canvas);
+                    sleepToKeepFps();
+                }
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -121,8 +123,6 @@ class AutomatonThread extends Thread {
 //        canvas.drawRect(new Rect(0, 0, automaton.getSizeX() * cellSizeInPixels, automaton.getSizeY() * cellSizeInPixels), paintDead);
 //        Bitmap buffCanvasBitmap;
 //        Canvas buffCanvas;
-
-// Creating bitmap with attaching it to the buffer-canvas, it means that all the changes // done with the canvas are captured into the attached bitmap
 //        buffCanvasBitmap = Bitmap.createBitmap(automaton.getSizeX() * cellSizeInPixels, automaton.getSizeY() * cellSizeInPixels, Bitmap.Config.ARGB_8888);
 //        buffCanvas = new Canvas();
 //        buffCanvas.setBitmap(buffCanvasBitmap);
