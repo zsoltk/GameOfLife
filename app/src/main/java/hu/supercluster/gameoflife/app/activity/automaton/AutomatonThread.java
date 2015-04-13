@@ -60,7 +60,7 @@ class AutomatonThread extends Thread {
     }
 
     @Subscribe
-    public void onEvent(CellStateChange cellStateChange) {
+    synchronized public void onEvent(CellStateChange cellStateChange) {
         cellStateChanges.add(cellStateChange);
     }
 
