@@ -56,11 +56,23 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
             executorService.submit(new Runnable() {
                 @Override
                 public void run() {
-                    computeNewGrid(grid, rule, new Point(f * slice, 0), new Point((f + 1) * slice, grid.getSizeY()));
+                    computeNewGrid(grid, rule, getSubGridStartPoint(f, slice), getSubGridEndPoint(f, slice, grid));
                     countDownLatch.countDown();
                 }
             });
         }
+    }
+
+    protected Point getSubGridStartPoint(int f, int slice) {
+        int minX = f * slice;
+
+        return new Point(minX, 0);
+    }
+
+    protected Point getSubGridEndPoint(int f, int slice, Grid<T> grid) {
+        int maxX = f < threadCount - 1 ? (f + 1) * slice : grid.getSizeX();
+
+        return new Point(maxX, grid.getSizeY());
     }
 
     @DebugLog
@@ -91,7 +103,7 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
             executorService.submit(new Runnable() {
                 @Override
                 public void run() {
-                    applyNewGrid(grid, new Point(f * slice, 0), new Point((f + 1) * slice, grid.getSizeY()));
+                    applyNewGrid(grid, getSubGridStartPoint(f, slice), getSubGridEndPoint(f, slice, grid));
                     countDownLatch.countDown();
                 }
             });
