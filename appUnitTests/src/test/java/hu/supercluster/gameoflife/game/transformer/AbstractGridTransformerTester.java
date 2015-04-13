@@ -9,6 +9,7 @@ import hu.supercluster.gameoflife.game.rule.Rule;
 import hu.supercluster.gameoflife.game.testutils.EndlessGridWrapper;
 import hu.supercluster.gameoflife.game.testutils.GrowableCell;
 import hu.supercluster.gameoflife.game.testutils.GrowableCellFactory;
+import hu.supercluster.gameoflife.game.testutils.SimpleIncrementingRule;
 import hu.supercluster.gameoflife.test.support.UnitTestSpecification;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -22,21 +23,10 @@ public abstract class AbstractGridTransformerTester extends UnitTestSpecificatio
     public void setup() {
         cellFactory = new GrowableCellFactory();
         transformer = getTransformer();
-        rule = getSimpleIncrementingRule();
+        rule = new SimpleIncrementingRule();
     }
 
     abstract protected GridTransformer<GrowableCell> getTransformer();
-
-    protected Rule<GrowableCell> getSimpleIncrementingRule() {
-        return new Rule<GrowableCell>() {
-            @Override
-            public int apply(Grid grid, int x, int y) {
-                Cell cell = grid.getCell(x, y);
-
-                return cell.getState() + 1;
-            }
-        };
-    }
 
     @Test
     public void testTransform5() {
