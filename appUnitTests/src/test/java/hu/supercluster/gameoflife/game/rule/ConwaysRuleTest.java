@@ -30,19 +30,19 @@ public class ConwaysRuleTest extends UnitTestSpecification {
 
     @Test
     public void testAllDeadCellsRemainSo() {
-        Grid<SimpleCell> grid = emptyGrid();
+        Grid<SimpleCell> grid = createEmptyGrid();
         transform(grid);
-        Grid<SimpleCell> expected = emptyGrid();
+        Grid<SimpleCell> expected = createEmptyGrid();
 
         testEqual(grid, expected);
     }
 
     @Test
     public void testLonelyDies() {
-        Grid<SimpleCell> grid = emptyGrid();
+        Grid<SimpleCell> grid = createEmptyGrid();
         grid.getCell(1, 1).setState(Cell.STATE_ALIVE);
         transform(grid);
-        Grid<SimpleCell> expected = emptyGrid();
+        Grid<SimpleCell> expected = createEmptyGrid();
 
         testEqual(grid, expected);
     }
@@ -60,12 +60,12 @@ public class ConwaysRuleTest extends UnitTestSpecification {
         transformer.transform(grid, rule);
     }
 
-    private Grid<SimpleCell> emptyGrid() {
+    private Grid<SimpleCell> createEmptyGrid() {
         return new EndlessGrid<>(5, 5, cellFactory);
     }
 
     private Grid<SimpleCell> horizontalOscillator() {
-        Grid<SimpleCell> grid = emptyGrid();
+        Grid<SimpleCell> grid = createEmptyGrid();
         grid.getCell(1, 2).setState(Cell.STATE_ALIVE);
         grid.getCell(2, 2).setState(Cell.STATE_ALIVE);
         grid.getCell(3, 2).setState(Cell.STATE_ALIVE);
@@ -74,7 +74,7 @@ public class ConwaysRuleTest extends UnitTestSpecification {
     }
 
     private Grid<SimpleCell> verticalOscillator() {
-        Grid<SimpleCell> grid = emptyGrid();
+        Grid<SimpleCell> grid = createEmptyGrid();
         grid.getCell(2, 1).setState(Cell.STATE_ALIVE);
         grid.getCell(2, 2).setState(Cell.STATE_ALIVE);
         grid.getCell(2, 3).setState(Cell.STATE_ALIVE);
