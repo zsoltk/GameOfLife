@@ -9,8 +9,8 @@ import android.view.SurfaceHolder;
 
 import com.squareup.otto.Subscribe;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cell.Cell;
@@ -27,13 +27,13 @@ class AutomatonThread extends Thread {
     private final Paint paintAlive;
     private final Paint paintDead;
     private long cycleTime;
-    private List<CellStateChange> cellStateChanges;
+    private Queue<CellStateChange> cellStateChanges;
     private Bitmap buffCanvasBitmap;
     private Canvas buffCanvas;
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, int cellSizeInPixels, int fps) {
         EventBus.getInstance().register(this);
-        cellStateChanges = new LinkedList<>();
+        cellStateChanges = new LinkedBlockingDeque<>();
         this.automaton = automaton;
         this.surfaceHolder = surfaceHolder;
         this.cellSizeInPixels = cellSizeInPixels;
