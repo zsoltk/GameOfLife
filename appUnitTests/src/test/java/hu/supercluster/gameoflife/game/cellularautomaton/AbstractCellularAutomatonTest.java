@@ -1,17 +1,11 @@
 package hu.supercluster.gameoflife.game.cellularautomaton;
 
-import com.squareup.otto.Subscribe;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.CellFactory;
-import hu.supercluster.gameoflife.game.cell.CellStateChange;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.game.rule.Rule;
 import hu.supercluster.gameoflife.game.testutils.GrowableCell;
@@ -24,12 +18,10 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 public class AbstractCellularAutomatonTest extends UnitTestSpecification {
     AbstractCellularAutomaton<GrowableCell> automaton;
-    List<CellStateChange> cellStateChanges;
 
     @Before
     public void setup() {
         automaton = createAbstractCellularAutomaton();
-        cellStateChanges = new ArrayList<>();
         EventBus.getInstance().register(this);
     }
 
@@ -78,10 +70,5 @@ public class AbstractCellularAutomatonTest extends UnitTestSpecification {
 
         automaton.putCell(new GrowableCell(0, 0, Cell.STATE_ALIVE));
         assertThat(automaton.getCurrentState()).isEqualTo(grid);
-    }
-
-    @Subscribe
-    public void onEvent(CellStateChange cellStateChange) {
-        cellStateChanges.add(cellStateChange);
     }
 }
