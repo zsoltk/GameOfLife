@@ -66,15 +66,6 @@ class AutomatonThread extends Thread {
 
     @Override
     public void run() {
-        initAutomaton();
-        doRun();
-    }
-
-    protected void initAutomaton() {
-        this.automaton.randomFill(0.10f, Cell.STATE_ALIVE);
-    }
-
-    protected void doRun() {
         while (isRunning) {
             Canvas canvas = null;
 
