@@ -28,8 +28,24 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
 
     @Override
     public final void transform(Grid<T> grid, Rule<T> rule) {
-        stateChanges = new int[grid.getSizeY()][grid.getSizeX()];
+        resetStateChanges(grid);
         doTransform(grid, rule);
+    }
+
+    protected void resetStateChanges(Grid<T> grid) {
+        if (stateChanges == null) {
+            stateChanges = new int[grid.getSizeY()][grid.getSizeX()];
+        } else {
+            doResetStateChanges(grid);
+        }
+    }
+
+    private void doResetStateChanges(Grid<T> grid) {
+        for (int j = 0; j < grid.getSizeY(); j++) {
+            for (int i = 0; i < grid.getSizeX(); i++) {
+                stateChanges[j][i] = 0;
+            }
+        }
     }
 
     @DebugLog
