@@ -15,6 +15,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.CellStateChange;
+import hu.supercluster.gameoflife.game.creator.GameParams;
 import hu.supercluster.gameoflife.util.EventBus;
 import hugo.weaving.DebugLog;
 
@@ -31,13 +32,13 @@ class AutomatonThread extends Thread {
     private Bitmap buffCanvasBitmap;
     private Canvas buffCanvas;
 
-    public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, int cellSizeInPixels, int fps) {
+    public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, GameParams params) {
         EventBus.getInstance().register(this);
         cellStateChanges = new LinkedBlockingDeque<>();
         this.automaton = automaton;
         this.surfaceHolder = surfaceHolder;
-        this.cellSizeInPixels = cellSizeInPixels;
-        timeForAFrame = 1000 / fps;
+        this.cellSizeInPixels = params.getCellSizeInPixels();
+        timeForAFrame = 1000 / params.getFps();
 
         paintAlive = createPaint("#ff9900");
         paintDead = createPaint("#000000");

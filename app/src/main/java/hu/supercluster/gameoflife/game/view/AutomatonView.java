@@ -8,12 +8,13 @@ import android.view.SurfaceView;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
+import hu.supercluster.gameoflife.game.creator.GameParams;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hugo.weaving.DebugLog;
 
 public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback {
     private CellularAutomaton automaton;
-    private int cellSizeInPixels;
+    private GameParams params;
     private AutomatonThread thread;
 
     public AutomatonView(Context context) {
@@ -29,14 +30,14 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     @DebugLog
-    public void init(CellularAutomaton automaton, int cellSizeInPixels, int fps) {
+    public void init(CellularAutomaton automaton, GameParams params) {
         this.automaton = automaton;
-        this.cellSizeInPixels = cellSizeInPixels;
+        this.params = params;
 
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
-        thread = new AutomatonThread(automaton, surfaceHolder, cellSizeInPixels, fps);
+        thread = new AutomatonThread(automaton, surfaceHolder, params);
     }
 
     @Override
@@ -78,8 +79,8 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     protected void paintBlock(MotionEvent event) {
-        int x = Math.round(event.getX() / cellSizeInPixels);
-        int y = Math.round(event.getY() / cellSizeInPixels);
+        int x = Math.round(event.getX() / params.getCellSizeInPixels());
+        int y = Math.round(event.getY() / params.getCellSizeInPixels());
 
         Grid grid = automaton.getCurrentState();
         grid.getCell(x, y).setState(Cell.STATE_ALIVE);

@@ -1,7 +1,6 @@
 package hu.supercluster.gameoflife.game.creator;
 
 import android.content.Context;
-import android.view.SurfaceView;
 
 import hu.supercluster.gameoflife.game.view.AutomatonView;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
@@ -19,8 +18,7 @@ public class GameCreator {
     private static void initView(AutomatonView automatonView, CellularAutomaton automaton, GameParams params) {
         automatonView.init(
                 automaton,
-                params.getCellSizeInPixels(),
-                params.getFps()
+                params
         );
     }
 
