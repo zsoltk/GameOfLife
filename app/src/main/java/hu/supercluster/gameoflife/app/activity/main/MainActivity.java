@@ -22,6 +22,6 @@ public class MainActivity extends Activity {
 
     @AfterViews
     void afterViews() {
-        presenter.addAutomatonView();
+        presenter.createGame();
     }
 }

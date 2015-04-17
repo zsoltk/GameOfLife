@@ -54,14 +54,14 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
     }
 
     @Override
-    public void randomFill(float probability, int cellState) {
+    public void randomFill(Fill fill) {
         Grid<T> emptyGrid = gridHandler.createNew();
         Random random = new Random();
 
         for (int j = 0; j < getSizeY(); j++) {
             for (int i = 0; i < getSizeX(); i++) {
-                if (random.nextFloat() < probability) {
-                    emptyGrid.getCell(i, j).setState(cellState);
+                if (random.nextFloat() < fill.getPercentage()) {
+                    emptyGrid.getCell(i, j).setState(fill.getState());
                 }
             }
         }
