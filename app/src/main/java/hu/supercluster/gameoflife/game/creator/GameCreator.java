@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.SurfaceView;
 import android.widget.LinearLayout;
 
-import hu.supercluster.gameoflife.app.activity.automaton.AutomatonView;
+import hu.supercluster.gameoflife.game.view.AutomatonView;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomatonFactory;
 
