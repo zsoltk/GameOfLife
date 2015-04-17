@@ -29,7 +29,7 @@ public class MainPresenter {
 
         GameCreator.create(
                 activity,
-                activity.layout,
+                activity.automatonView,
                 new GameOfLifeFactory(),
                 gameParams
         );

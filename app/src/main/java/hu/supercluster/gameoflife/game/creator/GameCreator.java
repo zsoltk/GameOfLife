@@ -2,17 +2,26 @@ package hu.supercluster.gameoflife.game.creator;
 
 import android.content.Context;
 import android.view.SurfaceView;
-import android.widget.LinearLayout;
 
 import hu.supercluster.gameoflife.game.view.AutomatonView;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomatonFactory;
 
 public class GameCreator {
-    public static void create(Context context, LinearLayout layout, CellularAutomatonFactory factory, GameParams params) {
-        CellularAutomaton automaton = createAutomaton(factory, params);
-        SurfaceView surfaceView = createAutomatonView(context, automaton, params);
-        layout.addView(surfaceView, 0);
+    public static void create(Context context, AutomatonView automatonView, CellularAutomatonFactory factory, GameParams params) {
+        initView(
+                automatonView,
+                createAutomaton(factory, params),
+                params
+        );
+    }
+
+    private static void initView(AutomatonView automatonView, CellularAutomaton automaton, GameParams params) {
+        automatonView.init(
+                automaton,
+                params.getCellSizeInPixels(),
+                params.getFps()
+        );
     }
 
     private static CellularAutomaton createAutomaton(CellularAutomatonFactory factory, GameParams params) {
@@ -24,14 +33,5 @@ public class GameCreator {
         automaton.randomFill(params.getFill());
 
         return automaton;
-    }
-
-    private static SurfaceView createAutomatonView(Context context, CellularAutomaton automaton, GameParams params) {
-        return new AutomatonView(
-                context,
-                automaton,
-                params.getCellSizeInPixels(),
-                params.getFps()
-        );
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.widget.LinearLayout;
 
 import hu.supercluster.gameoflife.R;
+import hu.supercluster.gameoflife.game.view.AutomatonView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -17,8 +18,8 @@ public class MainActivity extends Activity {
     @Bean
     MainPresenter presenter;
 
-    @ViewById(R.id.activity_main)
-    LinearLayout layout;
+    @ViewById(R.id.automatonView)
+    AutomatonView automatonView;
 
     @AfterViews
     void afterViews() {

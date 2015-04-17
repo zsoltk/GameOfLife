@@ -1,6 +1,7 @@
 package hu.supercluster.gameoflife.game.view;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -11,19 +12,27 @@ import hu.supercluster.gameoflife.game.grid.Grid;
 import hugo.weaving.DebugLog;
 
 public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback {
-    CellularAutomaton automaton;
-    private final int cellSizeInPixels;
-    AutomatonThread thread;
+    private CellularAutomaton automaton;
+    private int cellSizeInPixels;
+    private AutomatonThread thread;
 
-    public AutomatonView(Context context, CellularAutomaton automaton, int cellSizeInPixels, int fps) {
+    public AutomatonView(Context context) {
         super(context);
-        this.automaton = automaton;
-        this.cellSizeInPixels = cellSizeInPixels;
-        setAutomaton(automaton, cellSizeInPixels, fps);
+    }
+
+    public AutomatonView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public AutomatonView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 
     @DebugLog
-    public void setAutomaton(CellularAutomaton automaton, int cellSizeInPixels, int fps) {
+    public void init(CellularAutomaton automaton, int cellSizeInPixels, int fps) {
+        this.automaton = automaton;
+        this.cellSizeInPixels = cellSizeInPixels;
+
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
