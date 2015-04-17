@@ -12,6 +12,7 @@ import hu.supercluster.gameoflife.game.cellularautomaton.Fill;
 import hu.supercluster.gameoflife.game.creator.GameCreator;
 import hu.supercluster.gameoflife.game.creator.GameParams;
 import hu.supercluster.gameoflife.game.creator.GameParamsBuilder;
+import hu.supercluster.gameoflife.game.painter.SimpleCellPainter;
 
 @EBean
 public class MainPresenter {
@@ -23,6 +24,7 @@ public class MainPresenter {
                 .setDisplaySize(getDisplaySize())
                 .setCellSizeInPixels(6)
                 .setFill(new Fill(0.10f, Cell.STATE_ALIVE))
+                .setCellPainter(new SimpleCellPainter())
                 .setFps(15)
                 .build()
         ;

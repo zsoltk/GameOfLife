@@ -16,6 +16,7 @@ import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.CellStateChange;
 import hu.supercluster.gameoflife.game.creator.GameParams;
+import hu.supercluster.gameoflife.game.painter.CellPainter;
 import hu.supercluster.gameoflife.util.EventBus;
 import hugo.weaving.DebugLog;
 
@@ -24,9 +25,8 @@ class AutomatonThread extends Thread {
     private final SurfaceHolder surfaceHolder;
     private final int cellSizeInPixels;
     private final int timeForAFrame;
+    private final CellPainter cellPainter;
     private boolean isRunning;
-    private final Paint paintAlive;
-    private final Paint paintDead;
     private long cycleTime;
     private Queue<CellStateChange> cellStateChanges;
     private Bitmap buffCanvasBitmap;
@@ -39,21 +39,11 @@ class AutomatonThread extends Thread {
         this.surfaceHolder = surfaceHolder;
         this.cellSizeInPixels = params.getCellSizeInPixels();
         timeForAFrame = 1000 / params.getFps();
-
-        paintAlive = createPaint("#ff9900");
-        paintDead = createPaint("#000000");
+        cellPainter = params.getCellPainter();
 
         buffCanvasBitmap = Bitmap.createBitmap(automaton.getSizeX() * cellSizeInPixels, automaton.getSizeY() * cellSizeInPixels, Bitmap.Config.ARGB_8888);
         buffCanvas = new Canvas();
         buffCanvas.setBitmap(buffCanvasBitmap);
-    }
-
-    private Paint createPaint(String color) {
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.parseColor(color));
-        
-        return paint;
     }
 
     @Subscribe
@@ -121,7 +111,7 @@ class AutomatonThread extends Thread {
     }
 
     private void paintCell(Canvas canvas, int i, int j, int cellState) {
-        Paint paint = getPaint(cellState);
+        Paint paint = cellPainter.getPaint(cellState);
         Rect rect = new Rect(
                 i*cellSizeInPixels,
                 j*cellSizeInPixels,
@@ -132,10 +122,6 @@ class AutomatonThread extends Thread {
         if (canvas != null) {
             canvas.drawRect(rect, paint);
         }
-    }
-
-    private Paint getPaint(int state) {
-        return state == Cell.STATE_ALIVE ? paintAlive : paintDead;
     }
 
     @DebugLog
