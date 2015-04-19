@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
-import hu.supercluster.gameoflife.game.cell.CellStateChange;
+import hu.supercluster.gameoflife.game.event.CellStateChange;
 import hu.supercluster.gameoflife.game.cell.SimpleCell;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.test.support.UnitTestSpecification;

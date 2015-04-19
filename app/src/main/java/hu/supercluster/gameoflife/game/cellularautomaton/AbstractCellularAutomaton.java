@@ -49,24 +49,28 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
 
     @Override
     public void reset() {
-        Grid<T> emptyGrid = gridHandler.createNew();
-        gridHandler.setCurrent(emptyGrid);
+        Grid<T> grid = getCurrentState();
+        T newBornCell = getFactory().create(0, 0);
+
+        for (int j = 0; j < gridSizeY; j++) {
+            for (int i = 0; i < gridSizeX; i++) {
+                grid.getCell(i, j).setState(newBornCell.getState());
+            }
+        }
     }
 
     @Override
     public void randomFill(Fill fill) {
-        Grid<T> emptyGrid = gridHandler.createNew();
+        Grid<T> grid = getCurrentState();
         Random random = new Random();
 
-        for (int j = 0; j < getSizeY(); j++) {
-            for (int i = 0; i < getSizeX(); i++) {
+        for (int j = 0; j < gridSizeY; j++) {
+            for (int i = 0; i < gridSizeX; i++) {
                 if (random.nextFloat() < fill.getPercentage()) {
-                    emptyGrid.getCell(i, j).setState(fill.getState());
+                    grid.getCell(i, j).setState(fill.getState());
                 }
             }
         }
-
-        gridHandler.setCurrent(emptyGrid);
     }
 
     @Override

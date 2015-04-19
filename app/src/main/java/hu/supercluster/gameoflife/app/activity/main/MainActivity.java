@@ -1,13 +1,14 @@
 package hu.supercluster.gameoflife.app.activity.main;
 
 import android.app.Activity;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 
 import hu.supercluster.gameoflife.R;
 import hu.supercluster.gameoflife.game.view.AutomatonView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.ViewById;
@@ -18,11 +19,24 @@ public class MainActivity extends Activity {
     @Bean
     MainPresenter presenter;
 
-    @ViewById(R.id.automatonView)
+    @ViewById
     AutomatonView automatonView;
+
+    @ViewById
+    ImageButton reset, restart;
 
     @AfterViews
     void afterViews() {
         presenter.createGame();
+    }
+
+    @Click
+    void reset() {
+        presenter.resetGame();
+    }
+
+    @Click
+    void restart() {
+        presenter.restartGame();
     }
 }

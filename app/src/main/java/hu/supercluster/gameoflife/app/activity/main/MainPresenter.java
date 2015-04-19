@@ -12,7 +12,10 @@ import hu.supercluster.gameoflife.game.cellularautomaton.Fill;
 import hu.supercluster.gameoflife.game.creator.GameCreator;
 import hu.supercluster.gameoflife.game.creator.GameParams;
 import hu.supercluster.gameoflife.game.creator.GameParamsBuilder;
+import hu.supercluster.gameoflife.game.event.Reset;
+import hu.supercluster.gameoflife.game.event.Restart;
 import hu.supercluster.gameoflife.game.painter.SimpleCellPainter;
+import hu.supercluster.gameoflife.util.EventBus;
 
 @EBean
 public class MainPresenter {
@@ -26,8 +29,7 @@ public class MainPresenter {
                 .setFill(new Fill(0.10f, Cell.STATE_ALIVE))
                 .setCellPainter(new SimpleCellPainter())
                 .setFps(15)
-                .build()
-        ;
+                .build();
 
         GameCreator.create(
                 activity,
@@ -43,5 +45,13 @@ public class MainPresenter {
         display.getSize(size);
 
         return size;
+    }
+
+    public void resetGame() {
+        EventBus.getInstance().post(new Reset());
+    }
+
+    public void restartGame() {
+        EventBus.getInstance().post(new Restart());
     }
 }

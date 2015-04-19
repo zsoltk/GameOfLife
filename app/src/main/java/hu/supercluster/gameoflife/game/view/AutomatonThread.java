@@ -13,20 +13,24 @@ import java.util.Queue;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
-import hu.supercluster.gameoflife.game.cell.Cell;
-import hu.supercluster.gameoflife.game.cell.CellStateChange;
+import hu.supercluster.gameoflife.game.event.CellStateChange;
 import hu.supercluster.gameoflife.game.creator.GameParams;
+import hu.supercluster.gameoflife.game.event.Reset;
+import hu.supercluster.gameoflife.game.event.Restart;
 import hu.supercluster.gameoflife.game.painter.CellPainter;
 import hu.supercluster.gameoflife.util.EventBus;
 import hugo.weaving.DebugLog;
 
-class AutomatonThread extends Thread {
+public class AutomatonThread extends Thread {
     private final CellularAutomaton automaton;
     private final SurfaceHolder surfaceHolder;
     private final int cellSizeInPixels;
     private final int timeForAFrame;
     private final CellPainter cellPainter;
+    private final GameParams params;
     private boolean isRunning;
+    private boolean shouldReset;
+    private boolean shouldRestart;
     private long cycleTime;
     private Queue<CellStateChange> cellStateChanges;
     private Bitmap buffCanvasBitmap;
@@ -36,6 +40,7 @@ class AutomatonThread extends Thread {
         EventBus.getInstance().register(this);
         cellStateChanges = new LinkedBlockingDeque<>();
         this.automaton = automaton;
+        this.params = params;
         this.surfaceHolder = surfaceHolder;
         this.cellSizeInPixels = params.getCellSizeInPixels();
         timeForAFrame = 1000 / params.getFps();
@@ -51,8 +56,18 @@ class AutomatonThread extends Thread {
         cellStateChanges.add(cellStateChange);
     }
 
-    public void setRunning(boolean isRunning) {
-        this.isRunning = isRunning;
+    @Subscribe
+    synchronized public void onEvent(Reset event) {
+        shouldReset = true;
+    }
+
+    @Subscribe
+    synchronized public void onEvent(Restart event) {
+        shouldRestart = true;
+    }
+
+    public void setRunning(boolean v) {
+        this.isRunning = v;
     }
 
     @Override
@@ -91,8 +106,33 @@ class AutomatonThread extends Thread {
 
     @DebugLog
     private void cycleCore(Canvas canvas) {
+        handleFlags();
         stepAutomaton();
         draw(canvas);
+    }
+
+    private void handleFlags() {
+        handleReset();
+        handleRestart();
+        resetFlags();
+    }
+
+    private void handleReset() {
+        if (shouldReset) {
+            automaton.reset();
+        }
+    }
+
+    private void handleRestart() {
+        if (shouldRestart) {
+            automaton.reset();
+            automaton.randomFill(params.getFill());
+        }
+    }
+
+    private void resetFlags() {
+        shouldReset = false;
+        shouldRestart = false;
     }
 
     @DebugLog

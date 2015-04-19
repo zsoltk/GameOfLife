@@ -1,4 +1,6 @@
-package hu.supercluster.gameoflife.game.cell;
+package hu.supercluster.gameoflife.game.event;
+
+import hu.supercluster.gameoflife.game.cell.Cell;
 
 public class CellStateChange {
     public final int x;

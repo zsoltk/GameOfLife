@@ -12,4 +12,6 @@
     <color name="teal_a400">#1DE9B6</color>
     <color name="amber_a200">#FFD740</color>
     <color name="amber_a400">#FFC400</color>
+
+    <color name="button_bg">#a0202020</color>
 </resources>

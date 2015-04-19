@@ -2,6 +2,7 @@ package hu.supercluster.gameoflife.game.cell;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import hu.supercluster.gameoflife.game.event.CellStateChange;
 import hu.supercluster.gameoflife.util.EventBus;
 
 public class SimpleCell implements Cell {

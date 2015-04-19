@@ -5,4 +5,19 @@
         <item name="colorPrimaryDark">@color/primary_700</item>
         <item name="colorAccent">@color/accent_200</item>
     </style>
+
+    <style name="button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/activity_horizontal_margin</item>
+        <item name="android:background">@color/button_bg</item>
+    </style>
+
+    <style name="toolbar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:padding">@dimen/activity_horizontal_margin</item>
+    </style>
 </resources>

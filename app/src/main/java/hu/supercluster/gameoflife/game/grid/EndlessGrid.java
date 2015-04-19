@@ -7,7 +7,7 @@ import java.util.Set;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.CellFactory;
-import hu.supercluster.gameoflife.game.cell.CellStateChange;
+import hu.supercluster.gameoflife.game.event.CellStateChange;
 import hu.supercluster.gameoflife.util.EventBus;
 
 public class EndlessGrid<T extends Cell> implements Grid<T> {
