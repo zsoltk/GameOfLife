@@ -16,15 +16,17 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
     protected final int gridSizeY;
     final GridHandler<T> gridHandler;
     final GridTransformer<T> gridTransformer;
-    final Rule<T> rule;
+    Rule<T> rule;
 
     public AbstractCellularAutomaton(int gridSizeX, int gridSizeY) {
         this.gridSizeX = gridSizeX;
         this.gridSizeY = gridSizeY;
         this.gridHandler = getGridHandler();
         this.gridTransformer = getGridTransformer();
-        this.rule = getRule();
+        this.rule = createRule();
     }
+
+    protected abstract Rule<T> createRule();
 
     protected EndlessGridHandler<T> getGridHandler() {
         return new EndlessGridHandler<T>(gridSizeX, gridSizeY, getFactory());
@@ -35,7 +37,16 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
     }
 
     abstract protected CellFactory<T> getFactory();
-    abstract protected Rule<T> getRule();
+
+    @Override
+    public void setRule(Rule<T> rule) {
+        this.rule = rule;
+    }
+
+    @Override
+    public Rule<T> getRule() {
+        return rule;
+    }
 
     @Override
     public final int getSizeX() {

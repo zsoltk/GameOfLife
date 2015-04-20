@@ -17,7 +17,7 @@ public class GameOfLife extends AbstractCellularAutomaton<SimpleCell> {
     }
 
     @Override
-    protected Rule getRule() {
+    public Rule<SimpleCell> createRule() {
         return new ConwaysRule();
     }
 }
