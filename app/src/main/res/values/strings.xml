@@ -1,3 +1,8 @@
 <resources>
     <string name="action_settings">Settings</string>
+
+    <string name="dialog_change_rules_title">Change rules</string>
+    <string name="dialog_change_rules_generic_description">Set how many living neighbors a living cell needs to survive or a dead one to become alive</string>
+    <string name="dialog_change_rules_survival_description">Survival rules</string>
+    <string name="dialog_change_rules_creation_description">Creation rules</string>
 </resources>

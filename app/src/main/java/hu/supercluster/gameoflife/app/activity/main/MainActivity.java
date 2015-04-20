@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
     AutomatonView automatonView;
 
     @ViewById
-    ImageButton reset, restart;
+    ImageButton reset, restart, changeRules;
 
     @AfterViews
     void afterViews() {
@@ -32,11 +32,16 @@ public class MainActivity extends Activity {
 
     @Click
     void reset() {
-        presenter.resetGame();
+        presenter.onResetGame();
     }
 
     @Click
     void restart() {
-        presenter.restartGame();
+        presenter.onRestartGame();
+    }
+
+    @Click
+    void changeRules() {
+        presenter.onChangeRules();
     }
 }

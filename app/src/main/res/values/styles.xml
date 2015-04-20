@@ -20,4 +20,24 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:padding">@dimen/activity_horizontal_margin</item>
     </style>
+
+    <style name="rulesDescription">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Holo.Medium</item>
+    </style>
+
+    <style name="rulesLabel">
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Holo.Medium</item>
+    </style>
+
+    <style name="ruleNbCountDisplay">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Holo.Medium</item>
+    </style>
 </resources>

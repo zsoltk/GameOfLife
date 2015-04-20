@@ -2,7 +2,6 @@ package hu.supercluster.gameoflife.game.view;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
@@ -14,7 +13,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.event.CellStateChange;
-import hu.supercluster.gameoflife.game.creator.GameParams;
+import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.event.Reset;
 import hu.supercluster.gameoflife.game.event.Restart;
 import hu.supercluster.gameoflife.game.painter.CellPainter;

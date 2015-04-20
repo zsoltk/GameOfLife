@@ -26,5 +26,11 @@
             android:src="@drawable/ic_bin"
             style="@style/button"
         />
+
+        <ImageButton
+            android:id="@+id/changeRules"
+            android:src="@drawable/ic_settings"
+            style="@style/button"
+        />
     </LinearLayout>
 </RelativeLayout>

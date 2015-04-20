@@ -8,7 +8,7 @@ import android.view.SurfaceView;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
-import hu.supercluster.gameoflife.game.creator.GameParams;
+import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hugo.weaving.DebugLog;
 

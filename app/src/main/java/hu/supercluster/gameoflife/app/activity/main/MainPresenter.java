@@ -3,24 +3,36 @@ package hu.supercluster.gameoflife.app.activity.main;
 import android.graphics.Point;
 import android.view.Display;
 
+import com.squareup.otto.Subscribe;
+
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
+import hu.supercluster.gameoflife.game.view.ChangeRulesDialogFragment;
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cellularautomaton.GameOfLifeFactory;
 import hu.supercluster.gameoflife.game.cellularautomaton.Fill;
-import hu.supercluster.gameoflife.game.creator.GameCreator;
-import hu.supercluster.gameoflife.game.creator.GameParams;
-import hu.supercluster.gameoflife.game.creator.GameParamsBuilder;
+import hu.supercluster.gameoflife.game.manager.GameManager;
+import hu.supercluster.gameoflife.game.manager.GameParams;
+import hu.supercluster.gameoflife.game.manager.GameParamsBuilder;
 import hu.supercluster.gameoflife.game.event.Reset;
 import hu.supercluster.gameoflife.game.event.Restart;
 import hu.supercluster.gameoflife.game.painter.SimpleCellPainter;
+import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
 import hu.supercluster.gameoflife.util.EventBus;
 
 @EBean
 public class MainPresenter {
+    private GameManager gameManager;
+
     @RootContext
     MainActivity activity;
+
+    @AfterInject
+    void registerOnEventBus() {
+        EventBus.getInstance().register(this);
+    }
 
     protected void createGame() {
         GameParams gameParams = GameParamsBuilder.create()
@@ -31,12 +43,13 @@ public class MainPresenter {
                 .setFps(15)
                 .build();
 
-        GameCreator.create(
-                activity,
+        gameManager = new GameManager(
                 activity.automatonView,
                 new GameOfLifeFactory(),
                 gameParams
         );
+
+        gameManager.createGame();
     }
 
     private Point getDisplaySize() {
@@ -47,11 +60,22 @@ public class MainPresenter {
         return size;
     }
 
-    public void resetGame() {
+    public void onResetGame() {
         EventBus.getInstance().post(new Reset());
     }
 
-    public void restartGame() {
+    public void onRestartGame() {
         EventBus.getInstance().post(new Restart());
+    }
+
+    public void onChangeRules() {
+        ChangeRulesDialogFragment dialogFragment = new ChangeRulesDialogFragment();
+        dialogFragment.setRule((NeighborCountBasedRule) gameManager.getAutomaton().getRule());
+        dialogFragment.show(activity.getFragmentManager(), "rules");
+    }
+
+    @Subscribe
+    public void onRulesChanged(NeighborCountBasedRule rule) {
+        gameManager.getAutomaton().setRule(rule);
     }
 }
