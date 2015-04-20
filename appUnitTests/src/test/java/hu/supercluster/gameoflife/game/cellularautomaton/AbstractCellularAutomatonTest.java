@@ -33,7 +33,7 @@ public class AbstractCellularAutomatonTest extends UnitTestSpecification {
             }
 
             @Override
-            protected Rule<GrowableCell> getRule() {
+            protected Rule<GrowableCell> createRule() {
                 return new SimpleIncrementingRule();
             }
         };
