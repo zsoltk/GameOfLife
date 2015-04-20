@@ -1,16 +1,25 @@
 package hu.supercluster.gameoflife.game.manager;
 
-import android.content.Context;
-
 import hu.supercluster.gameoflife.game.view.AutomatonView;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomatonFactory;
 
 public class GameManager {
-    public static void create(Context context, AutomatonView automatonView, CellularAutomatonFactory factory, GameParams params) {
+    private static CellularAutomaton automaton;
+    private final AutomatonView automatonView;
+    private final GameParams params;
+
+    public GameManager(AutomatonView automatonView, CellularAutomatonFactory factory, GameParams params) {
+        this.automatonView = automatonView;
+        this.params = params;
+
+        automaton = createAutomaton(factory, params);
+    }
+
+    public void createGame() {
         initView(
                 automatonView,
-                createAutomaton(factory, params),
+                automaton,
                 params
         );
     }
@@ -30,6 +39,10 @@ public class GameManager {
 
         automaton.randomFill(params.getFill());
 
+        return automaton;
+    }
+
+    public static CellularAutomaton getAutomaton() {
         return automaton;
     }
 }
