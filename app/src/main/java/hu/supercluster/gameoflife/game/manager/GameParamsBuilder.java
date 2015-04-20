@@ -1,4 +1,4 @@
-package hu.supercluster.gameoflife.game.creator;
+package hu.supercluster.gameoflife.game.manager;
 
 import android.graphics.Point;
 

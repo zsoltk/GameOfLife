@@ -1,4 +1,4 @@
-package hu.supercluster.gameoflife.game.creator;
+package hu.supercluster.gameoflife.game.manager;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import hu.supercluster.gameoflife.game.view.AutomatonView;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomatonFactory;
 
-public class GameCreator {
+public class GameManager {
     public static void create(Context context, AutomatonView automatonView, CellularAutomatonFactory factory, GameParams params) {
         initView(
                 automatonView,
