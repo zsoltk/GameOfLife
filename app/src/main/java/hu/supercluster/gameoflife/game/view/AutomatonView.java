@@ -36,15 +36,17 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
 
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
-
-        thread = new AutomatonThread(automaton, surfaceHolder, params);
     }
 
     @Override
     @DebugLog
     public void surfaceCreated(SurfaceHolder holder) {
+        if (thread == null || thread.getState() == Thread.State.TERMINATED) {
+            thread = new AutomatonThread(automaton, holder, params);
+            thread.start();
+        }
+        
         thread.setRunning(true);
-        thread.start();
     }
 
     @Override
