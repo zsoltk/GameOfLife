@@ -9,7 +9,7 @@ import android.view.SurfaceHolder;
 import com.squareup.otto.Subscribe;
 
 import java.util.Queue;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.event.CellStateChange;
@@ -37,7 +37,7 @@ public class AutomatonThread extends Thread {
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, GameParams params) {
         EventBus.getInstance().register(this);
-        cellStateChanges = new LinkedBlockingDeque<>();
+        cellStateChanges = new LinkedBlockingQueue<>();
         this.automaton = automaton;
         this.params = params;
         this.surfaceHolder = surfaceHolder;
