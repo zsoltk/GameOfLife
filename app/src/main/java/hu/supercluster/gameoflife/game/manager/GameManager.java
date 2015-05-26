@@ -5,7 +5,7 @@ import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomatonFactory;
 
 public class GameManager {
-    private static CellularAutomaton automaton;
+    private final CellularAutomaton automaton;
     private final AutomatonView automatonView;
     private final GameParams params;
 
@@ -14,6 +14,21 @@ public class GameManager {
         this.params = params;
 
         automaton = createAutomaton(factory, params);
+    }
+
+    private CellularAutomaton createAutomaton(CellularAutomatonFactory factory, GameParams params) {
+        CellularAutomaton<?> automaton = factory.create(
+                params.getGridSizeX(),
+                params.getGridSizeY()
+        );
+
+        automaton.randomFill(params.getFill());
+
+        return automaton;
+    }
+
+    public CellularAutomaton getAutomaton() {
+        return automaton;
     }
 
     public void createGame() {
@@ -29,20 +44,5 @@ public class GameManager {
                 automaton,
                 params
         );
-    }
-
-    private static CellularAutomaton createAutomaton(CellularAutomatonFactory factory, GameParams params) {
-        CellularAutomaton<?> automaton = factory.create(
-                params.getGridSizeX(),
-                params.getGridSizeY()
-        );
-
-        automaton.randomFill(params.getFill());
-
-        return automaton;
-    }
-
-    public static CellularAutomaton getAutomaton() {
-        return automaton;
     }
 }
