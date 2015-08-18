@@ -6,8 +6,8 @@
         android:name=".app.App"
         android:label="Game of Life"
         android:theme="@style/Theme.Custom"
-        android:icon="@drawable/ic_launcher"
-        android:logo="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
+        android:logo="@mipmap/ic_launcher"
         android:allowBackup="true">
 
         <activity android:name=".app.activity.main.MainActivity_">
