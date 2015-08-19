@@ -26,6 +26,9 @@ public class PresetAdapter extends ArrayAdapter<Preset> {
         presets.add(new Preset(resources.getString(R.string.preset_sponge_cells), createRule(set(0, 1, 2, 3, 4, 5, 6, 7), set(4, 5, 6))));
         presets.add(new Preset(resources.getString(R.string.preset_slowly_growing_fizz), createRule(set(4, 5), set(3, 4, 5))));
         presets.add(new Preset(resources.getString(R.string.preset_drills), createRule(set(2, 4, 5, 6, 7, 8), set(3))));
+        presets.add(new Preset(resources.getString(R.string.preset_condensation), createRule(set(1, 2, 5, 6, 7, 8), set(3, 6, 7))));
+        presets.add(new Preset(resources.getString(R.string.preset_seeds), createRule(set(), set(2))));
+        presets.add(new Preset(resources.getString(R.string.preset_spread), createRule(set(0, 1, 2, 3, 4, 5, 6, 7, 8), set(3))));
 
         return presets;
     }
