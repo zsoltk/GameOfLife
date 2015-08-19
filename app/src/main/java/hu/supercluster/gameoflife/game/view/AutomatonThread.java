@@ -36,7 +36,6 @@ public class AutomatonThread extends Thread {
     private Canvas buffCanvas;
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, GameParams params) {
-        EventBus.getInstance().register(this);
         cellStateChanges = new LinkedBlockingQueue<>();
         this.automaton = automaton;
         this.params = params;
@@ -71,6 +70,8 @@ public class AutomatonThread extends Thread {
 
     @Override
     public void run() {
+        EventBus.getInstance().register(this);
+
         while (isRunning) {
             Canvas canvas = null;
 
@@ -85,6 +86,8 @@ public class AutomatonThread extends Thread {
                 unlockCanvasAndPost(canvas);
             }
         }
+
+        EventBus.getInstance().unregister(this);
     }
 
     protected void oneGameCycle(Canvas canvas) throws InterruptedException {
