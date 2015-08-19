@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.TableRow;
 
 import java.util.HashSet;
@@ -18,6 +20,7 @@ import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
 import hu.supercluster.gameoflife.util.EventBus;
 
 public class ChangeRulesDialogFragment extends DialogFragment {
+    private Spinner presets;
     private TableRow survivalCheckBoxes;
     private TableRow creationCheckBoxes;
     private Set<Integer> survivalNbCounts;
@@ -34,8 +37,36 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.dialog_change_rules, null);
+        presets = (Spinner) view.findViewById(R.id.presets);
         survivalCheckBoxes = (TableRow) view.findViewById(R.id.survivalCheckBoxes);
         creationCheckBoxes = (TableRow) view.findViewById(R.id.creationCheckBoxes);
+
+        presets.setAdapter(new PresetAdapter(getActivity(), android.R.layout.simple_list_item_1));
+        presets.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View view, int position, long id) {
+                Preset preset = (Preset) adapter.getItemAtPosition(position);
+                NeighborCountBasedRule rule = preset.getRule();
+
+                if (rule != null) {
+                    Set<Integer> creationNbCounts = rule.getCreationNbCounts();
+                    Set<Integer> survivalNbCounts = rule.getSurvivalNbCounts();
+
+                    for (int i = 0; i < 9; i++) {
+                        CheckBox creation = (CheckBox) creationCheckBoxes.getChildAt(i);
+                        CheckBox survival = (CheckBox) survivalCheckBoxes.getChildAt(i);
+                        creation.setChecked(creationNbCounts.contains(i));
+                        survival.setChecked(survivalNbCounts.contains(i));
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         for (int i = 0; i < 9; i++) {
             handleSurvivalCheckBox(i);
@@ -43,21 +74,22 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         }
 
         builder
-                .setView(view)
-                .setTitle(R.string.dialog_change_rules_title)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        EventBus.getInstance().post(getRule());
-                        dialog.dismiss();
-                    }
-                })
+            .setView(view)
+            .setTitle(R.string.dialog_change_rules_title)
+            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    EventBus.getInstance().post(getRule());
+                    dialog.dismiss();
+                }
+            })
 
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        ChangeRulesDialogFragment.this.getDialog().cancel();
-                    }
-                });
+            .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    ChangeRulesDialogFragment.this.getDialog().cancel();
+                }
+            })
+        ;
 
         AlertDialog dialog = builder.create();
 

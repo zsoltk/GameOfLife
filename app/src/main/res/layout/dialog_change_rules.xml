@@ -23,6 +23,23 @@
                 android:layout_span="9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/dialog_change_rules_presets"
+                android:textStyle="bold"
+                style="@style/rulesLabel"
+             />
+        </TableRow>
+        <TableRow>
+            <Spinner
+            android:id="@+id/presets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="9" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_span="9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/dialog_change_rules_survival_description"
                 android:textStyle="bold"
                 style="@style/rulesLabel"

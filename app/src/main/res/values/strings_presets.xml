@@ -1,0 +1,7 @@
+<resources>
+    <string name="preset_pick_one">- Pick one -</string>
+    <string name="preset_life">Life</string>
+    <string name="preset_sponge_cells">Sponge cells</string>
+    <string name="preset_slowly_growing_fizz">Slowly growing fizz</string>
+    <string name="preset_drills">Drills</string>
+</resources>
