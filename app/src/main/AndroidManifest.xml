@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="hu.supercluster.gameoflife">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".app.App"
         android:label="Game of Life"
@@ -9,6 +11,10 @@
         android:icon="@mipmap/ic_launcher"
         android:logo="@mipmap/ic_launcher"
         android:allowBackup="true">
+
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="77d88cafce645aa494763063fee2e7959f1a1b3f" />
 
         <activity android:name=".app.activity.main.MainActivity_">
             <intent-filter>
