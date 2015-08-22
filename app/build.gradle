@@ -17,6 +17,10 @@ apply plugin: 'android-apt'
 apply plugin: 'crashlytics'
 apply plugin: 'hugo'
 
+def versionMajor = 0
+def versionMinor = 9
+def versionPatch = 0
+
 android {
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -25,8 +29,9 @@ android {
         testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 1
-        versionName "0.1.0"
+
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
     }
 
 
