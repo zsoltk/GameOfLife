@@ -84,6 +84,7 @@ dependencies {
 
     // ---------
 
+    compile 'com.github.tslamic.adn:library:1.0'
     compile 'com.crashlytics.android:crashlytics:1.+'
     compile 'com.jakewharton.timber:timber:2.5.1'
     compile 'com.squareup:otto:1.3.6'

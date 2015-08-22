@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="hu.supercluster.gameoflife">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,7 +11,8 @@
         android:theme="@style/Theme.Custom"
         android:icon="@mipmap/ic_launcher"
         android:logo="@mipmap/ic_launcher"
-        android:allowBackup="true">
+        android:allowBackup="true"
+        tools:replace="label, icon">
 
         <meta-data
             android:name="com.crashlytics.ApiKey"
