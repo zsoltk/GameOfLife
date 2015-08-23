@@ -50,6 +50,11 @@ android {
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
             minifyEnabled false
+            testCoverageEnabled = false
+        }
+        test {
+            debuggable true
+            minifyEnabled false
             testCoverageEnabled = true
         }
         release {

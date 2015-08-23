@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ./gradlew :build \
-          :appUnitTests:testDebug \
-          :appComponentTests:testDebug \
+          :appUnitTests:testTest \
+          :appComponentTests:testTest \
           :app:connectedAndroidTest \
           :appUnitTests:jacocoTestReport \
           :appUnitTests:coveralls \
