@@ -9,6 +9,8 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
+import hu.supercluster.gameoflife.game.event.Pause;
+import hu.supercluster.gameoflife.game.event.Resume;
 import hu.supercluster.gameoflife.game.view.ChangeRulesDialogFragment;
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cellularautomaton.GameOfLifeFactory;
@@ -21,6 +23,8 @@ import hu.supercluster.gameoflife.game.event.Restart;
 import hu.supercluster.gameoflife.game.painter.SimpleCellPainter;
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
 import hu.supercluster.gameoflife.util.EventBus;
+
+import static android.view.View.*;
 
 @EBean
 public class MainPresenter {
@@ -60,15 +64,31 @@ public class MainPresenter {
         return size;
     }
 
-    public void onResetGame() {
+    void onPause() {
+        EventBus.getInstance().post(new Pause());
+        setUiPausedState(true);
+    }
+
+    void onResume() {
+        EventBus.getInstance().post(new Resume());
+        setUiPausedState(false);
+    }
+
+    private void setUiPausedState(boolean paused) {
+        activity.resume.setVisibility(paused ? VISIBLE : GONE);
+        activity.pause.setVisibility(paused ? GONE : VISIBLE);
+        activity.paused = paused;
+    }
+
+    void onResetGame() {
         EventBus.getInstance().post(new Reset());
     }
 
-    public void onRestartGame() {
+    void onRestartGame() {
         EventBus.getInstance().post(new Restart());
     }
 
-    public void onChangeRules() {
+    void onChangeRules() {
         ChangeRulesDialogFragment dialogFragment = new ChangeRulesDialogFragment();
         dialogFragment.setRule((NeighborCountBasedRule) gameManager.getAutomaton().getRule());
         dialogFragment.show(activity.getFragmentManager(), "rules");

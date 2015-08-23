@@ -32,5 +32,18 @@
             android:src="@drawable/ic_settings"
             style="@style/button"
         />
+
+        <ImageButton
+            android:id="@+id/pause"
+            android:src="@drawable/ic_pause"
+            style="@style/button"
+            />
+
+        <ImageButton
+            android:id="@+id/resume"
+            android:src="@drawable/ic_play"
+            android:visibility="gone"
+            style="@style/button"
+        />
     </LinearLayout>
 </RelativeLayout>

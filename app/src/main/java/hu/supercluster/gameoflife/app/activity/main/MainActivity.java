@@ -11,11 +11,15 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Fullscreen;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
 @Fullscreen
 public class MainActivity extends Activity {
+    @InstanceState
+    boolean paused;
+
     @Bean
     MainPresenter presenter;
 
@@ -23,11 +27,21 @@ public class MainActivity extends Activity {
     AutomatonView automatonView;
 
     @ViewById
-    ImageButton reset, restart, changeRules;
+    ImageButton reset, restart, changeRules, pause, resume;
 
     @AfterViews
     void afterViews() {
         presenter.createGame();
+    }
+
+    @Click
+    void pause() {
+        presenter.onPause();
+    }
+
+    @Click
+    void resume() {
+        presenter.onResume();
     }
 
     @Click

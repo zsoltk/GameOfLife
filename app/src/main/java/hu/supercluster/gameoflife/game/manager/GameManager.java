@@ -39,6 +39,14 @@ public class GameManager {
         );
     }
 
+    public void pauseGame() {
+
+    }
+
+    public void resumeGame() {
+
+    }
+
     private static void initView(AutomatonView automatonView, CellularAutomaton automaton, GameParams params) {
         automatonView.init(
                 automaton,

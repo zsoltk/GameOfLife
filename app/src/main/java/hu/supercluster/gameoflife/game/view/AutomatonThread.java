@@ -13,6 +13,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.event.CellStateChange;
+import hu.supercluster.gameoflife.game.event.Pause;
+import hu.supercluster.gameoflife.game.event.Resume;
 import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.event.Reset;
 import hu.supercluster.gameoflife.game.event.Restart;
@@ -30,6 +32,7 @@ public class AutomatonThread extends Thread {
     private boolean isRunning;
     private boolean shouldReset;
     private boolean shouldRestart;
+    private boolean paused;
     private long cycleTime;
     private Queue<CellStateChange> cellStateChanges;
     private Bitmap buffCanvasBitmap;
@@ -55,6 +58,16 @@ public class AutomatonThread extends Thread {
     }
 
     @Subscribe
+    synchronized public void onEvent(Pause event) {
+        paused = true;
+    }
+
+    @Subscribe
+    synchronized public void onEvent(Resume event) {
+        paused = false;
+    }
+
+    @Subscribe
     synchronized public void onEvent(Reset event) {
         shouldReset = true;
     }
@@ -73,24 +86,28 @@ public class AutomatonThread extends Thread {
         EventBus.getInstance().register(this);
 
         while (isRunning) {
-            Canvas canvas = null;
-
-            try {
-                canvas = surfaceHolder.lockCanvas();
-                oneGameCycle(canvas);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-
-            } finally {
-                unlockCanvasAndPost(canvas);
-            }
+            canvasCycle();
         }
 
         EventBus.getInstance().unregister(this);
     }
 
-    protected void oneGameCycle(Canvas canvas) throws InterruptedException {
+    protected void canvasCycle() {
+        Canvas canvas = null;
+
+        try {
+            canvas = surfaceHolder.lockCanvas();
+            gameCycle(canvas);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+
+        } finally {
+            unlockCanvasAndPost(canvas);
+        }
+    }
+
+    protected void gameCycle(Canvas canvas) throws InterruptedException {
         if (canvas != null) {
             measuredCycleCore(canvas);
             sleepToKeepFps();
@@ -109,7 +126,11 @@ public class AutomatonThread extends Thread {
     @DebugLog
     private void cycleCore(Canvas canvas) {
         handleFlags();
-        stepAutomaton();
+
+        if (!paused) {
+            stepAutomaton();
+        }
+
         draw(canvas);
     }
 
