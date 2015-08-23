@@ -65,9 +65,9 @@ public class GameOfLifeTest extends UnitTestSpecification {
         automaton.setCurrentState(createGlider(automaton.getCurrentState(), 0));
         automaton.step();
 
-        assertThat(cellStateChanges.size()).isEqualTo(9);
         assertGliderCreationStateChangesCaptured();
         assertGliderStepStateChangesCaptured();
+        assertThat(cellStateChanges.size()).isEqualTo(9);
     }
 
     protected void assertGliderCreationStateChangesCaptured() {
