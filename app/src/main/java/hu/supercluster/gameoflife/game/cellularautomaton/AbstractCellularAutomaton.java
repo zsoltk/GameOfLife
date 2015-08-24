@@ -102,17 +102,6 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
     }
 
     @Override
-    public final void putCell(T cell) {
-        Grid<T> grid = getCurrentState();
-        grid.putCell(cell);
-    }
-
-    @Override
-    public final void setCurrentState(Grid<T> grid) {
-        gridHandler.setCurrent(grid);
-    }
-
-    @Override
     public final Grid<T> getCurrentState() {
         return gridHandler.getCurrent();
     }

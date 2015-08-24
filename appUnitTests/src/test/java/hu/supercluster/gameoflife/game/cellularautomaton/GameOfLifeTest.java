@@ -19,12 +19,12 @@ import hu.supercluster.gameoflife.util.EventBus;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class GameOfLifeTest extends UnitTestSpecification {
-    AbstractCellularAutomaton<SimpleCell> automaton;
+    TestAutomaton automaton;
     List<CellStateChange> cellStateChanges;
 
     @Before
     public void setup() {
-        automaton = new GameOfLife(5, 5);
+        automaton = new TestAutomaton(5, 5);
         cellStateChanges = new ArrayList<>();
         EventBus.getInstance().register(this);
     }
@@ -83,5 +83,15 @@ public class GameOfLifeTest extends UnitTestSpecification {
         assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(2, 0, Cell.STATE_DEAD)))).isEqualTo(true);
         assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(0, 1, Cell.STATE_DEAD)))).isEqualTo(true);
         assertThat(cellStateChanges.contains(new CellStateChange(new SimpleCell(3, 1, Cell.STATE_ALIVE)))).isEqualTo(true);
+    }
+
+    private static class TestAutomaton extends GameOfLife {
+        public TestAutomaton(int gridSizeX, int gridSizeY) {
+            super(gridSizeX, gridSizeY);
+        }
+
+        public final void setCurrentState(Grid<SimpleCell> grid) {
+            gridHandler.setCurrent(grid);
+        }
     }
 }

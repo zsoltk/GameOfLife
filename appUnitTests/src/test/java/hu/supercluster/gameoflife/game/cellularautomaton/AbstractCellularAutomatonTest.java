@@ -17,26 +17,12 @@ import hu.supercluster.gameoflife.util.EventBus;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class AbstractCellularAutomatonTest extends UnitTestSpecification {
-    AbstractCellularAutomaton<GrowableCell> automaton;
+    TestAutomaton automaton;
 
     @Before
     public void setup() {
-        automaton = createAbstractCellularAutomaton();
+        automaton = new TestAutomaton(5, 5);
         EventBus.getInstance().register(this);
-    }
-
-    protected AbstractCellularAutomaton<GrowableCell> createAbstractCellularAutomaton() {
-        return new AbstractCellularAutomaton<GrowableCell>(5, 5) {
-            @Override
-            protected CellFactory<GrowableCell> getFactory() {
-                return new GrowableCellFactory();
-            }
-
-            @Override
-            protected Rule<GrowableCell> createRule() {
-                return new SimpleIncrementingRule();
-            }
-        };
     }
 
     @After
@@ -70,5 +56,26 @@ public class AbstractCellularAutomatonTest extends UnitTestSpecification {
 
         automaton.putCell(new GrowableCell(0, 0, Cell.STATE_ALIVE));
         assertThat(automaton.getCurrentState()).isEqualTo(grid);
+    }
+
+    private static class TestAutomaton extends AbstractCellularAutomaton<GrowableCell> {
+        public TestAutomaton(int gridSizeX, int gridSizeY) {
+            super(gridSizeX, gridSizeY);
+        }
+
+        @Override
+        protected CellFactory<GrowableCell> getFactory() {
+            return new GrowableCellFactory();
+        }
+
+        @Override
+        protected Rule<GrowableCell> createRule() {
+            return new SimpleIncrementingRule();
+        }
+
+        public final void putCell(GrowableCell cell) {
+            Grid<GrowableCell> grid = getCurrentState();
+            grid.putCell(cell);
+        }
     }
 }
