@@ -9,6 +9,7 @@ public interface CellularAutomaton<T extends Cell> {
     int getSizeY();
     void reset();
     void randomFill(Fill fill);
+    int getDefaultCellState();
     void step();
     void step(int count);
     void putCell(T cell);

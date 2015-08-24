@@ -14,10 +14,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.event.CellStateChange;
 import hu.supercluster.gameoflife.game.event.Pause;
-import hu.supercluster.gameoflife.game.event.Resume;
-import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.event.Reset;
 import hu.supercluster.gameoflife.game.event.Restart;
+import hu.supercluster.gameoflife.game.event.Resume;
+import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.painter.CellPainter;
 import hu.supercluster.gameoflife.util.EventBus;
 import hugo.weaving.DebugLog;
@@ -143,7 +143,16 @@ public class AutomatonThread extends Thread {
     private void handleReset() {
         if (shouldReset) {
             automaton.reset();
+            clearCanvas(automaton.getDefaultCellState());
         }
+    }
+
+    private void clearCanvas(int state) {
+        final int sizeX = automaton.getSizeX();
+        final int sizeY = automaton.getSizeY();
+        Rect rect = new Rect(0, 0, (sizeX + 1) * cellSizeInPixels, (sizeY + 1) * cellSizeInPixels);
+        Paint paint = cellPainter.getPaint(state);
+        buffCanvas.drawRect(rect, paint);
     }
 
     private void handleRestart() {

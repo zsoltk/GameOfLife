@@ -20,6 +20,12 @@ public class SimpleCell implements Cell {
     }
 
     @Override
+    public void reset(int state) {
+        this.state = state;
+        neighborCount = 0;
+    }
+
+    @Override
     public long getId() {
         return id;
     }

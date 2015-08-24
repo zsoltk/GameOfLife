@@ -65,9 +65,14 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
 
         for (int j = 0; j < gridSizeY; j++) {
             for (int i = 0; i < gridSizeX; i++) {
-                grid.getCell(i, j).setState(newBornCell.getState());
+                grid.getCell(i, j).reset(newBornCell.getState());
             }
         }
+    }
+
+    @Override
+    public int getDefaultCellState() {
+        return getFactory().create(0, 0).getState();
     }
 
     @Override

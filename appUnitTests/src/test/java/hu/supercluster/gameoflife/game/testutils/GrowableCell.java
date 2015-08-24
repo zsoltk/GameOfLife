@@ -19,6 +19,11 @@ public class GrowableCell implements Cell {
     }
 
     @Override
+    public void reset(int state) {
+        this.state = state;
+    }
+
+    @Override
     public long getId() {
         return id;
     }
