@@ -29,6 +29,18 @@ public class MainActivity extends Activity {
     @ViewById
     ImageButton reset, restart, changeRules, pause, resume;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onActivityResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.onActivityPause();
+    }
+
     @AfterViews
     void afterViews() {
         presenter.createGame();

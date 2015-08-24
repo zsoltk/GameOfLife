@@ -33,9 +33,12 @@ public class MainPresenter {
     @RootContext
     MainActivity activity;
 
-    @AfterInject
-    void registerOnEventBus() {
+    void onActivityResume() {
         EventBus.getInstance().register(this);
+    }
+
+    void onActivityPause() {
+        EventBus.getInstance().unregister(this);
     }
 
     protected void createGame() {
