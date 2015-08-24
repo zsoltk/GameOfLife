@@ -13,4 +13,5 @@ public interface Cell {
     boolean isAlive();
     boolean isDead();
     void onNeighborStateChange(int newState);
+    void setOverseer(Overseer overseer);
 }

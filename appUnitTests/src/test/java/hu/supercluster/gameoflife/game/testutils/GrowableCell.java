@@ -3,6 +3,7 @@ package hu.supercluster.gameoflife.game.testutils;
 import java.util.concurrent.atomic.AtomicLong;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
+import hu.supercluster.gameoflife.game.cell.Overseer;
 
 public class GrowableCell implements Cell {
     static final AtomicLong NEXT_ID = new AtomicLong(0);
@@ -11,11 +12,17 @@ public class GrowableCell implements Cell {
     final int x;
     final int y;
     int state;
+    Overseer overseer;
 
     public GrowableCell(int x, int y, int state) {
         this.x = x;
         this.y = y;
         this.state = state;
+    }
+
+    @Override
+    public void setOverseer(Overseer overseer) {
+        this.overseer = overseer;
     }
 
     @Override

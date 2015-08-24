@@ -1,16 +1,15 @@
 package hu.supercluster.gameoflife.game.grid;
 
-import com.squareup.otto.Subscribe;
-
 import java.util.HashSet;
 import java.util.Set;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.CellFactory;
+import hu.supercluster.gameoflife.game.cell.Overseer;
 import hu.supercluster.gameoflife.game.event.CellStateChange;
 import hu.supercluster.gameoflife.util.EventBus;
 
-public class EndlessGrid<T extends Cell> implements Grid<T> {
+public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer{
     protected final int sizeX;
     protected final int sizeY;
     protected final T[][] cells;
@@ -22,7 +21,6 @@ public class EndlessGrid<T extends Cell> implements Grid<T> {
         cells = (T[][]) new Cell[sizeY][sizeX];
         cellIds = new HashSet<>(sizeY * sizeX);
         createCells(sizeX, sizeY, cellFactory);
-        EventBus.getInstance().register(this);
     }
 
     public EndlessGrid(Grid<T> other, CellFactory<T> cellFactory) {
@@ -52,6 +50,12 @@ public class EndlessGrid<T extends Cell> implements Grid<T> {
         int y = normalizeY(cell.getY());
         int x = normalizeX(cell.getX());
         maintainIds(cell, x, y);
+        cell.setOverseer(this);
+
+        if (cells[y][x] != null) {
+            cells[y][x].setOverseer(null);
+        }
+
         cells[y][x] = cell;
     }
 
@@ -63,8 +67,10 @@ public class EndlessGrid<T extends Cell> implements Grid<T> {
         cellIds.add(cell.getId());
     }
 
-    @Subscribe
-    public void onEvent(CellStateChange cellStateChange) {
+    @Override
+    public void onCellStateChanged(CellStateChange cellStateChange) {
+        EventBus.getInstance().post(cellStateChange);
+
         if (cellIds.contains(cellStateChange.cell.getId())) {
             notifyNeighbors(cellStateChange.cell);
         }

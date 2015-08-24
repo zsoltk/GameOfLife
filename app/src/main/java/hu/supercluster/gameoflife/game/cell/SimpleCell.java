@@ -3,7 +3,6 @@ package hu.supercluster.gameoflife.game.cell;
 import java.util.concurrent.atomic.AtomicLong;
 
 import hu.supercluster.gameoflife.game.event.CellStateChange;
-import hu.supercluster.gameoflife.util.EventBus;
 
 public class SimpleCell implements Cell {
     static final AtomicLong NEXT_ID = new AtomicLong(0);
@@ -12,11 +11,17 @@ public class SimpleCell implements Cell {
     final int y;
     int state;
     int neighborCount;
+    Overseer overseer;
 
     public SimpleCell(int x, int y, int state) {
         this.x = x;
         this.y = y;
         this.state = state;
+    }
+
+    @Override
+    public void setOverseer(Overseer overseer) {
+        this.overseer = overseer;
     }
 
     @Override
@@ -50,8 +55,8 @@ public class SimpleCell implements Cell {
         int oldState = this.state;
         this.state = newState;
 
-        if (newState != oldState) {
-            EventBus.getInstance().post(new CellStateChange(this));
+        if (newState != oldState && overseer != null) {
+            overseer.onCellStateChanged(new CellStateChange(this));
         }
     }
 
