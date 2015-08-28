@@ -18,7 +18,7 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
     private int[][] stateChanges;
 
     public ThreadedGridTransformer() {
-        this(4);
+        this(2 * Runtime.getRuntime().availableProcessors());
     }
 
     public ThreadedGridTransformer(int threadCount) {
