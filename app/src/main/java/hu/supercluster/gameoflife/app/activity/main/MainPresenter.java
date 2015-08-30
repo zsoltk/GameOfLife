@@ -93,6 +93,7 @@ public class MainPresenter {
     }
 
     void onResetGame() {
+        onPause();
         EventBus.getInstance().post(new Reset());
     }
 
