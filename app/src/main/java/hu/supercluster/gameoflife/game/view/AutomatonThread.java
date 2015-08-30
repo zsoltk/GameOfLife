@@ -31,6 +31,7 @@ import hugo.weaving.DebugLog;
 public class AutomatonThread extends Thread {
     private final CellularAutomaton automaton;
     private final SurfaceHolder surfaceHolder;
+    private final CoordinateTranslator translator;
     private final int cellSizeInPixels;
     private final int timeForAFrame;
     private final CellPainter cellPainter;
@@ -45,6 +46,7 @@ public class AutomatonThread extends Thread {
     private Canvas buffCanvas;
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, GameParams params) {
+        translator = new CoordinateTranslator(params.getScreenOrientation(), automaton.getSizeX(), automaton.getSizeY());
         cellStateChanges = new LinkedBlockingQueue<>();
         this.automaton = automaton;
         this.params = params;
@@ -75,7 +77,7 @@ public class AutomatonThread extends Thread {
     }
 
     private void paintCell(int i, int j, int cellState) {
-        Point p = translate(new Point(i, j));
+        Point p = translator.translate(new Point(i, j));
         int x = p.x;
         int y = p.y;
 
@@ -90,33 +92,9 @@ public class AutomatonThread extends Thread {
         buffCanvas.drawRect(rect, paint);
     }
 
-    private Point translate(Point p) {
-        switch (params.getScreenOrientation()) {
-            case Surface.ROTATION_0: return p;
-            case Surface.ROTATION_90: return new Point(p.y, automaton.getSizeX() - p.x);
-            case Surface.ROTATION_180: return new Point(automaton.getSizeX() - p.x, automaton.getSizeY() - p.y);
-            case Surface.ROTATION_270: return new Point(automaton.getSizeY() - p.y, p.x);
-
-            default:
-                throw new AssertionError();
-        }
-    }
-
-    private Point reverseTranslate(Point p) {
-        switch (params.getScreenOrientation()) {
-            case Surface.ROTATION_0: return p;
-            case Surface.ROTATION_90: return new Point(automaton.getSizeX() - p.y, p.x);
-            case Surface.ROTATION_180: return new Point(automaton.getSizeY() - p.x, automaton.getSizeX() - p.y);
-            case Surface.ROTATION_270: return new Point(p.y, automaton.getSizeY() - p.x);
-
-            default:
-                throw new AssertionError();
-        }
-    }
-
     @Subscribe
     synchronized public void onEvent(PaintWithBrush event) {
-        final Point p = reverseTranslate(new Point(event.x, event.y));
+        final Point p = translator.reverseTranslate(new Point(event.x, event.y));
         Grid grid = automaton.getCurrentState();
         grid.getCell(p.x,     p.y).setState(Cell.STATE_ALIVE);
         grid.getCell(p.x + 1, p.y).setState(Cell.STATE_ALIVE);
@@ -262,6 +240,42 @@ public class AutomatonThread extends Thread {
     private void unlockCanvasAndPost(Canvas canvas) {
         if (canvas != null) {
             surfaceHolder.unlockCanvasAndPost(canvas);
+        }
+    }
+
+    private static class CoordinateTranslator {
+        private final int screenOrientation;
+        private final int automatonSizeX;
+        private final int automatonSizeY;
+
+        private CoordinateTranslator(int screenOrientation, int automatonSizeX, int automatonSizeY) {
+            this.screenOrientation = screenOrientation;
+            this.automatonSizeX = automatonSizeX;
+            this.automatonSizeY = automatonSizeY;
+        }
+
+        private Point translate(Point p) {
+            switch (screenOrientation) {
+                case Surface.ROTATION_0: return p;
+                case Surface.ROTATION_90: return new Point(p.y, automatonSizeX - p.x);
+                case Surface.ROTATION_180: return new Point(automatonSizeX - p.x, automatonSizeY - p.y);
+                case Surface.ROTATION_270: return new Point(automatonSizeY - p.y, p.x);
+
+                default:
+                    throw new AssertionError();
+            }
+        }
+
+        private Point reverseTranslate(Point p) {
+            switch (screenOrientation) {
+                case Surface.ROTATION_0: return p;
+                case Surface.ROTATION_90: return new Point(automatonSizeX - p.y, p.x);
+                case Surface.ROTATION_180: return new Point(automatonSizeY - p.x, automatonSizeX - p.y);
+                case Surface.ROTATION_270: return new Point(p.y, automatonSizeY - p.x);
+
+                default:
+                    throw new AssertionError();
+            }
         }
     }
 }
