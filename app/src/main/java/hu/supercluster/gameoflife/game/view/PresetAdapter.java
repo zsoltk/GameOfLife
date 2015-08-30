@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import hu.supercluster.gameoflife.R;
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
@@ -34,11 +35,11 @@ public class PresetAdapter extends ArrayAdapter<Preset> {
     }
 
     @NonNull
-    private static HashSet<Integer> set(Integer... ints) {
+    private static Set<Integer> set(Integer... ints) {
         return new HashSet<>(Arrays.asList(ints));
     }
 
-    private static NeighborCountBasedRule createRule(HashSet<Integer> survivalNbCounts, HashSet<Integer> creationNbCounts) {
+    private static NeighborCountBasedRule createRule(Set<Integer> survivalNbCounts, Set<Integer> creationNbCounts) {
         return new NeighborCountBasedRule(survivalNbCounts, creationNbCounts);
     }
 }
