@@ -202,7 +202,7 @@ public class AutomatonThread extends Thread {
 
     private void clearCanvas(int state) {
         final Point displaySize = params.getDisplaySize();
-        Rect rect = new Rect(0, 0, displaySize.x - 1, displaySize.y - 1);
+        Rect rect = new Rect(0, 0, displaySize.x, displaySize.y);
         Paint paint = cellPainter.getPaint(state);
         buffCanvas.drawRect(rect, paint);
     }
