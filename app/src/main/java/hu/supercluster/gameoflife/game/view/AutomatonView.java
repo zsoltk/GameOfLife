@@ -6,10 +6,10 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
+import hu.supercluster.gameoflife.game.event.PaintWithBrush;
 import hu.supercluster.gameoflife.game.manager.GameParams;
-import hu.supercluster.gameoflife.game.grid.Grid;
+import hu.supercluster.gameoflife.util.EventBus;
 import hugo.weaving.DebugLog;
 
 public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback {
@@ -75,19 +75,15 @@ public class AutomatonView extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        paintBlock(event);
+        paint(event);
 
         return true;
     }
 
-    protected void paintBlock(MotionEvent event) {
+    protected void paint(MotionEvent event) {
         int x = Math.round(event.getX() / params.getCellSizeInPixels());
         int y = Math.round(event.getY() / params.getCellSizeInPixels());
 
-        Grid grid = automaton.getCurrentState();
-        grid.getCell(x, y).setState(Cell.STATE_ALIVE);
-        grid.getCell(x + 1, y).setState(Cell.STATE_ALIVE);
-        grid.getCell(x, y + 1).setState(Cell.STATE_ALIVE);
-        grid.getCell(x + 1, y + 1).setState(Cell.STATE_ALIVE);
+        EventBus.getInstance().post(new PaintWithBrush(x, y));
     }
 }

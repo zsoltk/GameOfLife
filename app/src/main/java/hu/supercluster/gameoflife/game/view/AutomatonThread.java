@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 
@@ -13,8 +14,10 @@ import com.squareup.otto.Subscribe;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.event.CellStateChange;
+import hu.supercluster.gameoflife.game.event.PaintWithBrush;
 import hu.supercluster.gameoflife.game.event.Pause;
 import hu.supercluster.gameoflife.game.event.Reset;
 import hu.supercluster.gameoflife.game.event.Restart;
@@ -23,6 +26,7 @@ import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.painter.CellPainter;
 import hu.supercluster.gameoflife.util.EventBus;
+import hugo.weaving.DebugLog;
 
 public class AutomatonThread extends Thread {
     private final CellularAutomaton automaton;
@@ -96,6 +100,28 @@ public class AutomatonThread extends Thread {
             default:
                 throw new AssertionError();
         }
+    }
+
+    private Point reverseTranslate(Point p) {
+        switch (params.getScreenOrientation()) {
+            case Surface.ROTATION_0: return p;
+            case Surface.ROTATION_90: return new Point(automaton.getSizeX() - p.y, p.x);
+            case Surface.ROTATION_180: return new Point(automaton.getSizeY() - p.x, automaton.getSizeX() - p.y);
+            case Surface.ROTATION_270: return new Point(p.y, automaton.getSizeY() - p.x);
+
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    @Subscribe
+    synchronized public void onEvent(PaintWithBrush event) {
+        final Point p = reverseTranslate(new Point(event.x, event.y));
+        Grid grid = automaton.getCurrentState();
+        grid.getCell(p.x,     p.y).setState(Cell.STATE_ALIVE);
+        grid.getCell(p.x + 1, p.y).setState(Cell.STATE_ALIVE);
+        grid.getCell(p.x,     p.y + 1).setState(Cell.STATE_ALIVE);
+        grid.getCell(p.x + 1, p.y + 1).setState(Cell.STATE_ALIVE);
     }
 
     @Subscribe
