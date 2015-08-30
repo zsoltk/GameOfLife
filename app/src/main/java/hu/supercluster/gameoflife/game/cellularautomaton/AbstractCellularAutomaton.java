@@ -1,5 +1,7 @@
 package hu.supercluster.gameoflife.game.cellularautomaton;
 
+import android.os.Parcel;
+
 import java.util.Random;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
@@ -7,14 +9,15 @@ import hu.supercluster.gameoflife.game.cell.CellFactory;
 import hu.supercluster.gameoflife.game.grid.EndlessGridHandler;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.game.grid.GridHandler;
-import hu.supercluster.gameoflife.game.transformer.GridTransformer;
 import hu.supercluster.gameoflife.game.rule.Rule;
+import hu.supercluster.gameoflife.game.transformer.GridTransformer;
 import hu.supercluster.gameoflife.game.transformer.ThreadedGridTransformer;
+import hugo.weaving.DebugLog;
 
 abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAutomaton<T> {
-    protected final int gridSizeX;
-    protected final int gridSizeY;
-    final GridHandler<T> gridHandler;
+    protected int gridSizeX;
+    protected int gridSizeY;
+    GridHandler<T> gridHandler;
     final GridTransformer<T> gridTransformer;
     Rule<T> rule;
 
@@ -104,5 +107,39 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
     @Override
     public final Grid<T> getCurrentState() {
         return gridHandler.getCurrent();
+    }
+
+    @Override
+    @DebugLog
+    public void setState(Grid<T> grid) {
+        gridHandler.setCurrent(grid);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.gridSizeX);
+        dest.writeInt(this.gridSizeY);
+        dest.writeSerializable(this.rule);
+        final Grid<T> currentState = getCurrentState();
+        dest.writeSerializable(currentState.getClass());
+        dest.writeParcelable(currentState, flags);
+    }
+
+    protected AbstractCellularAutomaton(Parcel in) {
+        gridHandler = getGridHandler();
+        gridTransformer = getGridTransformer();
+
+        this.gridSizeX = in.readInt();
+        this.gridSizeY = in.readInt();
+        this.rule = (Rule<T>) in.readSerializable();
+        final Class<Grid<T>> gridClass = (Class<Grid<T>>) in.readSerializable();
+        final Grid<T> grid = in.readParcelable(gridClass.getClassLoader());
+
+        gridHandler.setCurrent(grid);
     }
 }

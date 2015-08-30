@@ -1,37 +1,42 @@
 package hu.supercluster.gameoflife.app.activity.main;
 
-import android.graphics.Point;
-import android.view.Display;
+import android.os.Bundle;
 
 import com.squareup.otto.Subscribe;
 
-import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import hu.supercluster.gameoflife.game.event.Pause;
-import hu.supercluster.gameoflife.game.event.Resume;
-import hu.supercluster.gameoflife.game.view.ChangeRulesDialogFragment;
+import hu.supercluster.gameoflife.app.util.DisplayHelper;
 import hu.supercluster.gameoflife.game.cell.Cell;
-import hu.supercluster.gameoflife.game.cellularautomaton.GameOfLifeFactory;
+import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cellularautomaton.Fill;
+import hu.supercluster.gameoflife.game.cellularautomaton.GameOfLifeFactory;
+import hu.supercluster.gameoflife.game.event.Pause;
+import hu.supercluster.gameoflife.game.event.Reset;
+import hu.supercluster.gameoflife.game.event.Restart;
+import hu.supercluster.gameoflife.game.event.Resume;
 import hu.supercluster.gameoflife.game.manager.GameManager;
 import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.manager.GameParamsBuilder;
-import hu.supercluster.gameoflife.game.event.Reset;
-import hu.supercluster.gameoflife.game.event.Restart;
 import hu.supercluster.gameoflife.game.painter.SimpleCellPainter;
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
+import hu.supercluster.gameoflife.game.view.ChangeRulesDialogFragment;
 import hu.supercluster.gameoflife.util.EventBus;
 
-import static android.view.View.*;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 @EBean
 public class MainPresenter {
-    private GameManager gameManager;
+    GameManager gameManager;
 
     @RootContext
     MainActivity activity;
+
+    @Bean
+    DisplayHelper displayHelper;
 
     void onActivityResume() {
         EventBus.getInstance().register(this);
@@ -41,30 +46,34 @@ public class MainPresenter {
         EventBus.getInstance().unregister(this);
     }
 
-    protected void createGame() {
+    public Bundle saveGameState() {
+        return gameManager.saveGameState();
+    }
+
+    void startGame() {
         GameParams gameParams = GameParamsBuilder.create()
-                .setDisplaySize(getDisplaySize())
+                .setScreenOrientation(displayHelper.getScreenOrientation())
+                .setDisplaySize(displayHelper.getDisplaySize())
                 .setCellSizeInPixels(6)
                 .setFill(new Fill(0.10f, Cell.STATE_ALIVE))
                 .setCellPainter(new SimpleCellPainter())
                 .setFps(15)
-                .build();
+                .startPaused(activity.paused)
+                .build()
+        ;
 
         gameManager = new GameManager(
+                activity.gameState,
                 activity.automatonView,
                 new GameOfLifeFactory(),
                 gameParams
         );
 
         gameManager.createGame();
-    }
 
-    private Point getDisplaySize() {
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        return size;
+        if (activity.paused) {
+            onPause();
+        }
     }
 
     void onPause() {

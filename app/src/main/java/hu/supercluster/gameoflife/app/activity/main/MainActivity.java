@@ -1,10 +1,8 @@
 package hu.supercluster.gameoflife.app.activity.main;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.widget.ImageButton;
-
-import hu.supercluster.gameoflife.R;
-import hu.supercluster.gameoflife.game.view.AutomatonView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -14,11 +12,18 @@ import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
+import hu.supercluster.gameoflife.R;
+import hu.supercluster.gameoflife.game.view.AutomatonView;
+import hugo.weaving.DebugLog;
+
 @EActivity(R.layout.activity_main)
 @Fullscreen
 public class MainActivity extends Activity {
     @InstanceState
     boolean paused;
+
+    @InstanceState
+    Bundle gameState;
 
     @Bean
     MainPresenter presenter;
@@ -28,6 +33,19 @@ public class MainActivity extends Activity {
 
     @ViewById
     ImageButton reset, restart, changeRules, pause, resume;
+
+
+    @Override
+    @DebugLog
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        gameState = presenter.saveGameState();
+    }
+
+    @AfterViews
+    void afterViews() {
+        presenter.startGame();
+    }
 
     @Override
     protected void onResume() {
@@ -39,11 +57,6 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
         presenter.onActivityPause();
-    }
-
-    @AfterViews
-    void afterViews() {
-        presenter.createGame();
     }
 
     @Click

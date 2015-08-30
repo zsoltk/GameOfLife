@@ -6,14 +6,21 @@ import hu.supercluster.gameoflife.game.cellularautomaton.Fill;
 import hu.supercluster.gameoflife.game.painter.CellPainter;
 
 public class GameParamsBuilder {
+    private int screenOrientation;
     private Point displaySize;
     private int cellSizeInPixels;
     private Fill fill;
     private CellPainter cellPainter;
     private int fps;
+    private boolean startPaused;
 
     public static GameParamsBuilder create() {
         return new GameParamsBuilder();
+    }
+
+    public GameParamsBuilder setScreenOrientation(int screenOrientation) {
+        this.screenOrientation = screenOrientation;
+        return this;
     }
 
     public GameParamsBuilder setDisplaySize(Point displaySize) {
@@ -41,7 +48,12 @@ public class GameParamsBuilder {
         return this;
     }
 
+    public GameParamsBuilder startPaused(boolean startPaused) {
+        this.startPaused = startPaused;
+        return this;
+    }
+
     public GameParams build() {
-        return new GameParams(displaySize, cellSizeInPixels, fill, cellPainter, fps);
+        return new GameParams(screenOrientation, displaySize, cellSizeInPixels, fill, cellPainter, fps, startPaused);
     }
 }

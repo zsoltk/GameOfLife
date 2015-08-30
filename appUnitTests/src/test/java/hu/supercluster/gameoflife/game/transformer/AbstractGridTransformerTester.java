@@ -47,7 +47,7 @@ public abstract class AbstractGridTransformerTester extends UnitTestSpecificatio
         for (int y = 0; y < grid.getSizeY(); y++) {
             for (int x = 0; x < grid.getSizeX(); x++) {
                 Cell cell = grid.getCell(x, y);
-                cell.setState(cell.getState() + increment);
+                cell.setState((byte) (cell.getState() + increment));
             }
         }
 

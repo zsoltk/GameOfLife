@@ -1,15 +1,22 @@
 package hu.supercluster.gameoflife.game.grid;
 
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.CellFactory;
 import hu.supercluster.gameoflife.game.cell.Overseer;
+import hu.supercluster.gameoflife.game.cell.SimpleCell;
 import hu.supercluster.gameoflife.game.event.CellStateChange;
 import hu.supercluster.gameoflife.util.EventBus;
 
-public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer{
+public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer {
+    private final CellFactory<T> cellFactory;
     protected final int sizeX;
     protected final int sizeY;
     protected final T[][] cells;
@@ -18,6 +25,7 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer{
     public EndlessGrid(int sizeX, int sizeY, CellFactory<T> cellFactory) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        this.cellFactory = cellFactory;
         cells = (T[][]) new Cell[sizeY][sizeX];
         cellIds = new HashSet<>(sizeY * sizeX);
         createCells(sizeX, sizeY, cellFactory);
@@ -163,4 +171,55 @@ public class EndlessGrid<T extends Cell> implements Grid<T>, Overseer{
 
         return result;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeSerializable(cellFactory);
+        dest.writeInt(this.sizeX);
+        dest.writeInt(this.sizeY);
+
+        final T dummy = (T) cells[0][0];
+        dest.writeInt(cellFactory.flatten(dummy).length);
+
+        for (int j = 0; j < getSizeY(); j++) {
+            for (int i = 0; i < getSizeX(); i++) {
+                dest.writeIntArray(cellFactory.flatten(cells[j][i]));
+            }
+        }
+    }
+
+    protected EndlessGrid(Parcel in) {
+        this.cellFactory = (CellFactory<T>) in.readSerializable();
+        this.sizeX = in.readInt();
+        this.sizeY = in.readInt();
+        int flattenedLength = in.readInt();
+
+        cells = (T[][]) new Cell[sizeY][sizeX];
+        cellIds = new HashSet<>(sizeY * sizeX);
+
+
+        for (int j = 0; j < getSizeY(); j++) {
+            for (int i = 0; i < getSizeX(); i++) {
+                final int[] flattened = new int[flattenedLength];
+                in.readIntArray(flattened);
+                final T cell = cellFactory.inflate(flattened);
+                putCell(cell);
+            }
+        }
+    }
+
+    public static final Creator<EndlessGrid> CREATOR = new Creator<EndlessGrid>() {
+        public EndlessGrid createFromParcel(Parcel source) {
+            return new EndlessGrid(source);
+        }
+
+        public EndlessGrid[] newArray(int size) {
+            return new EndlessGrid[size];
+        }
+    };
 }

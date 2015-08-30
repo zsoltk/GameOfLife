@@ -9,7 +9,6 @@ import java.util.concurrent.Executors;
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.game.rule.Rule;
-import hugo.weaving.DebugLog;
 
 public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<T> {
     private final int threadCount;
@@ -48,7 +47,6 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
         }
     }
 
-    @DebugLog
     protected void doTransform(Grid<T> grid, Rule<T> rule) {
         resetLatch();
         threadedCompute(grid, rule);
@@ -63,7 +61,6 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
         countDownLatch = new CountDownLatch(threadCount);
     }
 
-    @DebugLog
     private void threadedCompute(final Grid<T> grid, final Rule<T> rule) {
         final int slice = grid.getSizeX() / threadCount;
 
@@ -91,7 +88,6 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
         return new Point(maxX, grid.getSizeY());
     }
 
-    @DebugLog
     protected void computeNewGrid(Grid<T> grid, Rule<T> rule, Point min, Point max) {
         for (int j = min.y; j < max.y; j++) {
             for (int i = min.x; i < max.x; i++) {
@@ -100,7 +96,6 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
         }
     }
 
-    @DebugLog
     private void awaitLatch() {
         try {
             countDownLatch.await();
@@ -110,7 +105,6 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
         }
     }
 
-    @DebugLog
     private void threadedApply(final Grid<T> grid, final Rule<T> rule) {
         final int slice = grid.getSizeX() / threadCount;
 
@@ -126,7 +120,6 @@ public class ThreadedGridTransformer<T extends Cell> implements GridTransformer<
         }
     }
 
-    @DebugLog
     protected void applyNewGrid(Grid<T> grid, Point min, Point max) {
         for (int j = min.y; j < max.y; j++) {
             for (int i = min.x; i < max.x; i++) {

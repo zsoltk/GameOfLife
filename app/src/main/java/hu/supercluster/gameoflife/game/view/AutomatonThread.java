@@ -3,7 +3,9 @@ package hu.supercluster.gameoflife.game.view;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import com.squareup.otto.Subscribe;
@@ -17,10 +19,10 @@ import hu.supercluster.gameoflife.game.event.Pause;
 import hu.supercluster.gameoflife.game.event.Reset;
 import hu.supercluster.gameoflife.game.event.Restart;
 import hu.supercluster.gameoflife.game.event.Resume;
+import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.painter.CellPainter;
 import hu.supercluster.gameoflife.util.EventBus;
-import hugo.weaving.DebugLog;
 
 public class AutomatonThread extends Thread {
     private final CellularAutomaton automaton;
@@ -46,10 +48,54 @@ public class AutomatonThread extends Thread {
         this.cellSizeInPixels = params.getCellSizeInPixels();
         timeForAFrame = 1000 / params.getFps();
         cellPainter = params.getCellPainter();
+        paused = params.startPaused();
+        createBuffCanvas();
+        initialDraw();
+    }
 
-        buffCanvasBitmap = Bitmap.createBitmap(automaton.getSizeX() * cellSizeInPixels, automaton.getSizeY() * cellSizeInPixels, Bitmap.Config.ARGB_8888);
+    protected void createBuffCanvas() {
+        final Point displaySize = params.getDisplaySize();
+        buffCanvasBitmap = Bitmap.createBitmap(displaySize.x, displaySize.y, Bitmap.Config.ARGB_8888);
         buffCanvas = new Canvas();
         buffCanvas.setBitmap(buffCanvasBitmap);
+    }
+
+    private void initialDraw() {
+        final Grid grid = automaton.getCurrentState();
+
+        for (int j = 0; j < grid.getSizeY(); j++) {
+            for (int i = 0; i < grid.getSizeX(); i++) {
+                paintCell(i, j, grid.getCell(i, j).getState());
+            }
+        }
+    }
+
+    private void paintCell(int i, int j, int cellState) {
+        Point p = translate(new Point(i, j));
+        int x = p.x;
+        int y = p.y;
+
+        Paint paint = cellPainter.getPaint(cellState);
+        Rect rect = new Rect(
+                x * cellSizeInPixels,
+                y * cellSizeInPixels,
+                (x + 1) * cellSizeInPixels,
+                (y + 1) * cellSizeInPixels
+        );
+
+        buffCanvas.drawRect(rect, paint);
+    }
+
+    private Point translate(Point p) {
+        switch (params.getScreenOrientation()) {
+            case Surface.ROTATION_0: return p;
+            case Surface.ROTATION_90: return new Point(p.y, automaton.getSizeX() - p.x);
+            case Surface.ROTATION_180: return new Point(automaton.getSizeX() - p.x, automaton.getSizeY() - p.y);
+            case Surface.ROTATION_270: return new Point(automaton.getSizeY() - p.y, p.x);
+
+            default:
+                throw new AssertionError();
+        }
     }
 
     @Subscribe
@@ -123,7 +169,6 @@ public class AutomatonThread extends Thread {
         }
     }
 
-    @DebugLog
     private void cycleCore(Canvas canvas) {
         handleFlags();
 
@@ -142,24 +187,24 @@ public class AutomatonThread extends Thread {
 
     private void handleReset() {
         if (shouldReset) {
-            automaton.reset();
             clearCanvas(automaton.getDefaultCellState());
+            automaton.reset();
         }
-    }
-
-    private void clearCanvas(int state) {
-        final int sizeX = automaton.getSizeX();
-        final int sizeY = automaton.getSizeY();
-        Rect rect = new Rect(0, 0, (sizeX + 1) * cellSizeInPixels, (sizeY + 1) * cellSizeInPixels);
-        Paint paint = cellPainter.getPaint(state);
-        buffCanvas.drawRect(rect, paint);
     }
 
     private void handleRestart() {
         if (shouldRestart) {
+            clearCanvas(automaton.getDefaultCellState());
             automaton.reset();
             automaton.randomFill(params.getFill());
         }
+    }
+
+    private void clearCanvas(int state) {
+        final Point displaySize = params.getDisplaySize();
+        Rect rect = new Rect(0, 0, displaySize.x - 1, displaySize.y - 1);
+        Paint paint = cellPainter.getPaint(state);
+        buffCanvas.drawRect(rect, paint);
     }
 
     private void resetFlags() {
@@ -167,36 +212,19 @@ public class AutomatonThread extends Thread {
         shouldRestart = false;
     }
 
-    @DebugLog
     private void stepAutomaton() {
         automaton.step();
     }
 
-    @DebugLog
     private void draw(Canvas canvas) {
         for (CellStateChange change : cellStateChanges) {
-            paintCell(buffCanvas, change.x, change.y, change.stateSnapshot);
+            paintCell(change.x, change.y, change.stateSnapshot);
         }
 
         cellStateChanges.clear();
         canvas.drawBitmap(buffCanvasBitmap, 0, 0, null);
     }
 
-    private void paintCell(Canvas canvas, int i, int j, int cellState) {
-        Paint paint = cellPainter.getPaint(cellState);
-        Rect rect = new Rect(
-                i*cellSizeInPixels,
-                j*cellSizeInPixels,
-                (i+1)*cellSizeInPixels,
-                (j+1)*cellSizeInPixels
-        );
-
-        if (canvas != null) {
-            canvas.drawRect(rect, paint);
-        }
-    }
-
-    @DebugLog
     private void sleepToKeepFps() throws InterruptedException {
         long sleepTime = timeForAFrame - cycleTime;
 

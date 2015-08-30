@@ -1,19 +1,27 @@
 package hu.supercluster.gameoflife.game.manager;
 
-import hu.supercluster.gameoflife.game.view.AutomatonView;
+import android.os.Bundle;
+
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomatonFactory;
+import hu.supercluster.gameoflife.game.view.AutomatonView;
 
 public class GameManager {
-    private final CellularAutomaton automaton;
+    public static final String KEY_AUTOMATON = "automaton";
     private final AutomatonView automatonView;
-    private final GameParams params;
+    private CellularAutomaton automaton;
+    private GameParams params;
 
-    public GameManager(AutomatonView automatonView, CellularAutomatonFactory factory, GameParams params) {
+    public GameManager(Bundle savedGameState, AutomatonView automatonView, CellularAutomatonFactory factory, GameParams params) {
         this.automatonView = automatonView;
         this.params = params;
 
-        automaton = createAutomaton(factory, params);
+        if (savedGameState != null) {
+            restoreGameState(savedGameState);
+
+        } else {
+            this.automaton = createAutomaton(factory, params);
+        }
     }
 
     private CellularAutomaton createAutomaton(CellularAutomatonFactory factory, GameParams params) {
@@ -39,18 +47,21 @@ public class GameManager {
         );
     }
 
-    public void pauseGame() {
-
-    }
-
-    public void resumeGame() {
-
-    }
-
     private static void initView(AutomatonView automatonView, CellularAutomaton automaton, GameParams params) {
         automatonView.init(
                 automaton,
                 params
         );
+    }
+
+    public Bundle saveGameState() {
+        Bundle gameState = new Bundle();
+        gameState.putParcelable(KEY_AUTOMATON, getAutomaton());
+
+        return gameState;
+    }
+
+    public void restoreGameState(Bundle gameState) {
+        automaton = gameState.getParcelable(KEY_AUTOMATON);
     }
 }
