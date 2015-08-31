@@ -27,7 +27,7 @@ import hu.supercluster.gameoflife.game.visualization.cell.CellColors;
 import hu.supercluster.gameoflife.game.visualization.brush.DefaultBlockBrush;
 import hu.supercluster.gameoflife.util.EventBus;
 
-public class AutomatonThread extends Thread {
+class AutomatonThread extends Thread {
     private final CellularAutomaton automaton;
     private final SurfaceHolder surfaceHolder;
     private final CoordinateTranslator translator;
