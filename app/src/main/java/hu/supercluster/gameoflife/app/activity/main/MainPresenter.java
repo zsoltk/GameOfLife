@@ -21,7 +21,7 @@ import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.manager.GameParamsBuilder;
 import hu.supercluster.gameoflife.game.visualization.cell.SimpleCellColors;
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
-import hu.supercluster.gameoflife.game.view.ChangeRulesDialogFragment;
+import hu.supercluster.gameoflife.app.view.ChangeRulesDialogFragment;
 import hu.supercluster.gameoflife.util.EventBus;
 
 import static android.view.View.GONE;

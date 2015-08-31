@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     >
 
-    <hu.supercluster.gameoflife.game.view.AutomatonView
+    <hu.supercluster.gameoflife.app.view.AutomatonView
         android:id="@+id/automatonView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

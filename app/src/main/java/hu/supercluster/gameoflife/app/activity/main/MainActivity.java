@@ -13,7 +13,7 @@ import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
 import hu.supercluster.gameoflife.R;
-import hu.supercluster.gameoflife.game.view.AutomatonView;
+import hu.supercluster.gameoflife.app.view.AutomatonView;
 import hugo.weaving.DebugLog;
 
 @EActivity(R.layout.activity_main)

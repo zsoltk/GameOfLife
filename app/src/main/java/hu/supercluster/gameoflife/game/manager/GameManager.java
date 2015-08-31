@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomatonFactory;
-import hu.supercluster.gameoflife.game.view.AutomatonView;
+import hu.supercluster.gameoflife.app.view.AutomatonView;
 
 public class GameManager {
     public static final String KEY_AUTOMATON = "automaton";

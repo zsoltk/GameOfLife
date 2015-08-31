@@ -1,4 +1,4 @@
-package hu.supercluster.gameoflife.game.view;
+package hu.supercluster.gameoflife.app.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

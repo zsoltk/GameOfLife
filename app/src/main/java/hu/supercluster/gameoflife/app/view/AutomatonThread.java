@@ -1,4 +1,4 @@
-package hu.supercluster.gameoflife.game.view;
+package hu.supercluster.gameoflife.app.view;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
