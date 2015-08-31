@@ -142,4 +142,9 @@ abstract class AbstractCellularAutomaton<T extends Cell> implements CellularAuto
 
         gridHandler.setCurrent(grid);
     }
+
+    @Override
+    public void paint(int x, int y, int state) {
+        getCurrentState().getCell(x, y).setState(state);
+    }
 }

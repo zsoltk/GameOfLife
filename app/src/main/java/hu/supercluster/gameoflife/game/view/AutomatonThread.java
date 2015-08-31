@@ -13,7 +13,6 @@ import com.squareup.otto.Subscribe;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.event.CellStateChange;
 import hu.supercluster.gameoflife.game.event.PaintWithBrush;
@@ -23,7 +22,9 @@ import hu.supercluster.gameoflife.game.event.Restart;
 import hu.supercluster.gameoflife.game.event.Resume;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.game.manager.GameParams;
+import hu.supercluster.gameoflife.game.visualization.brush.Brush;
 import hu.supercluster.gameoflife.game.visualization.cell.CellColors;
+import hu.supercluster.gameoflife.game.visualization.brush.DefaultBlockBrush;
 import hu.supercluster.gameoflife.util.EventBus;
 
 public class AutomatonThread extends Thread {
@@ -42,6 +43,7 @@ public class AutomatonThread extends Thread {
     private Queue<CellStateChange> cellStateChanges;
     private Bitmap buffCanvasBitmap;
     private Canvas buffCanvas;
+    private Brush brush;
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, GameParams params) {
         translator = new CoordinateTranslator(params.getScreenOrientation(), automaton.getSizeX(), automaton.getSizeY());
@@ -52,6 +54,7 @@ public class AutomatonThread extends Thread {
         this.cellSizeInPixels = params.getCellSizeInPixels();
         timeForAFrame = 1000 / params.getFps();
         cellColors = params.getCellColors();
+        brush = new DefaultBlockBrush();
         paused = params.startPaused();
         createBuffCanvas();
         initialDraw();
@@ -93,11 +96,7 @@ public class AutomatonThread extends Thread {
     @Subscribe
     synchronized public void onEvent(PaintWithBrush event) {
         final Point p = translator.reverseTranslate(new Point(event.x, event.y));
-        Grid grid = automaton.getCurrentState();
-        grid.getCell(p.x,     p.y).setState(Cell.STATE_ALIVE);
-        grid.getCell(p.x + 1, p.y).setState(Cell.STATE_ALIVE);
-        grid.getCell(p.x,     p.y + 1).setState(Cell.STATE_ALIVE);
-        grid.getCell(p.x + 1, p.y + 1).setState(Cell.STATE_ALIVE);
+        brush.paint(automaton, p);
     }
 
     @Subscribe
