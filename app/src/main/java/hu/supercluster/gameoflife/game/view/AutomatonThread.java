@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 
@@ -24,9 +23,8 @@ import hu.supercluster.gameoflife.game.event.Restart;
 import hu.supercluster.gameoflife.game.event.Resume;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.game.manager.GameParams;
-import hu.supercluster.gameoflife.game.painter.CellPainter;
+import hu.supercluster.gameoflife.game.visualization.cell.CellColors;
 import hu.supercluster.gameoflife.util.EventBus;
-import hugo.weaving.DebugLog;
 
 public class AutomatonThread extends Thread {
     private final CellularAutomaton automaton;
@@ -34,7 +32,7 @@ public class AutomatonThread extends Thread {
     private final CoordinateTranslator translator;
     private final int cellSizeInPixels;
     private final int timeForAFrame;
-    private final CellPainter cellPainter;
+    private final CellColors cellColors;
     private final GameParams params;
     private boolean isRunning;
     private boolean shouldReset;
@@ -53,7 +51,7 @@ public class AutomatonThread extends Thread {
         this.surfaceHolder = surfaceHolder;
         this.cellSizeInPixels = params.getCellSizeInPixels();
         timeForAFrame = 1000 / params.getFps();
-        cellPainter = params.getCellPainter();
+        cellColors = params.getCellColors();
         paused = params.startPaused();
         createBuffCanvas();
         initialDraw();
@@ -81,7 +79,7 @@ public class AutomatonThread extends Thread {
         int x = p.x;
         int y = p.y;
 
-        Paint paint = cellPainter.getPaint(cellState);
+        Paint paint = cellColors.getPaint(cellState);
         Rect rect = new Rect(
                 x * cellSizeInPixels,
                 y * cellSizeInPixels,
@@ -207,7 +205,7 @@ public class AutomatonThread extends Thread {
     private void clearCanvas(int state) {
         final Point displaySize = params.getDisplaySize();
         Rect rect = new Rect(0, 0, displaySize.x, displaySize.y);
-        Paint paint = cellPainter.getPaint(state);
+        Paint paint = cellColors.getPaint(state);
         buffCanvas.drawRect(rect, paint);
     }
 

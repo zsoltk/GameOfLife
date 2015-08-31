@@ -1,4 +1,4 @@
-package hu.supercluster.gameoflife.game.painter;
+package hu.supercluster.gameoflife.game.visualization.cell;
 
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -6,10 +6,10 @@ import android.graphics.Paint;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AbstractCellPainter implements CellPainter {
+public class AbstractCellColors implements CellColors {
     protected final Map<Integer, Paint> paintMap;
 
-    public AbstractCellPainter() {
+    public AbstractCellColors() {
         paintMap = new HashMap<>(2);
     }
 

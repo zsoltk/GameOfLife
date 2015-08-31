@@ -3,14 +3,14 @@ package hu.supercluster.gameoflife.game.manager;
 import android.graphics.Point;
 
 import hu.supercluster.gameoflife.game.cellularautomaton.Fill;
-import hu.supercluster.gameoflife.game.painter.CellPainter;
+import hu.supercluster.gameoflife.game.visualization.cell.CellColors;
 
 public class GameParamsBuilder {
     private int screenOrientation;
     private Point displaySize;
     private int cellSizeInPixels;
     private Fill fill;
-    private CellPainter cellPainter;
+    private CellColors cellColors;
     private int fps;
     private boolean startPaused;
 
@@ -38,8 +38,8 @@ public class GameParamsBuilder {
         return this;
     }
 
-    public GameParamsBuilder setCellPainter(CellPainter cellPainter) {
-        this.cellPainter = cellPainter;
+    public GameParamsBuilder setCellColors(CellColors cellColors) {
+        this.cellColors = cellColors;
         return this;
     }
 
@@ -54,6 +54,6 @@ public class GameParamsBuilder {
     }
 
     public GameParams build() {
-        return new GameParams(screenOrientation, displaySize, cellSizeInPixels, fill, cellPainter, fps, startPaused);
+        return new GameParams(screenOrientation, displaySize, cellSizeInPixels, fill, cellColors, fps, startPaused);
     }
 }

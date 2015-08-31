@@ -10,7 +10,6 @@ import org.androidannotations.annotations.RootContext;
 
 import hu.supercluster.gameoflife.app.util.DisplayHelper;
 import hu.supercluster.gameoflife.game.cell.Cell;
-import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.cellularautomaton.Fill;
 import hu.supercluster.gameoflife.game.cellularautomaton.GameOfLifeFactory;
 import hu.supercluster.gameoflife.game.event.Pause;
@@ -20,7 +19,7 @@ import hu.supercluster.gameoflife.game.event.Resume;
 import hu.supercluster.gameoflife.game.manager.GameManager;
 import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.manager.GameParamsBuilder;
-import hu.supercluster.gameoflife.game.painter.SimpleCellPainter;
+import hu.supercluster.gameoflife.game.visualization.cell.SimpleCellColors;
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
 import hu.supercluster.gameoflife.game.view.ChangeRulesDialogFragment;
 import hu.supercluster.gameoflife.util.EventBus;
@@ -56,7 +55,7 @@ public class MainPresenter {
                 .setDisplaySize(displayHelper.getDisplaySize())
                 .setCellSizeInPixels(6)
                 .setFill(new Fill(0.10f, Cell.STATE_ALIVE))
-                .setCellPainter(new SimpleCellPainter())
+                .setCellColors(new SimpleCellColors())
                 .setFps(15)
                 .startPaused(activity.paused)
                 .build()
