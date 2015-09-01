@@ -1,4 +1,6 @@
 # GameOfLife
+[![](https://developer.android.com/images/brand/en_app_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=hu.supercluster.gameoflife)
+
 An Android implementation of Conway's Game of Life, focusing on clean design and implementation
 
 ## About Game of Life
