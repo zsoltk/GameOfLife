@@ -12,12 +12,9 @@ Changeable automaton rules, presets, and interactive board. Some interesting out
 ![](http://i.imgur.com/jZPfMlv.png)
 ![](http://i.imgur.com/sDMRCJW.png)
 ![](http://i.imgur.com/FOdxb8i.png)
-![](http://i.imgur.com/zGZSbBK.png)
-
+![](http://i.imgur.com/8bi2kLT.png)
 ![](http://i.imgur.com/wmSrTRt.png)
 ![](http://i.imgur.com/cwAe79y.png)
-![](http://i.imgur.com/8bi2kLT.png)
-![](http://i.imgur.com/siG7kWd.png)
 
 ## About the code
 #### Used technologies
