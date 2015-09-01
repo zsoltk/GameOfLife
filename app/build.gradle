@@ -17,8 +17,8 @@ apply plugin: 'android-apt'
 apply plugin: 'crashlytics'
 apply plugin: 'hugo'
 
-def versionMajor = 0
-def versionMinor = 9
+def versionMajor = 1
+def versionMinor = 0
 def versionPatch = 0
 
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
