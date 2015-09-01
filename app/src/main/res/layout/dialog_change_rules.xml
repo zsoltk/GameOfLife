@@ -1,109 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin"
-    >
+    android:layout_height="match_parent">
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TableRow>
-            <TextView
-                android:layout_span="9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dialog_change_rules_generic_description"
-                style="@style/rulesDescription"
-                />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:layout_span="9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dialog_change_rules_presets"
-                android:textStyle="bold"
-                style="@style/rulesLabel"
-             />
-        </TableRow>
-        <TableRow>
-            <Spinner
-            android:id="@+id/presets"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin"
+        >
+
+        <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_span="9" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:layout_span="9"
+            android:layout_height="wrap_content">
+            <TableRow>
+                <TextView
+                    android:layout_span="9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dialog_change_rules_generic_description"
+                    style="@style/rulesDescription"
+                    />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_span="9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dialog_change_rules_presets"
+                    android:textStyle="bold"
+                    style="@style/rulesLabel"
+                 />
+            </TableRow>
+            <TableRow>
+                <Spinner
+                android:id="@+id/presets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dialog_change_rules_survival_description"
-                android:textStyle="bold"
-                style="@style/rulesLabel"
-            />
-        </TableRow>
-        <TableRow android:id="@+id/survivalCheckBoxes">
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:layout_span="9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dialog_change_rules_creation_description"
-                android:textStyle="bold"
-                style="@style/rulesLabel"
+                android:layout_span="9" />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_span="9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dialog_change_rules_survival_description"
+                    android:textStyle="bold"
+                    style="@style/rulesLabel"
                 />
-        </TableRow>
-        <TableRow android:id="@+id/creationCheckBoxes">
-        </TableRow>
-        <TableRow android:id="@+id/labels">
-            <TextView
-                android:layout_height="wrap_content"
-                android:text="0"
-                style="@style/ruleNbCountDisplay" />
+            </TableRow>
+            <TableRow android:id="@+id/survivalCheckBoxes">
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_span="9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dialog_change_rules_creation_description"
+                    android:textStyle="bold"
+                    style="@style/rulesLabel"
+                    />
+            </TableRow>
+            <TableRow android:id="@+id/creationCheckBoxes">
+            </TableRow>
+            <TableRow android:id="@+id/labels">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    style="@style/ruleNbCountDisplay" />
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:text="1"
-                style="@style/ruleNbCountDisplay" />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    style="@style/ruleNbCountDisplay" />
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:text="2"
-                style="@style/ruleNbCountDisplay" />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    style="@style/ruleNbCountDisplay" />
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:text="3"
-                style="@style/ruleNbCountDisplay" />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    style="@style/ruleNbCountDisplay" />
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:text="4"
-                style="@style/ruleNbCountDisplay" />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    style="@style/ruleNbCountDisplay" />
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:text="5"
-                style="@style/ruleNbCountDisplay" />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    style="@style/ruleNbCountDisplay" />
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:text="6"
-                style="@style/ruleNbCountDisplay" />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="6"
+                    style="@style/ruleNbCountDisplay" />
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:text="7"
-                style="@style/ruleNbCountDisplay" />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="7"
+                    style="@style/ruleNbCountDisplay" />
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:text="8"
-                style="@style/ruleNbCountDisplay" />
-        </TableRow>
-    </TableLayout>
-</LinearLayout>
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:text="8"
+                    style="@style/ruleNbCountDisplay" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>
