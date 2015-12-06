@@ -47,8 +47,6 @@ The code is intentionally implemented in a way to make it easy to create other t
 4. Have fun and message me if you create something cool!
 
 #### Known limitations
-The approach used in the transformation logic is that only cell state changes are observed, and a counter of dead / alive neighbors is updated in every surrounding cell. While there are other, faster algorithms, this is a good general approach for general, neighbor count based automata, and is still a whole lot faster than iterating through *every* cell and counting their alive neighbors in every frame.
-
-By using the [ThreadedGridTransformer](https://github.com/zsoltk/GameOfLife/blob/master/app/src/main/java/hu/supercluster/gameoflife/game/transformer/ThreadedGridTransformer.java) it's fast enough to be smooth for Game of Life and most other rules. However, rules resulting in lots of changes around the screen might slow the game down.
+The approach used in the transformation logic is that only cell state changes are observed, and a counter of dead / alive neighbors is updated in every surrounding cell. By using the [ThreadedGridTransformer](https://github.com/zsoltk/GameOfLife/blob/master/app/src/main/java/hu/supercluster/gameoflife/game/transformer/ThreadedGridTransformer.java) it's fast enough to be smooth for Game of Life and most other rules. However, rules resulting in lots of changes around the screen might slow the game down.
 
 
