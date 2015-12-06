@@ -3,7 +3,7 @@ package hu.supercluster.gameoflife.game.cell;
 import org.junit.Before;
 import org.junit.Test;
 
-import hu.supercluster.gameoflife.test.support.RobolectricTest;
+import hu.supercluster.gameoflife.test.RobolectricTest;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 

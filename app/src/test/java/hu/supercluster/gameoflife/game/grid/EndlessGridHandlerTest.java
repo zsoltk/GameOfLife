@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cell.SimpleCellFactory;
-import hu.supercluster.gameoflife.test.support.RobolectricTest;
+import hu.supercluster.gameoflife.test.RobolectricTest;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 

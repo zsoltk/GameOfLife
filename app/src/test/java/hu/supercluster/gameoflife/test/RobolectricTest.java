@@ -1,4 +1,4 @@
-package hu.supercluster.gameoflife.test.support;
+package hu.supercluster.gameoflife.test;
 
 import android.os.Build;
 

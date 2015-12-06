@@ -13,7 +13,7 @@ import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.event.CellStateChange;
 import hu.supercluster.gameoflife.game.cell.SimpleCell;
 import hu.supercluster.gameoflife.game.grid.Grid;
-import hu.supercluster.gameoflife.test.support.RobolectricTest;
+import hu.supercluster.gameoflife.test.RobolectricTest;
 import hu.supercluster.gameoflife.util.EventBus;
 
 import static org.fest.assertions.api.Assertions.assertThat;

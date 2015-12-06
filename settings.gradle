@@ -1,2 +1,2 @@
-include ':app', ':appUnitTests', ':appComponentTests'
+include ':app'
 

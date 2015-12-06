@@ -2,7 +2,7 @@ package hu.supercluster.gameoflife.app.activity.main;
 
 import android.content.Intent;
 
-import hu.supercluster.gameoflife.test.support.RobolectricTest;
+import hu.supercluster.gameoflife.test.RobolectricTest;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -10,7 +10,7 @@ import hu.supercluster.gameoflife.game.testutils.EndlessGridWrapper;
 import hu.supercluster.gameoflife.game.testutils.GrowableCell;
 import hu.supercluster.gameoflife.game.testutils.GrowableCellFactory;
 import hu.supercluster.gameoflife.game.testutils.SimpleIncrementingRule;
-import hu.supercluster.gameoflife.test.support.RobolectricTest;
+import hu.supercluster.gameoflife.test.RobolectricTest;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
