@@ -52,11 +52,7 @@ android {
             minifyEnabled false
             testCoverageEnabled = false
         }
-        test {
-            debuggable true
-            minifyEnabled false
-            testCoverageEnabled = true
-        }
+
         release {
             minifyEnabled false
             proguardFile 'proguard-project.txt'
@@ -117,6 +113,11 @@ dependencies {
 
     apt "org.androidannotations:androidannotations:" + androidAnnotationsVersion
     compile("org.androidannotations:androidannotations-api:" + androidAnnotationsAPIVersion )
+
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    testCompile('com.squareup:fest-android:1.0.+') { exclude module: 'support-v4' }
+    testCompile "org.robolectric:robolectric:3.0"
 
     androidTestCompile 'com.google.guava:guava:14.0.1',
             'com.squareup.dagger:dagger:1.1.0',
