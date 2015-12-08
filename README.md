@@ -23,12 +23,11 @@ Changeable automaton rules, presets, and interactive board. Some interesting out
 * [AndroidAnnotations](https://github.com/excilys/androidannotations) 
 * [Otto](square.github.io/otto/) 
 * [Hugo](https://github.com/JakeWharton/hugo)
-* [android-gradle-template](https://github.com/nenick/android-gradle-template)
 
 #### Running tests
-Type ```./scripts/run-tests-fast.sh```. Results can be checked in the generated HTML.
+Type ```./gradlew app:test```.
 
-Note: you might need to run ```./gradlew clean``` first
+Results can be checked in the generated HTML under ```app/build/reports/tests/debug/index.html```
 
 #### Tampering around
 The code is intentionally implemented in a way to make it easy to create other types of cellular automata. Feel free to fork it and play around. For a starter:
