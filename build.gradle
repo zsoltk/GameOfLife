@@ -17,10 +17,10 @@ subprojects {
     group = 'hu.supercluster.gameoflife'
 
     ext.androidToolsBuildGradle     = '0.12.+'
-    ext.androidBuildToolsVersion    = '21.1.2';
+    ext.androidBuildToolsVersion    = '23.0.2';
     ext.androidMinSdkVersion        = 15;
-    ext.androidCompileSdkVersion    = 21;
-    ext.androidTargetSdkVersion     = 21;
+    ext.androidCompileSdkVersion    = 23;
+    ext.androidTargetSdkVersion     = 23;
 
     ext.androidAnnotationsVersion = '3.3.2';
     ext.androidAnnotationsAPIVersion = '3.3.2';
