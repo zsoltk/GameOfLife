@@ -22,8 +22,8 @@ subprojects {
     ext.androidCompileSdkVersion    = 21;
     ext.androidTargetSdkVersion     = 21;
 
-    ext.androidAnnotationsVersion = '3.0.1';
-    ext.androidAnnotationsAPIVersion = '3.0.1';
+    ext.androidAnnotationsVersion = '3.3.2';
+    ext.androidAnnotationsAPIVersion = '3.3.2';
 
     repositories {
         mavenCentral()
