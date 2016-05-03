@@ -10,8 +10,8 @@ import android.view.SurfaceHolder;
 
 import com.squareup.otto.Subscribe;
 
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.LinkedList;
+import java.util.List;
 
 import hu.supercluster.gameoflife.game.cellularautomaton.CellularAutomaton;
 import hu.supercluster.gameoflife.game.event.CellStateChange;
@@ -23,14 +23,15 @@ import hu.supercluster.gameoflife.game.event.Resume;
 import hu.supercluster.gameoflife.game.grid.Grid;
 import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.visualization.brush.Brush;
-import hu.supercluster.gameoflife.game.visualization.cell.CellColors;
 import hu.supercluster.gameoflife.game.visualization.brush.DefaultBlockBrush;
+import hu.supercluster.gameoflife.game.visualization.cell.CellColors;
 import hu.supercluster.gameoflife.util.EventBus;
 
 class AutomatonThread extends Thread {
     private final CellularAutomaton automaton;
     private final SurfaceHolder surfaceHolder;
     private final CoordinateTranslator translator;
+    private final List<CellStateChange> cellStateChanges;
     private final int cellSizeInPixels;
     private final int timeForAFrame;
     private final CellColors cellColors;
@@ -40,14 +41,13 @@ class AutomatonThread extends Thread {
     private boolean shouldRestart;
     private boolean paused;
     private long cycleTime;
-    private Queue<CellStateChange> cellStateChanges;
     private Bitmap buffCanvasBitmap;
     private Canvas buffCanvas;
     private Brush brush;
 
     public AutomatonThread(CellularAutomaton automaton, SurfaceHolder surfaceHolder, GameParams params) {
         translator = new CoordinateTranslator(params.getScreenOrientation(), automaton.getSizeX(), automaton.getSizeY());
-        cellStateChanges = new LinkedBlockingQueue<>();
+        cellStateChanges = new LinkedList<>();
         this.automaton = automaton;
         this.params = params;
         this.surfaceHolder = surfaceHolder;
@@ -100,8 +100,10 @@ class AutomatonThread extends Thread {
     }
 
     @Subscribe
-    synchronized public void onEvent(CellStateChange cellStateChange) {
-        cellStateChanges.add(cellStateChange);
+    public void onEvent(CellStateChange cellStateChange) {
+        synchronized (cellStateChanges) {
+            cellStateChanges.add(cellStateChange);
+        }
     }
 
     @Subscribe
@@ -218,11 +220,17 @@ class AutomatonThread extends Thread {
     }
 
     private void draw(Canvas canvas) {
-        for (CellStateChange change : cellStateChanges) {
+        LinkedList<CellStateChange> changes;
+
+        synchronized (cellStateChanges) {
+            changes = new LinkedList<>(this.cellStateChanges);
+            cellStateChanges.clear();
+        }
+
+        for (CellStateChange change : changes) {
             paintCell(change.x, change.y, change.stateSnapshot);
         }
 
-        cellStateChanges.clear();
         canvas.drawBitmap(buffCanvasBitmap, 0, 0, null);
     }
 
