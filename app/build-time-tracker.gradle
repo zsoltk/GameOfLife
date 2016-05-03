@@ -1,0 +1,19 @@
+buildtimetracker {
+    reporters {
+        csv {
+            output "../buildtime/gameoflife.csv"
+            append true
+            header false
+        }
+
+        summary {
+            ordered false
+            threshold 50
+            barstyle "unicode"
+        }
+
+        csvSummary {
+            csv "../buildtime/gameoflife.csv"
+        }
+    }
+}
