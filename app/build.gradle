@@ -2,19 +2,19 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url 'http://download.crashlytics.com/maven' }
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
         classpath "com.neenbedankt.gradle.plugins:android-apt:1.4"
-        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.+'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.1.0'
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-apply plugin: 'crashlytics'
+apply plugin: 'io.fabric'
 apply plugin: 'hugo'
 
 def versionMajor = 1
@@ -92,7 +92,7 @@ afterEvaluate {
 
 repositories {
     mavenCentral()
-    maven { url 'http://download.crashlytics.com/maven' }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 
@@ -105,7 +105,7 @@ dependencies {
     // ---------
 
     compile 'com.github.tslamic.adn:library:1.0'
-    compile 'com.crashlytics.android:crashlytics:1.+'
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true }
     compile 'com.jakewharton.timber:timber:2.5.1'
     compile 'com.squareup:otto:1.3.6'
 
