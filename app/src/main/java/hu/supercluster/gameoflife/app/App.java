@@ -4,7 +4,9 @@ import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
 
-import hu.supercluster.gameoflife.BuildConfig;
+import java.util.Locale;
+
+import hu.supercluster.paperwork.Paperwork;
 import io.fabric.sdk.android.Fabric;
 import tslamic.github.io.adn.DeviceNames;
 
@@ -18,10 +20,12 @@ public class App extends Application {
 
     private void initCrashlytics() {
         Fabric.with(this, new Crashlytics());
+        Paperwork paperwork = new Paperwork(this);
 
-        Crashlytics.setString("Build time", BuildConfig.BUILD_TIME);
-        Crashlytics.setString("Git SHA", BuildConfig.GIT_SHA);
+        String gitInfo = String.format(Locale.US, "%s (%s)", paperwork.get("gitInfo"), paperwork.get("gitBranch"));
+        Crashlytics.setString("Git", gitInfo);
+        Crashlytics.setString("SHA", paperwork.get("gitSha"));
+        Crashlytics.setString("Build time", paperwork.get("buildTime"));
         Crashlytics.setString("Device model", DeviceNames.getCurrentDeviceName("Unknown"));
-
     }
 }
