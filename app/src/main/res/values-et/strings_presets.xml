@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_pick_one">- Vali ühe -</string>
+    <string name="preset_life">Elu</string>
+    <string name="preset_sponge_cells">Käsnarakud</string>
+    <string name="preset_slowly_growing_fizz">Aeglaselt kasvab kihin</string>
+    <string name="preset_drills">Puurid</string>
+    <string name="preset_condensation">Kondensatsioon</string>
+    <string name="preset_seeds">Seemned</string>
+    <string name="preset_spread">Levik</string>
+</resources>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dialog_change_rules_title">Change rule</string>
     <string name="dialog_change_rules_generic_description">Set how many living neighbors a living cell needs to survive or a dead one to become alive, or pick a rule from the presets. Some presets work best on an empty field, dropping only some living cells.</string>
