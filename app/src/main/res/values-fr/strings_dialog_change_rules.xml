@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_change_rules_title">Change des règles</string>
+    <string name="dialog_change_rules_generic_description">Définis, combien des voisins vivants sont nécéssaire pour une cellule vivante pour survivre ou pour une cellule morte pour deviner vivante encore, ou choisis une règle prédéfinie ! Certains règles prédéfinies foncionnent le mieux sur une planche vide, laissent tomber quelques cellules vivantes.</string>
+    <string name="dialog_change_rules_presets">Règles prédéfinies</string>
+    <string name="dialog_change_rules_survival_description">Règle de la survie</string>
+    <string name="dialog_change_rules_creation_description">Règle de la création</string>
+</resources>

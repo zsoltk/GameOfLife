@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_pick_one">- Choisis en un -</string>
+    <string name="preset_life">La Vie</string>
+    <string name="preset_sponge_cells">Les Cellules d\'éponge</string>
+    <string name="preset_slowly_growing_fizz">Le Fizz lentement grandissant</string>
+    <string name="preset_drills">Les Preceuses</string>
+    <string name="preset_condensation">La Condensation</string>
+    <string name="preset_seeds">Les Graines</string>
+    <string name="preset_spread">La Propagation</string>
+</resources>
