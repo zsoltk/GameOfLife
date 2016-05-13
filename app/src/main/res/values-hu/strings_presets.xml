@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_pick_one">- Válassz egyet -</string>
+    <string name="preset_life">Élet</string>
+    <string name="preset_sponge_cells">Szivacs sejtek</string>
+    <string name="preset_slowly_growing_fizz">Lassan terjeszkedő pezsgés</string>
+    <string name="preset_drills">Fúrók</string>
+    <string name="preset_condensation">Kondenzáció</string>
+    <string name="preset_seeds">Magok</string>
+    <string name="preset_spread">Szétterjedés</string>
+</resources>
