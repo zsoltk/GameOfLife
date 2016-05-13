@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_pick_one">- Wählen Sie -</string>
+    <string name="preset_life">Leben</string>
+    <string name="preset_sponge_cells">Schwammzellen</string>
+    <string name="preset_slowly_growing_fizz">Langsam wachsender Sprudel</string>
+    <string name="preset_drills">Bohrer</string>
+    <string name="preset_condensation">Kondensation</string>
+    <string name="preset_seeds">Samen</string>
+    <string name="preset_spread">Ausbreitung</string>
+</resources>
