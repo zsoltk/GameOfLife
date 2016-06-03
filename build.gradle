@@ -16,7 +16,6 @@ project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 subprojects {
     group = 'hu.supercluster.gameoflife'
 
-    ext.androidToolsBuildGradle     = '0.12.+'
     ext.androidBuildToolsVersion    = '23.0.2';
     ext.androidMinSdkVersion        = 15;
     ext.androidCompileSdkVersion    = 23;
