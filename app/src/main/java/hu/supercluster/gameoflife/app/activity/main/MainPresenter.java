@@ -1,5 +1,6 @@
 package hu.supercluster.gameoflife.app.activity.main;
 
+import android.graphics.Point;
 import android.os.Bundle;
 
 import com.squareup.otto.Subscribe;
@@ -9,6 +10,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
 import hu.supercluster.gameoflife.app.util.DisplayHelper;
+import hu.supercluster.gameoflife.app.view.ChangeRulesDialogFragment;
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cellularautomaton.Fill;
 import hu.supercluster.gameoflife.game.cellularautomaton.GameOfLifeFactory;
@@ -19,9 +21,8 @@ import hu.supercluster.gameoflife.game.event.Resume;
 import hu.supercluster.gameoflife.game.manager.GameManager;
 import hu.supercluster.gameoflife.game.manager.GameParams;
 import hu.supercluster.gameoflife.game.manager.GameParamsBuilder;
-import hu.supercluster.gameoflife.game.visualization.cell.SimpleCellColors;
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
-import hu.supercluster.gameoflife.app.view.ChangeRulesDialogFragment;
+import hu.supercluster.gameoflife.game.visualization.cell.SimpleCellColors;
 import hu.supercluster.gameoflife.util.EventBus;
 
 import static android.view.View.GONE;
@@ -50,10 +51,13 @@ public class MainPresenter {
     }
 
     void startGame() {
+        Point displaySize = displayHelper.getDisplaySize();
+        int cellSize = getOptimalCellSize(displaySize);
+
         GameParams gameParams = GameParamsBuilder.create()
                 .setScreenOrientation(displayHelper.getScreenOrientation())
-                .setDisplaySize(displayHelper.getDisplaySize())
-                .setCellSizeInPixels(6)
+                .setDisplaySize(displaySize)
+                .setCellSizeInPixels(cellSize)
                 .setFill(new Fill(0.10f, Cell.STATE_ALIVE))
                 .setCellColors(new SimpleCellColors())
                 .setFps(15)
@@ -73,6 +77,15 @@ public class MainPresenter {
         if (activity.paused) {
             onPause();
         }
+    }
+
+    private int getOptimalCellSize(Point displaySize) {
+        int cellSize = 1;
+        while (displaySize.x / cellSize > 160 || displaySize.y / cellSize > 200) {
+            cellSize++;
+        }
+
+        return cellSize;
     }
 
     void onPause() {
