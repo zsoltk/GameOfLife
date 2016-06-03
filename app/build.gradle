@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath "com.neenbedankt.gradle.plugins:android-apt:1.4"
+        classpath "com.neenbedankt.gradle.plugins:android-apt:1.8"
         classpath 'com.jakewharton.hugo:hugo-plugin:1.1.0'
         classpath "net.rdrei.android.buildtimetracker:gradle-plugin:0.5.+"
         classpath 'io.fabric.tools:gradle:1.+'
@@ -39,12 +39,14 @@ android {
     buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
-        testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
+        applicationId 'hu.supercluster.gameoflife'
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
 
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
     }
 
     signingConfigs {
@@ -136,8 +138,8 @@ dependencies {
 
 apt {
     arguments {
-        androidManifestFile variant.outputs[0].processResources.manifestFile
-        resourcePackageName 'hu.supercluster.gameoflife'
+        resourcePackageName android.defaultConfig.applicationId
+        androidManifestFile variant.outputs[0]?.processResources?.manifestFile
     }
 }
 
