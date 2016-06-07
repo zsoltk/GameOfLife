@@ -6,9 +6,9 @@ public class Preset {
     private String name;
     private NeighborCountBasedRule rule;
 
-    public Preset(String name, NeighborCountBasedRule rule) {
+    public Preset(String name, String rule) {
         this.name = name;
-        this.rule = rule;
+        this.rule = rule == null ? null : new NeighborCountBasedRule(rule);
     }
 
     @Override

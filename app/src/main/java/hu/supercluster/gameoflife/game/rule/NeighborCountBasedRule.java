@@ -1,5 +1,6 @@
 package hu.supercluster.gameoflife.game.rule;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import hu.supercluster.gameoflife.game.cell.Cell;
@@ -13,6 +14,30 @@ public class NeighborCountBasedRule implements Rule<SimpleCell> {
     public NeighborCountBasedRule(Set<Integer> survivalNbCounts, Set<Integer> creationNbCounts) {
         this.survivalNbCounts = survivalNbCounts;
         this.creationNbCounts = creationNbCounts;
+    }
+
+    public NeighborCountBasedRule(String rule) {
+        String[] split = rule.split("/");
+        if (split.length != 2) {
+            throw new IllegalArgumentException("Invalid rule string: " + rule);
+        }
+
+        try {
+            survivalNbCounts = new HashSet<>();
+            String survival = split[0];
+            for (int i = 0; i < survival.length(); i++) {
+                survivalNbCounts.add(Integer.valueOf(String.valueOf(survival.charAt(i))));
+            }
+
+            creationNbCounts = new HashSet<>();
+            String creation = split[1];
+            for (int i = 0; i < creation.length(); i++) {
+                creationNbCounts.add(Integer.valueOf(String.valueOf(creation.charAt(i))));
+            }
+
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid rule string: " + rule);
+        }
     }
 
     @Override
