@@ -66,25 +66,11 @@ public class MainPresenter {
     }
 
     void startGame() {
-        Point displaySize = displayHelper.getDisplaySize();
-        int cellSize = getOptimalCellSize(displaySize);
-
-        GameParams gameParams = GameParamsBuilder.create()
-                .setScreenOrientation(displayHelper.getScreenOrientation())
-                .setDisplaySize(displaySize)
-                .setCellSizeInPixels(cellSize)
-                .setFill(new Fill(0.10f, Cell.STATE_ALIVE))
-                .setCellColors(new SimpleCellColors())
-                .setFps(15)
-                .startPaused(activity.paused)
-                .build()
-        ;
-
         gameManager = new GameManager(
                 activity.gameState,
                 activity.automatonView,
                 new GameOfLifeFactory(),
-                gameParams
+                getGameParams()
         );
 
         gameManager.createGame();
@@ -94,9 +80,34 @@ public class MainPresenter {
         }
     }
 
-    private int getOptimalCellSize(Point displaySize) {
+    private GameParams getGameParams() {
+        Point displaySize = displayHelper.getDisplaySize();
+        int cellSize = getOptimalCellSize(displaySize, displayHelper.isLandscape());
+
+        return GameParamsBuilder.create()
+                .setScreenOrientation(displayHelper.getScreenOrientation())
+                .setDisplaySize(displaySize)
+                .setCellSizeInPixels(cellSize)
+                .setFill(new Fill(0.10f, Cell.STATE_ALIVE))
+                .setCellColors(new SimpleCellColors())
+                .setFps(15)
+                .startPaused(activity.paused)
+                .build()
+        ;
+    }
+
+    private int getOptimalCellSize(Point displaySize, boolean isLandscape) {
         int cellSize = 1;
-        while (displaySize.x / cellSize > 160 || displaySize.y / cellSize > 200) {
+        int limitX = 160;
+        int limitY = 200;
+
+        if (isLandscape) {
+            int temp = limitX;
+            limitX = limitY;
+            limitY = temp;
+        }
+
+        while (displaySize.x / cellSize > limitX || displaySize.y / cellSize > limitY) {
             cellSize++;
         }
 
