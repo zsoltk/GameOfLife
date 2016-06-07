@@ -9,6 +9,12 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
+import hu.supercluster.gameoflife.app.rate.event.RatingDialogLaterEvent;
+import hu.supercluster.gameoflife.app.rate.event.RatingDialogNoEvent;
+import hu.supercluster.gameoflife.app.rate.event.RatingDialogYesEvent;
+import hu.supercluster.gameoflife.app.rate.event.SuggestDialogNoEvent;
+import hu.supercluster.gameoflife.app.rate.event.SuggestDialogYesEvent;
+import hu.supercluster.gameoflife.app.rate.util.RatingHelper;
 import hu.supercluster.gameoflife.app.util.DisplayHelper;
 import hu.supercluster.gameoflife.app.view.ChangeRulesDialogFragment;
 import hu.supercluster.gameoflife.game.cell.Cell;
@@ -24,6 +30,7 @@ import hu.supercluster.gameoflife.game.manager.GameParamsBuilder;
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
 import hu.supercluster.gameoflife.game.visualization.cell.SimpleCellColors;
 import hu.supercluster.gameoflife.util.EventBus;
+import hugo.weaving.DebugLog;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -38,8 +45,16 @@ public class MainPresenter {
     @Bean
     DisplayHelper displayHelper;
 
+    @Bean
+    RatingHelper ratingHelper;
+
+    void onActivityCreate() {
+        ratingHelper.onStartup();
+    }
+
     void onActivityResume() {
         EventBus.getInstance().register(this);
+        ratingHelper.displaySuggestDialogIfNeeded();
     }
 
     void onActivityPause() {
@@ -119,8 +134,39 @@ public class MainPresenter {
         dialogFragment.show(activity.getFragmentManager(), "rules");
     }
 
+    @DebugLog
     @Subscribe
     public void onRulesChanged(NeighborCountBasedRule rule) {
         gameManager.getAutomaton().setRule(rule);
+    }
+
+    @DebugLog
+    @Subscribe
+    public void onEvent(SuggestDialogYesEvent event) {
+        ratingHelper.displayRatingDialog();
+    }
+
+    @DebugLog
+    @Subscribe
+    public void onEvent(SuggestDialogNoEvent event) {
+        ratingHelper.onDontAskAgain();
+    }
+
+    @DebugLog
+    @Subscribe
+    public void onEvent(RatingDialogYesEvent event) {
+        ratingHelper.onRate();
+    }
+
+    @DebugLog
+    @Subscribe
+    public void onEvent(RatingDialogLaterEvent event) {
+        ratingHelper.onRateLater();
+    }
+
+    @DebugLog
+    @Subscribe
+    public void onEvent(RatingDialogNoEvent event) {
+        ratingHelper.onDontAskAgain();
     }
 }

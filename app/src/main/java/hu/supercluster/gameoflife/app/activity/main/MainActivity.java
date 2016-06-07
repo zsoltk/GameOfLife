@@ -34,6 +34,11 @@ public class MainActivity extends Activity {
     @ViewById
     ImageButton reset, restart, changeRules, pause, resume;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenter.onActivityCreate();
+    }
 
     @Override
     @DebugLog
