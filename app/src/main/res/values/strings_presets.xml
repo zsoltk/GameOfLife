@@ -8,4 +8,9 @@
     <string name="preset_condensation">Condensation</string>
     <string name="preset_seeds">Seeds</string>
     <string name="preset_spread">Spread</string>
+    <string name="preset_high_life">HighLife</string>
+    <string name="preset_maze">Maze</string>
+    <string name="preset_amoeba">Amoeba</string>
+    <string name="preset_diamoeba">Diamoeba</string>
+    <string name="preset_memory">Memory</string>
 </resources>
