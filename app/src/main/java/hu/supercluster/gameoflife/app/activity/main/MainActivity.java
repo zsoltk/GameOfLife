@@ -23,6 +23,9 @@ public class MainActivity extends Activity {
     boolean paused;
 
     @InstanceState
+    int lastOrientation;
+
+    @InstanceState
     Bundle gameState;
 
     @Bean

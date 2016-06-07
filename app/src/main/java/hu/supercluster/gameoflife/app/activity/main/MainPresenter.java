@@ -49,7 +49,19 @@ public class MainPresenter {
     RatingHelper ratingHelper;
 
     void onActivityCreate() {
-        ratingHelper.onStartup();
+        if (!orientationChanged()) {
+            ratingHelper.increaseStartupCount();
+        }
+
+        saveOrientation();
+    }
+
+    private boolean orientationChanged() {
+        return displayHelper.getScreenOrientation() != activity.lastOrientation;
+    }
+
+    private void saveOrientation() {
+        activity.lastOrientation = displayHelper.getScreenOrientation();
     }
 
     void onActivityResume() {

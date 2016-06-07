@@ -26,12 +26,8 @@ public class RatingHelper {
     @Bean
     RatingDialogHelper ratingDialogHelper;
 
-    public void onStartup() {
-        increaseStartupCount();
-    }
-
     @DebugLog
-    private void increaseStartupCount() {
+    public void increaseStartupCount() {
         ratePrefs.totalStartupCount().put(ratePrefs.totalStartupCount().get() + 1);
         ratePrefs.currentStartupCount().put(ratePrefs.currentStartupCount().get() + 1);
     }
