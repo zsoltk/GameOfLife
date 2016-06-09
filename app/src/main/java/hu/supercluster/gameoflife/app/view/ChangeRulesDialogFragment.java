@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import hu.supercluster.gameoflife.R;
+import hu.supercluster.gameoflife.app.preset.Preset;
+import hu.supercluster.gameoflife.app.preset.PresetAdapter;
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
 import hu.supercluster.gameoflife.util.EventBus;
 

@@ -1,4 +1,4 @@
-package hu.supercluster.gameoflife.app.view;
+package hu.supercluster.gameoflife.app.preset;
 
 import android.content.Context;
 import android.content.res.Resources;

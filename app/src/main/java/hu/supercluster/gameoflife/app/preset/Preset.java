@@ -1,4 +1,4 @@
-package hu.supercluster.gameoflife.app.view;
+package hu.supercluster.gameoflife.app.preset;
 
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
 
