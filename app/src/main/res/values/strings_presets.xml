@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="preset_type_stable">Stable</string>
+    <string name="preset_type_expanding">Expanding</string>
+    <string name="preset_type_exploding">Exploding</string>
+    <string name="preset_type_chaotic">Chaotic</string>
+
     <string name="preset_pick_one">- Pick one -</string>
+    <string name="preset_custom">Custom</string>
     <string name="preset_life">Life</string>
     <string name="preset_sponge_cells">Sponge cells</string>
     <string name="preset_slowly_growing_fizz">Slowly growing fizz</string>
@@ -8,9 +14,11 @@
     <string name="preset_condensation">Condensation</string>
     <string name="preset_seeds">Seeds</string>
     <string name="preset_spread">Spread</string>
+
     <string name="preset_high_life">HighLife</string>
     <string name="preset_maze">Maze</string>
     <string name="preset_amoeba">Amoeba</string>
     <string name="preset_diamoeba">Diamoeba</string>
     <string name="preset_memory">Memory</string>
+    <string name="preset_coral">Coral</string>
 </resources>
