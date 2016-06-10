@@ -43,7 +43,7 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         survivalCheckBoxes = (TableRow) view.findViewById(R.id.survivalCheckBoxes);
         creationCheckBoxes = (TableRow) view.findViewById(R.id.creationCheckBoxes);
 
-        presets.setAdapter(new PresetAdapter(getActivity(), android.R.layout.simple_list_item_1));
+        presets.setAdapter(new PresetAdapter(getActivity()));
         presets.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapter, View view, int position, long id) {
@@ -101,13 +101,24 @@ public class ChangeRulesDialogFragment extends DialogFragment {
     protected void handleCreationCheckBox(int i) {
         CheckBox creationCheckBox = new CheckBox(getActivity());
         creationCheckBox.setChecked(creationNbCounts != null && creationNbCounts.contains(i));
+        onSelectionChangeShowCustomLabel(creationCheckBox);
         creationCheckBoxes.addView(creationCheckBox);
     }
 
     protected void handleSurvivalCheckBox(int i) {
         CheckBox survivalCheckBox = new CheckBox(getActivity());
         survivalCheckBox.setChecked(survivalNbCounts != null && survivalNbCounts.contains(i));
+        onSelectionChangeShowCustomLabel(survivalCheckBox);
         survivalCheckBoxes.addView(survivalCheckBox);
+    }
+
+    private void onSelectionChangeShowCustomLabel(CheckBox checkBox) {
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presets.setSelection(PresetAdapter.POS_CUSTOM);
+            }
+        });
     }
 
     public NeighborCountBasedRule getRule() {
