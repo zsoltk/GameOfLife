@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,15 +19,21 @@ import java.util.Set;
 import hu.supercluster.gameoflife.R;
 import hu.supercluster.gameoflife.app.preset.Preset;
 import hu.supercluster.gameoflife.app.preset.PresetAdapter;
+import hu.supercluster.gameoflife.app.preset.Type;
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
 import hu.supercluster.gameoflife.util.EventBus;
 
 public class ChangeRulesDialogFragment extends DialogFragment {
-    private Spinner presets;
-    private TableRow survivalCheckBoxes;
-    private TableRow creationCheckBoxes;
     private Set<Integer> survivalNbCounts;
     private Set<Integer> creationNbCounts;
+
+    Spinner presets;
+    TableRow survivalCheckBoxes;
+    TableRow creationCheckBoxes;
+    TableRow infoWrapperTitle;
+    TableRow infoWrapper;
+    TextView type;
+    TextView info;
 
     public void setRule(NeighborCountBasedRule rule) {
         survivalNbCounts = rule.getSurvivalNbCounts();
@@ -42,6 +49,17 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         presets = (Spinner) view.findViewById(R.id.presets);
         survivalCheckBoxes = (TableRow) view.findViewById(R.id.survivalCheckBoxes);
         creationCheckBoxes = (TableRow) view.findViewById(R.id.creationCheckBoxes);
+        infoWrapperTitle = (TableRow) view.findViewById(R.id.infoWrapperTitle);
+        infoWrapper = (TableRow) view.findViewById(R.id.infoWrapper);
+        type = (TextView) view.findViewById(R.id.type);
+        info = (TextView) view.findViewById(R.id.info);
+        info.setClickable(true);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onInfoClicked();
+            }
+        });
 
         presets.setAdapter(new PresetAdapter(getActivity()));
         presets.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -60,6 +78,10 @@ public class ChangeRulesDialogFragment extends DialogFragment {
                         creation.setChecked(creationNbCounts.contains(i));
                         survival.setChecked(survivalNbCounts.contains(i));
                     }
+
+                    type.setText(preset.getType().labelResId);
+                    infoWrapperTitle.setVisibility(View.VISIBLE);
+                    infoWrapper.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -117,6 +139,8 @@ public class ChangeRulesDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 presets.setSelection(PresetAdapter.POS_CUSTOM);
+                infoWrapperTitle.setVisibility(View.GONE);
+                infoWrapper.setVisibility(View.GONE);
             }
         });
     }
@@ -138,5 +162,20 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         }
 
         return new NeighborCountBasedRule(survivalNbCounts, creationNbCounts);
+    }
+
+    void onInfoClicked() {
+        Preset preset = (Preset) presets.getSelectedItem();
+        Type type = preset.getType();
+
+        if (type != null) {
+            AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                    .setTitle(type.labelResId)
+                    .setMessage(type.descriptionResId)
+                    .create()
+            ;
+
+            dialog.show();
+        }
     }
 }

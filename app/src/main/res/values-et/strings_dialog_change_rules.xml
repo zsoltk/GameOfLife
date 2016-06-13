@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dialog_change_rules_title">Muuda reegleid</string>
-    <string name="dialog_change_rules_generic_description">Seadista, kui palju naabreid on vaja elava raku ellujäämiseks või surnud raku elustumiseks, või võta reegel ettemääratud valikutest. Mõned valikud töötavad paremini tühjal alal, asetades ainult paart elavat rakku.</string>
+    <string name="dialog_change_rules_generic_description">Seadista, kui palju naabreid on vaja elava raku ellujäämiseks või surnud raku elustumiseks, või võta reegel ettemääratud valikutest.</string>
     <string name="dialog_change_rules_presets">Ettemääratud valikud</string>
     <string name="dialog_change_rules_survival_description">Ellujäämise reegel</string>
     <string name="dialog_change_rules_creation_description">Loomise reegel</string>

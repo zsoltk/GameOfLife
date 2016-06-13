@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dialog_change_rules_title">Szabály megváltoztatása</string>
-    <string name="dialog_change_rules_generic_description">Állítsd be, hogy hány élő szomszéd szükséges egy élő sejtnek a túléléshez, egy halottnak az életrekeléshez, vagy válassz egy előre definiált szabályt. Néhány szabály üres kezdőállapottal működik a legjobban, egy-egy élő sejt lerakása után.</string>
+    <string name="dialog_change_rules_generic_description">Állítsd be, hogy hány élő szomszéd szükséges egy élő sejtnek a túléléshez, egy halottnak az életrekeléshez, vagy válassz egy előre definiált szabályt.</string>
     <string name="dialog_change_rules_presets">Szabályok</string>
     <string name="dialog_change_rules_survival_description">Túlélési szabály</string>
     <string name="dialog_change_rules_creation_description">Születési szabály</string>

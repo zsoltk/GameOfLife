@@ -5,6 +5,11 @@
     <string name="preset_type_exploding">Exploding</string>
     <string name="preset_type_chaotic">Chaotic</string>
 
+    <string name="preset_type_stable_description">Figures in stable rules interact rarely. You might need to plot a larger blob, or connect multiple blobs to see them develop.</string>
+    <string name="preset_type_expanding_description">For best results, start with an empty field, and plot some living cells before starting the simulation. For some rules, you might need to plot a larger blob, or connect multiple blobs to see them develop.</string>
+    <string name="preset_type_exploding_description">For best results, start with an empty field, and plot only one or two living cells before starting the simulation. Some rules (like Memory) work best with a simple shape or letter as a starting pattern.</string>
+    <string name="preset_type_chaotic_description">For best results, use the random generator to initialize the simulation. You might need to interact with the field, or otherwise there might not be more interactions after some time.</string>
+
     <string name="preset_pick_one">- Pick one -</string>
     <string name="preset_custom">Custom</string>
     <string name="preset_life">Life</string>

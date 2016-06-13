@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dialog_change_rules_title">Regeln ändern</string>
-    <string name="dialog_change_rules_generic_description">Hier kann man setzen, wieviele lebenden Nachbarn eine lebende Zelle braucht um am Leben zu bleiben, und eine gestorbene um wieder am Leben zu sein. Voreinstellungen können auch gewählt werden. Manche Voreinstellungen funktionieren am besten in leerem Feld, angefangen mit nur einigen lebenden Zellen.</string>
+    <string name="dialog_change_rules_generic_description">Hier kann man setzen, wieviele lebenden Nachbarn eine lebende Zelle braucht um am Leben zu bleiben, und eine gestorbene um wieder am Leben zu sein. Voreinstellungen können auch gewählt werden.</string>
     <string name="dialog_change_rules_presets">Voreinstellungen</string>
     <string name="dialog_change_rules_survival_description">Überlebensregel</string>
     <string name="dialog_change_rules_creation_description">Geburtsregel</string>
