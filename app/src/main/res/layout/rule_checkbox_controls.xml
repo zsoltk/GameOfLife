@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:showIn="@layout/dialog_change_rules">
+
+    <CheckBox android:tag="0" style="@style/ruleCheckbox" />
+    <CheckBox android:tag="1" style="@style/ruleCheckbox" />
+    <CheckBox android:tag="2" style="@style/ruleCheckbox" />
+    <CheckBox android:tag="3" style="@style/ruleCheckbox" />
+    <CheckBox android:tag="4" style="@style/ruleCheckbox" />
+    <CheckBox android:tag="5" style="@style/ruleCheckbox" />
+    <CheckBox android:tag="6" style="@style/ruleCheckbox" />
+    <CheckBox android:tag="7" style="@style/ruleCheckbox" />
+    <CheckBox android:tag="8" style="@style/ruleCheckbox" />
+</merge>

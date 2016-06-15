@@ -89,6 +89,7 @@
                 />
             </TableRow>
             <TableRow android:id="@+id/survivalCheckBoxes">
+                <include layout="@layout/rule_checkbox_controls" />
             </TableRow>
             <TableRow>
                 <TextView
@@ -101,53 +102,12 @@
                 />
             </TableRow>
             <TableRow android:id="@+id/creationCheckBoxes">
+                <include layout="@layout/rule_checkbox_controls" />
             </TableRow>
             <TableRow android:id="@+id/labels">
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    style="@style/ruleNbCountDisplay" />
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:text="1"
-                    style="@style/ruleNbCountDisplay" />
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:text="2"
-                    style="@style/ruleNbCountDisplay" />
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:text="3"
-                    style="@style/ruleNbCountDisplay" />
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:text="4"
-                    style="@style/ruleNbCountDisplay" />
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:text="5"
-                    style="@style/ruleNbCountDisplay" />
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:text="6"
-                    style="@style/ruleNbCountDisplay" />
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:text="7"
-                    style="@style/ruleNbCountDisplay" />
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:text="8"
-                    style="@style/ruleNbCountDisplay" />
+                <include layout="@layout/rule_checkbox_labels" />
             </TableRow>
         </TableLayout>
+
     </LinearLayout>
 </ScrollView>

@@ -138,17 +138,15 @@ public class ChangeRulesDialogFragment extends DialogFragment {
     }
 
     protected void handleCreationCheckBox(int i) {
-        CheckBox creationCheckBox = new CheckBox(getActivity());
-        creationCheckBox.setChecked(creationNbCounts != null && creationNbCounts.contains(i));
-        onSelectionChangeShowCustomLabel(creationCheckBox);
-        creationCheckBoxes.addView(creationCheckBox);
+        CheckBox checkBox = (CheckBox) creationCheckBoxes.findViewWithTag(String.valueOf(i));
+        checkBox.setChecked(creationNbCounts != null && creationNbCounts.contains(i));
+        onSelectionChangeShowCustomLabel(checkBox);
     }
 
     protected void handleSurvivalCheckBox(int i) {
-        CheckBox survivalCheckBox = new CheckBox(getActivity());
-        survivalCheckBox.setChecked(survivalNbCounts != null && survivalNbCounts.contains(i));
-        onSelectionChangeShowCustomLabel(survivalCheckBox);
-        survivalCheckBoxes.addView(survivalCheckBox);
+        CheckBox checkBox = (CheckBox) survivalCheckBoxes.findViewWithTag(String.valueOf(i));
+        checkBox.setChecked(survivalNbCounts != null && survivalNbCounts.contains(i));
+        onSelectionChangeShowCustomLabel(checkBox);
     }
 
     private void onSelectionChangeShowCustomLabel(CheckBox checkBox) {
