@@ -4,9 +4,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -30,8 +33,8 @@ public class ChangeRulesDialogFragment extends DialogFragment {
     Spinner presets;
     TableRow survivalCheckBoxes;
     TableRow creationCheckBoxes;
-    TableRow infoWrapperTitle;
-    TableRow infoWrapper;
+    View infoWrapperTitle;
+    View infoWrapper;
     TextView type;
     TextView info;
 
@@ -49,8 +52,8 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         presets = (Spinner) view.findViewById(R.id.presets);
         survivalCheckBoxes = (TableRow) view.findViewById(R.id.survivalCheckBoxes);
         creationCheckBoxes = (TableRow) view.findViewById(R.id.creationCheckBoxes);
-        infoWrapperTitle = (TableRow) view.findViewById(R.id.infoWrapperTitle);
-        infoWrapper = (TableRow) view.findViewById(R.id.infoWrapper);
+        infoWrapperTitle = view.findViewById(R.id.infoWrapperTitle);
+        infoWrapper = view.findViewById(R.id.infoWrapper);
         type = (TextView) view.findViewById(R.id.type);
         info = (TextView) view.findViewById(R.id.info);
         info.setClickable(true);
@@ -118,6 +121,20 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         AlertDialog dialog = builder.create();
 
         return dialog;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Resources resources = getActivity().getResources();
+        int width = (int) resources.getDimension(R.dimen.dialog_change_rules_width);
+
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(window.getAttributes());
+        lp.width = width;
+        window.setAttributes(lp);
     }
 
     protected void handleCreationCheckBox(int i) {

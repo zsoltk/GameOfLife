@@ -1,93 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="@dimen/activity_horizontal_margin"
         >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_change_rules_generic_description"
+            style="@style/rulesDescription"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_change_rules_presets"
+            android:textStyle="bold"
+            style="@style/rulesLabel"
+         />
+
+        <Spinner
+            android:id="@+id/presets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        />
+
+        <TextView
+            android:id="@+id/infoWrapperTitle"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_change_rules_type"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            style="@style/rulesLabel"
+        />
+
+        <LinearLayout
+            android:id="@+id/infoWrapper"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="@string/preset_type_expanding"
+                android:layout_marginRight="8dp"
+                style="@style/rulesDescription"
+                />
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@string/dialog_change_rules_info"
+                android:textAllCaps="true"
+                android:textColor="@color/secondary_action"
+                style="@style/rulesDescription"
+                />
+        </LinearLayout>
 
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TableRow>
-                <TextView
-                    android:layout_span="9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dialog_change_rules_generic_description"
-                    style="@style/rulesDescription"
-                />
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:layout_span="9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dialog_change_rules_presets"
-                    android:textStyle="bold"
-                    style="@style/rulesLabel"
-                 />
-            </TableRow>
-            <TableRow>
-                <Spinner
-                    android:id="@+id/presets"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_span="9"
-                />
-            </TableRow>
-            <TableRow
-                android:id="@+id/infoWrapperTitle"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_span="10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dialog_change_rules_type"
-                    android:textStyle="bold"
-                    style="@style/rulesLabel"
-                />
-            </TableRow>
-            <TableRow
-                android:id="@+id/infoWrapper"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_span="10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/type"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content"
-                        android:text="@string/preset_type_expanding"
-                        android:layout_marginRight="8dp"
-                        style="@style/rulesDescription"
-                        />
-
-                    <TextView
-                        android:id="@+id/info"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="@string/dialog_change_rules_info"
-                        android:textAllCaps="true"
-                        android:textColor="@color/secondary_action"
-                        style="@style/rulesDescription"
-                        />
-                </LinearLayout>
-            </TableRow>
             <TableRow>
                 <TextView
                     android:layout_span="9"
