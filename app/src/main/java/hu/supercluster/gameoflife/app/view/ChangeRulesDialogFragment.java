@@ -16,7 +16,9 @@ import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.HashSet;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.InstanceState;
+
 import java.util.List;
 import java.util.Set;
 
@@ -27,9 +29,10 @@ import hu.supercluster.gameoflife.app.preset.Type;
 import hu.supercluster.gameoflife.game.rule.NeighborCountBasedRule;
 import hu.supercluster.gameoflife.util.EventBus;
 
+@EFragment
 public class ChangeRulesDialogFragment extends DialogFragment {
-    private Set<Integer> survivalNbCounts;
-    private Set<Integer> creationNbCounts;
+    @InstanceState
+    NeighborCountBasedRule rule;
 
     Spinner presets;
     TableRow survivalCheckBoxes;
@@ -40,9 +43,12 @@ public class ChangeRulesDialogFragment extends DialogFragment {
     TextView info;
 
     public void setRule(NeighborCountBasedRule rule) {
-        survivalNbCounts = rule.getSurvivalNbCounts();
-        creationNbCounts = rule.getCreationNbCounts();
+        this.rule = new NeighborCountBasedRule(rule);
         updateUiForCurrentRule();
+    }
+
+    public NeighborCountBasedRule getRule() {
+        return rule;
     }
 
     @Override
@@ -98,8 +104,8 @@ public class ChangeRulesDialogFragment extends DialogFragment {
 
 
         for (int i = 0; i < 9; i++) {
-            handleSurvivalCheckBox(i);
-            handleCreationCheckBox(i);
+            initSurvivalCheckBox(i);
+            initCreationCheckBox(i);
         }
 
         builder
@@ -125,6 +131,30 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         return dialog;
     }
 
+    protected void initCreationCheckBox(final int i) {
+        final CheckBox checkBox = (CheckBox) creationCheckBoxes.findViewWithTag(String.valueOf(i));
+        checkBox.setChecked(rule != null && rule.getCreationNbCounts().contains(i));
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rule.toggleCreationForNbCount(i);
+                updateUiForCurrentRule();
+            }
+        });
+    }
+
+    protected void initSurvivalCheckBox(final int i) {
+        final CheckBox checkBox = (CheckBox) survivalCheckBoxes.findViewWithTag(String.valueOf(i));
+        checkBox.setChecked(rule != null && rule.getSurvivalNbCounts().contains(i));
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rule.toggleSurvivalForNbCount(i);
+                updateUiForCurrentRule();
+            }
+        });
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -142,27 +172,6 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         lp.copyFrom(window.getAttributes());
         lp.width = width;
         window.setAttributes(lp);
-    }
-
-    protected void handleCreationCheckBox(int i) {
-        CheckBox checkBox = (CheckBox) creationCheckBoxes.findViewWithTag(String.valueOf(i));
-        checkBox.setChecked(creationNbCounts != null && creationNbCounts.contains(i));
-        onSelectionChangeShowCustomLabel(checkBox);
-    }
-
-    protected void handleSurvivalCheckBox(int i) {
-        CheckBox checkBox = (CheckBox) survivalCheckBoxes.findViewWithTag(String.valueOf(i));
-        checkBox.setChecked(survivalNbCounts != null && survivalNbCounts.contains(i));
-        onSelectionChangeShowCustomLabel(checkBox);
-    }
-
-    private void onSelectionChangeShowCustomLabel(CheckBox checkBox) {
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateUiForCurrentRule();
-            }
-        });
     }
 
     protected void updateUiForCurrentRule() {
@@ -198,25 +207,6 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         presets.setSelection(PresetAdapter.POS_CUSTOM);
         infoWrapperTitle.setVisibility(View.GONE);
         infoWrapper.setVisibility(View.GONE);
-    }
-
-    public NeighborCountBasedRule getRule() {
-        Set<Integer> survivalNbCounts = new HashSet<>();
-        Set<Integer> creationNbCounts = new HashSet<>();
-
-        for (int i = 0; i < 9; i++) {
-            CheckBox survivalCheckbox = (CheckBox) survivalCheckBoxes.getChildAt(i);
-            if (survivalCheckbox.isChecked()) {
-                survivalNbCounts.add(i);
-            }
-
-            CheckBox creationCheckbox = (CheckBox) creationCheckBoxes.getChildAt(i);
-            if (creationCheckbox.isChecked()) {
-                creationNbCounts.add(i);
-            }
-        }
-
-        return new NeighborCountBasedRule(survivalNbCounts, creationNbCounts);
     }
 
     void onInfoClicked() {

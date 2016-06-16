@@ -17,6 +17,7 @@ import hu.supercluster.gameoflife.app.rate.event.SuggestDialogYesEvent;
 import hu.supercluster.gameoflife.app.rate.util.RatingHelper;
 import hu.supercluster.gameoflife.app.util.DisplayHelper;
 import hu.supercluster.gameoflife.app.view.ChangeRulesDialogFragment;
+import hu.supercluster.gameoflife.app.view.ChangeRulesDialogFragment_;
 import hu.supercluster.gameoflife.game.cell.Cell;
 import hu.supercluster.gameoflife.game.cellularautomaton.Fill;
 import hu.supercluster.gameoflife.game.cellularautomaton.GameOfLifeFactory;
@@ -152,7 +153,7 @@ public class MainPresenter {
     }
 
     void onChangeRules() {
-        ChangeRulesDialogFragment dialogFragment = new ChangeRulesDialogFragment();
+        ChangeRulesDialogFragment dialogFragment = ChangeRulesDialogFragment_.builder().build();
         dialogFragment.setRule((NeighborCountBasedRule) gameManager.getAutomaton().getRule());
         dialogFragment.show(activity.getFragmentManager(), "rules");
     }

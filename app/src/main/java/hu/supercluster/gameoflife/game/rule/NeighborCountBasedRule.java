@@ -40,6 +40,11 @@ public class NeighborCountBasedRule implements Rule<SimpleCell> {
         }
     }
 
+    public NeighborCountBasedRule(NeighborCountBasedRule other) {
+        this.survivalNbCounts = new HashSet<>(other.survivalNbCounts);
+        this.creationNbCounts = new HashSet<>(other.creationNbCounts);
+    }
+
     @Override
     public int apply(Grid<SimpleCell> grid, int x, int y) {
         SimpleCell current = grid.getCell(x, y);
@@ -78,6 +83,22 @@ public class NeighborCountBasedRule implements Rule<SimpleCell> {
 
     public Set<Integer> getCreationNbCounts() {
         return creationNbCounts;
+    }
+
+    public void toggleSurvivalForNbCount(int nbCount) {
+        if (survivalNbCounts.contains(nbCount)) {
+            survivalNbCounts.remove(nbCount);
+        } else {
+            survivalNbCounts.add(nbCount);
+        }
+    }
+
+    public void toggleCreationForNbCount(int nbCount) {
+        if (creationNbCounts.contains(nbCount)) {
+            creationNbCounts.remove(nbCount);
+        } else {
+            creationNbCounts.add(nbCount);
+        }
     }
 
     @Override
