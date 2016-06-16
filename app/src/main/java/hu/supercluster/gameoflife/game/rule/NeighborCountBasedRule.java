@@ -12,8 +12,8 @@ public class NeighborCountBasedRule implements Rule<SimpleCell> {
     private final Set<Integer> creationNbCounts;
 
     public NeighborCountBasedRule(Set<Integer> survivalNbCounts, Set<Integer> creationNbCounts) {
-        this.survivalNbCounts = survivalNbCounts;
-        this.creationNbCounts = creationNbCounts;
+        this.survivalNbCounts = new HashSet<>(survivalNbCounts);
+        this.creationNbCounts = new HashSet<>(creationNbCounts);
     }
 
     public NeighborCountBasedRule(String rule) {
@@ -78,5 +78,26 @@ public class NeighborCountBasedRule implements Rule<SimpleCell> {
 
     public Set<Integer> getCreationNbCounts() {
         return creationNbCounts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NeighborCountBasedRule that = (NeighborCountBasedRule) o;
+
+        if (!survivalNbCounts.equals(that.survivalNbCounts)) return false;
+        if (!creationNbCounts.equals(that.creationNbCounts)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = survivalNbCounts.hashCode();
+        result = 31 * result + creationNbCounts.hashCode();
+
+        return result;
     }
 }

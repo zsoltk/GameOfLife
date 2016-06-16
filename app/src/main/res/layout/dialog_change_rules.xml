@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/infoWrapperTitle"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dialog_change_rules_type"
@@ -45,7 +45,7 @@
 
         <LinearLayout
             android:id="@+id/infoWrapper"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

@@ -16,7 +16,8 @@ import hu.supercluster.gameoflife.R;
 public class PresetAdapter extends BaseAdapter {
     public static final int POS_PICK_ONE = 0;
     public static final int POS_CUSTOM = 1;
-    private static ArrayList<Preset> presets;
+    public static final int POS_FIRST = 2;
+    private ArrayList<Preset> presets;
     private final Context context;
     private LayoutInflater inflater;
 
@@ -41,6 +42,10 @@ public class PresetAdapter extends BaseAdapter {
         presets.add(new Preset(resources.getString(R.string.preset_diamoeba), "5678/35678", Type.CHAOTIC));
         presets.add(new Preset(resources.getString(R.string.preset_coral), "45678/3", Type.EXPANDING));
         presets.add(new Preset(resources.getString(R.string.preset_memory), "1357/1357", Type.EXPLODING));
+    }
+
+    public ArrayList<Preset> getPresets() {
+        return presets;
     }
 
     @Override
@@ -76,7 +81,7 @@ public class PresetAdapter extends BaseAdapter {
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        if (position < 2) {
+        if (position < POS_FIRST) {
             return createHiddenView();
         }
 

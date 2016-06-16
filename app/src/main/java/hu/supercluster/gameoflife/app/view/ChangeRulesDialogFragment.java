@@ -17,6 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import hu.supercluster.gameoflife.R;
@@ -41,6 +42,7 @@ public class ChangeRulesDialogFragment extends DialogFragment {
     public void setRule(NeighborCountBasedRule rule) {
         survivalNbCounts = rule.getSurvivalNbCounts();
         creationNbCounts = rule.getCreationNbCounts();
+        updateUiForCurrentRule();
     }
 
     @Override
@@ -127,6 +129,11 @@ public class ChangeRulesDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
 
+        setWidth();
+        updateUiForCurrentRule();
+    }
+
+    protected void setWidth() {
         Resources resources = getActivity().getResources();
         int width = (int) resources.getDimension(R.dimen.dialog_change_rules_width);
 
@@ -153,11 +160,44 @@ public class ChangeRulesDialogFragment extends DialogFragment {
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presets.setSelection(PresetAdapter.POS_CUSTOM);
-                infoWrapperTitle.setVisibility(View.GONE);
-                infoWrapper.setVisibility(View.GONE);
+                updateUiForCurrentRule();
             }
         });
+    }
+
+    protected void updateUiForCurrentRule() {
+        if (getDialog() == null) {
+            return;
+        }
+
+        if (!selectPresetIfPossible()) {
+            showCustom();
+        }
+    }
+
+    private boolean selectPresetIfPossible() {
+        PresetAdapter adapter = (PresetAdapter) presets.getAdapter();
+        List<Preset> items = adapter.getPresets();
+        NeighborCountBasedRule currentRule = getRule();
+
+        for (int i = PresetAdapter.POS_FIRST; i < items.size(); i++) {
+            Preset preset = items.get(i);
+            NeighborCountBasedRule presetRule = preset.getRule();
+
+            if (presetRule != null && presetRule.equals(currentRule)) {
+                presets.setSelection(i);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected void showCustom() {
+        presets.setSelection(PresetAdapter.POS_CUSTOM);
+        infoWrapperTitle.setVisibility(View.GONE);
+        infoWrapper.setVisibility(View.GONE);
     }
 
     public NeighborCountBasedRule getRule() {
