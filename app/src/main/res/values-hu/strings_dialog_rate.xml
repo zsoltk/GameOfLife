@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_suggest_title">Tetszik az app?</string>
+    <string name="dialog_suggest_body">Javasolnád az appot ismerősnek, kollégának?</string>
+
+    <string name="dialog_rate_title">Tetszik az app?</string>
+    <string name="dialog_rate_body">Szánnál egy percet rá, hogy értékeld az appot? A visszajelzések segítik a fejlesztő munkáját. Előre is köszönjük!</string>
+    <string name="dialog_rate_rate">Értékelem</string>
+    <string name="dialog_rate_later">Később</string>
+    <string name="dialog_rate_no_thanks">Nem, köszi</string>
+</resources>

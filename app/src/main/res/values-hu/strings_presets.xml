@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="preset_type_stable">Stabil</string>
+    <string name="preset_type_expanding">Terjeszkedő</string>
+    <string name="preset_type_exploding">Robbanó</string>
+    <string name="preset_type_chaotic">Kaotikus</string>
+
+    <string name="preset_type_stable_description">Stabil szabályoknál az alakzatok ritkán lépnek interakcióba. Lehet, hogy rajzolnod kell egy nagyobb pacát vagy összekapcsolni több kisebbet, hogy beinduljon a minta fejlődése.</string>
+    <string name="preset_type_expanding_description">A legjobb üres mezővel indítani, néhány elszórt élő sejtet lerakva, mielőtt elindítanád a szimulációt. Néhány szabálynál szükséges lehet egy-egy nagyobb pacát lerakni, vagy többet összekapcsolni, hogy beinduljon a minta fejlődése.</string>
+    <string name="preset_type_exploding_description">A legjobb üres mezővel indítani, és csak egy-két élő sejtet lerakni, mielőtt elindítanád a szimulációt. Néhány szabály (pl. Memória) egy egyszerű alakzattal vagy betűt formáló kezdőmintával a leglátványosabb.</string>
+    <string name="preset_type_chaotic_description">A legjobb véletlenszerűen teleszórt mezővel indítani a szimulációt. Néhány szabálynál szükséges lehet belenyúlnod a játékba, különben az interakciók egy idő után elhalnak.</string>
+
     <string name="preset_pick_one">- Válassz egyet -</string>
+    <string name="preset_custom">Egyéni</string>
     <string name="preset_life">Élet</string>
     <string name="preset_sponge_cells">Szivacs sejtek</string>
     <string name="preset_slowly_growing_fizz">Lassan terjeszkedő pezsgés</string>
@@ -8,4 +19,11 @@
     <string name="preset_condensation">Kondenzáció</string>
     <string name="preset_seeds">Magok</string>
     <string name="preset_spread">Szétterjedés</string>
+
+    <string name="preset_high_life">HighLife</string>
+    <string name="preset_maze">Labirintus</string>
+    <string name="preset_amoeba">Amőba</string>
+    <string name="preset_diamoeba">Diamőba</string>
+    <string name="preset_memory">Memória</string>
+    <string name="preset_coral">Korall</string>
 </resources>
