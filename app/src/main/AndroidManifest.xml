@@ -7,7 +7,7 @@
 
     <application
         android:name=".app.App"
-        android:label="Game of Life"
+        android:label="@string/app_name_for_buildtype"
         android:theme="@style/Theme.Custom"
         android:icon="@mipmap/ic_launcher"
         android:logo="@mipmap/ic_launcher"

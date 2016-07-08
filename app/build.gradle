@@ -59,6 +59,7 @@ android {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
+            resValue "string", "app_name_for_buildtype", "Game of Life (debug)"
             minifyEnabled false
             testCoverageEnabled = false
         }
@@ -66,6 +67,7 @@ android {
         alpha {
             applicationIdSuffix ".alpha"
             versionNameSuffix "-alpha"
+            resValue "string", "app_name_for_buildtype", "Game of Life (alpha)"
             minifyEnabled false
             testCoverageEnabled = false
             lintOptions {
@@ -76,11 +78,13 @@ android {
         beta {
             applicationIdSuffix ".beta"
             versionNameSuffix "-beta"
+            resValue "string", "app_name_for_buildtype", "Game of Life (beta)"
             minifyEnabled false
             testCoverageEnabled = false
         }
 
         release {
+            resValue "string", "app_name_for_buildtype", "Game of Life"
             minifyEnabled false
             proguardFile 'proguard-project.txt'
         }
