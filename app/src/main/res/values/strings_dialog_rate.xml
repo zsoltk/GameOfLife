@@ -5,7 +5,7 @@
 
     <string name="dialog_rate_title">Do you like Game of Life?</string>
     <string name="dialog_rate_body">Would you please take a moment to rate the app? Your feedback is appreciated. Thank you!</string>
-    <string name="dialog_rate_rate">Rate Game of Life</string>
-    <string name="dialog_rate_remind_me_later">Remind me later</string>
+    <string name="dialog_rate_rate">Rate app</string>
+    <string name="dialog_rate_later">Later</string>
     <string name="dialog_rate_no_thanks">No, thanks</string>
 </resources>
