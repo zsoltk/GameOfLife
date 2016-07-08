@@ -70,6 +70,7 @@ public class ChangeRulesDialogUiHelper {
 
             if (presetRule != null && presetRule.equals(fragment.rule)) {
                 fragment.presets.setSelection(i);
+                showTypeInfo(preset);
 
                 return true;
             }
