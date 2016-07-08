@@ -50,6 +50,8 @@ android {
     }
 
     signingConfigs {
+        alpha {}
+        beta {}
         release {}
     }
 
@@ -57,6 +59,23 @@ android {
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
+            minifyEnabled false
+            testCoverageEnabled = false
+        }
+
+        alpha {
+            applicationIdSuffix ".alpha"
+            versionNameSuffix "-alpha"
+            minifyEnabled false
+            testCoverageEnabled = false
+            lintOptions {
+                disable 'MissingTranslation'
+            }
+        }
+
+        beta {
+            applicationIdSuffix ".beta"
+            versionNameSuffix "-beta"
             minifyEnabled false
             testCoverageEnabled = false
         }
