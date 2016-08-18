@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_change_rules_title">Promjena pravila</string>
+    <string name="dialog_change_rules_generic_description"> Postavi koliko živih susjeda je potrebno za proživljanje žive stanice, za preporod mrtve stanice ili izaberi jedno preddefinirano pravilo.</string>
+    <string name="dialog_change_rules_presets">Pravila</string>
+    <string name="dialog_change_rules_type">Tip</string>
+    <string name="dialog_change_rules_info">Info</string>
+    <string name="dialog_change_rules_survival_description">Pravilo preživljanja</string>
+    <string name="dialog_change_rules_creation_description">Pravilo rođenja</string>
+</resources>

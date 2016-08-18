@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_suggest_title">Sviđa li ti se aplikacija?</string>
+    <string name="dialog_suggest_body"> Preporučiš li aplikaciju poznaniku, kolegi?</string>
+
+    <string name="dialog_rate_title">Sviđa li ti se aplikacija?</string>
+    <string name="dialog_rate_body">Imaš li minutu za procijenu aplikacije? Komentari pomažu u radu razvijača. Hvala unaprijed!!</string>
+    <string name="dialog_rate_rate">Procijenim aplikaciju</string>
+    <string name="dialog_rate_later">Kasnije</string>
+    <string name="dialog_rate_no_thanks">Ne, hvala</string>
+</resources>

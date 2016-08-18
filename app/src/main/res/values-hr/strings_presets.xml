@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_type_stable">Stabilan</string>
+    <string name="preset_type_expanding">Ekspazivan</string>
+    <string name="preset_type_exploding">Eksplozivan</string>
+    <string name="preset_type_chaotic">Kaotičan</string>
+
+    <string name="preset_type_stable_description"> Kod stabilnih pravila formacije rijetko stupaju u interakciju. Moguće je da moraš crtati jednu veću mrlju ili povezati više većih mrlja za početak razvoja minte..</string>
+    <string name="preset_type_expanding_description"> Najbolje je početi s praznim poljem tako što spustiš nekoliko živih stanica prije nego što pokreneš simulaciju. Kod nekih pravila potrebno je spustiti neke veće mrlje ili povezati više većih mrčlja za početak razvoja minte..</string>
+    <string name="preset_type_exploding_description"> Najbolje je započeti s praznim poljem i spustiti samo jednu ili dvije žive stanice prije nego pokreneš simulaciju. Neka pravila su (npr. Memorija) najspektakularnija s upotrebom jednostavne formacije ili početne formacije koja je u formi slova..</string>
+    <string name="preset_type_chaotic_description"> Najbolje je početi simulaciju s poljem koje je slučajno poprskano. Kod nekih pravila potrebno je umješati se u igru inaće interakcije umiru nakon nekoliko vremena..</string>
+
+    <string name="preset_pick_one">- Izaberi jedno -</string>
+    <string name="preset_custom">Pojedinačna postavka</string>
+    <string name="preset_life">Živott</string>
+    <string name="preset_sponge_cells">Pužvane stanice</string>
+    <string name="preset_slowly_growing_fizz">Sporo ekspanzivna živahnost</string>
+    <string name="preset_drills">Bušilice</string>
+    <string name="preset_condensation">Kondenzacija</string>
+    <string name="preset_seeds">Sjemenke</string>
+    <string name="preset_spread">Difuzija</string>
+
+    <string name="preset_maze">Labirint</string>
+    <string name="preset_amoeba">Jednoćelijski organizam</string>
+    <string name="preset_diamoeba">Dijednoćelijski organizam</string>
+    <string name="preset_memory">Memorija</string>
+    <string name="preset_coral">Koralj</string>
+</resources>

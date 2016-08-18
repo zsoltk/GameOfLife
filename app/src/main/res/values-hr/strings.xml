@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Postavke</string>
+
+    <string name="yes">Da</string>
+    <string name="no">Ne</string>
+</resources>
