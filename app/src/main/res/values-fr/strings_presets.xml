@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="preset_type_stable">Stable</string>
+    <string name="preset_type_expanding">Gonflé</string>
+    <string name="preset_type_exploding">Éclaté</string>
+    <string name="preset_type_chaotic">Chaotique</string>
+
+    <string name="preset_type_stable_description">Les figures en règle stable interagissent rarement. Tu peux planter une tache grande ou connecter plusieurs taches pour voir comment ils développent.</string>
+    <string name="preset_type_expanding_description">Pour le meilleur résultat, commence avec une planche vide et plante quelques cellules vivant avant de démarrer la simulation. Dans le cas de quelques règles, tu peux planter une tache grande ou connecter plusieurs taches pour voir comment ils développent.</string>
+    <string name="preset_type_exploding_description">Pour le meilleur résultat, commence avec une planche vide et plante quelques cellules vivant avant démarrer la simulation. Quelques règles (par example la Mémorie) foncionnent mieux avec une figure simple ou une lettre comme le motif de départ.</string>
+    <string name="preset_type_chaotic_description">Pour le meilleur résultat, utilise le générateur aléatoire pour initialiser la simulation. Tu devrais interagir avec la planche parce qu\’après quelques temps il y aura plus d’interaction.</string>
+
     <string name="preset_pick_one">- Choisis en un -</string>
+    <string name="preset_custom">Personnalisé</string>
     <string name="preset_life">La Vie</string>
     <string name="preset_sponge_cells">Les Cellules d\'éponge</string>
     <string name="preset_slowly_growing_fizz">Le Fizz lentement grandissant</string>
@@ -8,4 +19,10 @@
     <string name="preset_condensation">La Condensation</string>
     <string name="preset_seeds">Les Graines</string>
     <string name="preset_spread">La Propagation</string>
+
+    <string name="preset_maze">Labyrinthe</string>
+    <string name="preset_amoeba">Amoeba</string>
+    <string name="preset_diamoeba">Diamoeba</string>
+    <string name="preset_memory">Mémoire</string>
+    <string name="preset_coral">Corail</string>
 </resources>

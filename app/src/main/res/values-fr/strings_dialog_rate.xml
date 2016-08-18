@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_suggest_title">Aimes-tu Le jeu de la vie ?</string>
+    <string name="dialog_suggest_body">Recommanderais-tu l’application à tes amis / collègues ?</string>
+
+    <string name="dialog_rate_title">Aimes-tu Le jeu de la vie ?</string>
+    <string name="dialog_rate_body">Évaluerais-tu l’application ? Tes commentaires sont appréciés. Merci !</string>
+    <string name="dialog_rate_rate">Évalue l’application</string>
+    <string name="dialog_rate_later">Plus tard</string>
+    <string name="dialog_rate_no_thanks">Non, merci</string>
+</resources>
