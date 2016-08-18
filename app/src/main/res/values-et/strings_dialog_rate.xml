@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_suggest_title">Kas sulle meeldib Elumäng?</string>
+    <string name="dialog_suggest_body">Kas soovitaksid seda rakendust sõbrale / kolleegile?</string>
+
+    <string name="dialog_rate_title">Kas sulle meeldib Elumäng?</string>
+    <string name="dialog_rate_body">Kas leiate hetke, et hinnata rakendust? Teie tagasiside on meile oluline. Aitäh!</string>
+    <string name="dialog_rate_rate">Hinda Elumängu</string>
+    <string name="dialog_rate_later">Meenuta mulle hiljem</string>
+    <string name="dialog_rate_no_thanks">Ei, aitäh</string>
+</resources>
