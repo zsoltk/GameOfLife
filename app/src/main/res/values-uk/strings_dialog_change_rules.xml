@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_change_rules_title">Зміна правила</string>
+    <string name="dialog_change_rules_generic_description">Встановити, скільки живучих сусідів необхідно живій клітині, щоб вижити, або для мертвої клітини, щоб стати живою, або ж вибрати правило з пресетів.</string>
+    <string name="dialog_change_rules_presets">Пресети</string>
+    <string name="dialog_change_rules_type">Тип</string>
+    <string name="dialog_change_rules_info">Інформація</string>
+    <string name="dialog_change_rules_survival_description">Правило виживання</string>
+    <string name="dialog_change_rules_creation_description">Правило створення</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_suggest_title">Подобається гра "Життя"?</string>
+    <string name="dialog_suggest_body">Чи будете Ви рекомендувати гру "Життя" своєму другу, колезі?</string>
+
+    <string name="dialog_rate_title">Подобається гра "Життя"?</string>
+    <string name="dialog_rate_body">Чи є у Вас хвилина, щоб оцінити гру "Життя"? Зворотній зв\'язок допоможе роботі розробників. Заздалегідь дякую!</string>
+    <string name="dialog_rate_rate">Оцінюю гру "Життя"</string>
+    <string name="dialog_rate_later">Пізніше</string>
+    <string name="dialog_rate_no_thanks">Ні, дякую</string>
+</resources>
