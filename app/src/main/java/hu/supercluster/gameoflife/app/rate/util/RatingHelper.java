@@ -10,6 +10,7 @@ import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import hu.supercluster.gameoflife.BuildConfig;
 import hu.supercluster.gameoflife.app.rate.prefs.RatePrefs_;
 import hugo.weaving.DebugLog;
 
@@ -51,7 +52,7 @@ public class RatingHelper {
     }
 
     public void onRate() {
-        final String packageName = getPackageName();
+        final String packageName = getReleasePackageName();
         Uri uri = Uri.parse("market://details?id=" + packageName);
         Intent intent = getViewIntent(uri);
 
@@ -68,11 +69,14 @@ public class RatingHelper {
     }
 
     @DebugLog
-    private String getPackageName() {
+    private String getReleasePackageName() {
         String packageName = activity.getPackageName();
+        String buildType = BuildConfig.BUILD_TYPE;
+        String buildTypeSuffix = "." + buildType;
+        boolean notReleaseBuild = !"release".equals(buildType);
 
-        if (packageName.endsWith(".debug")) {
-            packageName = packageName.replace(".debug", "");
+        if (notReleaseBuild && packageName.endsWith(buildTypeSuffix)) {
+            packageName = packageName.replace(buildTypeSuffix, "");
         }
 
         return packageName;
