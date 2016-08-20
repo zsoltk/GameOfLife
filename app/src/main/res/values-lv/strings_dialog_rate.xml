@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_suggest_title">Vai tev patīk spēle “Dzīve”?</string>
+    <string name="dialog_suggest_body">Vai tu ieteiktu šo aplikāciju saviem draugiem/kolēģiem? </string>
+
+    <string name="dialog_rate_title">Vai tev patīk spēle “Dzīve”?</string>
+    <string name="dialog_rate_body">Vai tev ir brīdis laika lai novērētu šo aplikāciju? Jūsu atsaukmes tiks augstu novērtētas. Paldies jau iepriekš! </string>
+    <string name="dialog_rate_rate">Novērtēt spēli “Dzīve”</string>
+    <string name="dialog_rate_later">Atgādināt vēlāk</string>
+    <string name="dialog_rate_no_thanks">Nē, paldies. </string>
+</resources>

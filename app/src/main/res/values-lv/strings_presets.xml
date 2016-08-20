@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_type_stable">Stabils</string>
+    <string name="preset_type_expanding">Attīstošs</string>
+    <string name="preset_type_exploding">Eksplodējošs</string>
+    <string name="preset_type_chaotic">Haotisks</string>
+
+    <string name="preset_type_stable_description">Stabilas figūras viena uz otru iedarbojas reti. Jums iespējams būs nepieciešams lielāka figūra,  vai savienot mazākas figūras, vai savienot lielākās figūras lai redzēto to attīstību. </string>
+    <string name="preset_type_expanding_description">Labākiem rezultātiem, sāciet ar brīvajām vietām un izveidojiet dažas dzīvas šūnas pirms sāciet simulāciju. Dažiem no noteikumiem, aicinām Jūs izveidot lielākas figūras, vai savienot vairākas, lai redzētu to attīstību. </string>
+    <string name="preset_type_exploding_description">Labākiem rezultātiem, sāciet ar tukšu laukumu, un pēcāk izveidojot vienu vai divas dzīvas šūnas, lai sāktu simulāciju. Daži noteikumi (kā “Atmiņa”) darbojas labāk ar vienkāršām formām vai burtu kā sākuma šablonu. </string>
+    <string name="preset_type_chaotic_description">Labākiem rezultātiem, izmantojiet nejaušības ģenerātoru, lai sāktu simulāciju. Iespējams, Jums vajadzēs iejauties laukos, vai savādāk pēcāk iedabība starp laukiem var nenotikt..</string>
+
+    <string name="preset_pick_one">- Izvēlēties vienu -</string>
+    <string name="preset_custom">Pielāgot</string>
+    <string name="preset_life">Dzīve</string>
+    <string name="preset_sponge_cells">Sūkļa šūnas</string>
+    <string name="preset_slowly_growing_fizz">Lēnām pieaugoša izplešanās</string>
+    <string name="preset_drills">Sēt rinās</string>
+    <string name="preset_condensation">Kondensēšana</string>
+    <string name="preset_seeds">Sēklas</string>
+    <string name="preset_spread">Izplešanās</string>
+
+    <string name="preset_maze">Labirints</string>
+    <string name="preset_amoeba">Amēba</string>
+    <string name="preset_diamoeba">Diamoeba</string>
+    <string name="preset_memory">Atmiņa</string>
+    <string name="preset_coral">Korallis</string>
+</resources>
