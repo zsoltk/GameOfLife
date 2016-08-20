@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_change_rules_title">Изменение правила</string>
+    <string name="dialog_change_rules_generic_description">Установить, сколько живущих соседей необходимо живой клетке, чтобы выжить, или мертвой клетке, чтобы стать живой, или же выбрать правило из пресетов.</string>
+    <string name="dialog_change_rules_presets">Пресеты</string>
+    <string name="dialog_change_rules_type">Тип</string>
+    <string name="dialog_change_rules_info">Информация</string>
+    <string name="dialog_change_rules_survival_description">Правило выживания</string>
+    <string name="dialog_change_rules_creation_description">Правило создания</string>
+</resources>

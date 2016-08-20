@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preset_type_stable">Стабильный</string>
+    <string name="preset_type_expanding">Расширяющийся</string>
+    <string name="preset_type_exploding">Взрывающийся</string>
+    <string name="preset_type_chaotic">Хаотичный</string>
+
+    <string name="preset_type_stable_description">При стабильных правилах формы редко взаимодействуют между собой. Возможно, Вам потребуется построить большой блоб, или же соединить несколько меньших блобов, чтобы увидеть их развитие.</string>
+    <string name="preset_type_expanding_description">Для достижения наилучших результатов, начните с пустого поля, и постройте некоторые живые клетки перед началом моделирования. Для некоторых правил, возможно, потребуется построить большой блоб, или же соединить несколько меньших блобов, чтобы увидеть развитие шаблона.</string>
+    <string name="preset_type_exploding_description">Для достижения наилучших результатов, начните с пустого поля, и постройте только одну-две живые клетки перед началом моделирования. Некоторые правила (например, Память) лучше всего работают с простой формой или буквой в качестве отправного шаблона.</string>
+    <string name="preset_type_chaotic_description">Для достижения наилучших результатов используйте случайным образом разбросанное поле для инициализации моделирования. Вам может понадобиться вмешаться в игру, чтобы взаимодействовать с полем, или иначе взаимодействия через некоторое время прекратятся.</string>
+
+    <string name="preset_pick_one">- Выберите один -</string>
+    <string name="preset_custom">Заказ</string>
+    <string name="preset_life">Жизнь</string>
+    <string name="preset_sponge_cells">Губка клетки</string>
+    <string name="preset_slowly_growing_fizz">Медленно растущее шипение</string>
+    <string name="preset_drills">Буры</string>
+    <string name="preset_condensation">Конденсация</string>
+    <string name="preset_seeds">Семена</string>
+    <string name="preset_spread">Распространение</string>
+
+    <string name="preset_maze">Лабиринт</string>
+    <string name="preset_amoeba">Амеба</string>
+    <string name="preset_diamoeba">Ди-амеба</string>
+    <string name="preset_memory">Память</string>
+    <string name="preset_coral">Коралл</string>
+</resources>

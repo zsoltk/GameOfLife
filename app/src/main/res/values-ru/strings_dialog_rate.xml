@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_suggest_title">Нравится игра “Жизнь”?</string>
+    <string name="dialog_suggest_body">Вы рекомендовали бы игру “Жизнь” своему другу, коллеге?</string>
+
+    <string name="dialog_rate_title">Нравится игра “Жизнь”?</string>
+    <string name="dialog_rate_body">Есть ли у Вас минута, чтобы оценить игру “Жизнь”? Обратная связь поможет работе разработчиков. Заранее спасибо!</string>
+    <string name="dialog_rate_rate">Оцениваю игру “Жизнь”</string>
+    <string name="dialog_rate_later">Позже</string>
+    <string name="dialog_rate_no_thanks">Нет, спасибо</string>
+</resources>
