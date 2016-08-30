@@ -11,7 +11,7 @@
     <string name="preset_type_chaotic_description">Для досягнення найкращих результатів використовуйте випадковим чином розкидане поле для ініціалізації моделювання. Вам може знадобиться втрутитись в гру, щоб взаємодіяти з полем, або інакше взаємодії через деякий час припиняться.</string>
 
     <string name="preset_pick_one">- Виберіть один -</string>
-    <string name="preset_custom">Замовлення</string>
+    <string name="preset_custom">Налаштування користувача</string>
     <string name="preset_life">Життя</string>
     <string name="preset_sponge_cells">Губка клітини</string>
     <string name="preset_slowly_growing_fizz">Повільно зростаюче шипіння</string>
