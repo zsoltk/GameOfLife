@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_change_rules_title">Mainīt noteikumus</string>
-    <string name="dialog_change_rules_generic_description">Uzstādi cik daudz apkārt esošās dzīvas šunas nepieciešamas lai izdzīvotu vai cik daudz mirušas nepieciešamas, lai tā klūta dzīva, vai izvēlies noteikumu no noklusētiem iestatījumiem. </string>
-    <string name="dialog_change_rules_presets">Priekšnoteikumi</string>
     <string name="dialog_change_rules_type">Padomi</string>
-    <string name="dialog_change_rules_info">Informācija</string>
+    <string name="dialog_change_rules_info">Vairāk</string>
+
+    <string name="dialog_change_rules_title">Mainīt noteikumus</string>
+    <string name="dialog_change_rules_generic_description">Uzstādi cik daudz apkārt esošās dzīvas šunas nepieciešamas, lai izdzīvotu vai cik daudz mirušas nepieciešamas, lai tā klūta dzīva, vai izvēlies noteikumu no noklusētiem iestatījumiem. </string>
+    <string name="dialog_change_rules_presets">Priekšnoteikumi</string>
     <string name="dialog_change_rules_survival_description">Izdzīvošanas noteikums</string>
     <string name="dialog_change_rules_creation_description">Izveidot noteikumu</string>
 </resources>
