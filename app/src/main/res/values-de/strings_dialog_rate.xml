@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_suggest_title">Gefällt dir die App?</string>
+    <string name="dialog_suggest_body">Würdest du die App einem Freund / Kollegen vorschlagen?</string>
+
+    <string name="dialog_rate_title">Gefällt dir die App?</string>
+    <string name="dialog_rate_body">Würdest du bitte dich einen Moment nehmen, um die App zu bewerten? Deine Rückmeldung ist willkommen. Vielen Dank!</string>
+    <string name="dialog_rate_rate">Bewerten</string>
+    <string name="dialog_rate_later">Später</string>
+    <string name="dialog_rate_no_thanks">Nein danke</string>
+</resources>
