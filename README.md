@@ -48,4 +48,14 @@ The code is intentionally implemented in a way to make it easy to create other t
 #### Known limitations
 The approach used in the transformation logic is that only cell state changes are observed, and a counter of dead / alive neighbors is updated in every surrounding cell. By using the [ThreadedGridTransformer](https://github.com/zsoltk/GameOfLife/blob/master/app/src/main/java/hu/supercluster/gameoflife/game/transformer/ThreadedGridTransformer.java) it's fast enough to be smooth for Game of Life and most other rules. However, rules resulting in lots of changes around the screen might slow the game down.
 
+## Translations
+**A big thank you to the translators:**
+* Croatian by Lotti Sándorfi
+* Estonian by Angéla Nagy and Berit Puidet
+* French by Angéla Nagy
+* German by Zoltán Török
+* Latvian by Rolands Pragulbicks
+* Russian by Natália Szvetlána Vaszkevics
+* Ukrainian by Natália Szvetlána Vaszkevics
+
 
