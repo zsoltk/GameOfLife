@@ -58,4 +58,5 @@ The approach used in the transformation logic is that only cell state changes ar
 * Russian by Natália Szvetlána Vaszkevics
 * Ukrainian by Natália Szvetlána Vaszkevics
 
+Added new lines
 

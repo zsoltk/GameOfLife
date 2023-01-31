@@ -6,4 +6,4 @@
 **/build
 GenerateJsonRestModel/gen/*
 local.properties
-keystore.properties
+keystore.properties 
